@@ -67,16 +67,20 @@
               </div>
             </div>
           </td>
-          <td class="p-3 text-sm text-black-100 tracking-wide text-left">
-            {{ test.statusTestTeacher }}
+          <td class="p-3 text-sm text-black-100 tracking-wide text-center">
+            <label
+              class="py-2 px-3 rounded-lg text-sm text-white"
+              [style.backgroundColor]="test.statusTestTeacher ? 'green' : 'red'"
+              >{{ test.statusTestTeacher ? "Atendido" : "No atendido" }}
+            </label>
           </td>
-          <td class="p-3 text-sm text-black-100 tracking-wide text-left">
+          <td class="p-3 text-sm text-black-100 tracking-wide text-center">
             {{ test.score }}
           </td>
-          <td class="p-3 text-sm text-black-100 tracking-wide text-left">
+          <td class="p-3 text-sm text-black-100 tracking-wide text-center">
             {{ test.createAt | date : "dd/MM/yyyy" }}
           </td>
-          <td class="p-3 text-sm text-black-100 tracking-wide text-left">
+          <td class="p-3 text-sm text-black-100 tracking-wide text-center">
             <!-- Boton eliminar icono de eliminar  -->
             <button
               (click)="deleteTest(test._id)"
@@ -178,7 +182,7 @@
       <!-- Acciones -->
       <div class="flex flex-row gap-2 justify-end my-2">
         <button
-          (click)="deleteTest(test._id)"
+          (click)="deleteTest(test.id)"
           class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"
         >
           <i class="fas fa-trash-alt"></i>

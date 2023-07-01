@@ -67,16 +67,20 @@
               </div>
             </div>
           </td>
-          <td class="p-3 text-sm text-black-100 tracking-wide text-left">
-            {{ test.statusTestStudent }}
+          <td class="p-3 text-sm text-black-100 tracking-wide text-center">
+            <label
+              class="py-2 px-3 rounded-lg text-sm text-white"
+              [style.backgroundColor]="test.statusTestStudent ? 'green' : 'red'"
+              >{{ test.statusTestStudent ? "Atendido" : "No atendido" }}
+            </label>
           </td>
-          <td class="p-3 text-sm text-black-100 tracking-wide text-left">
+          <td class="p-3 text-sm text-black-100 tracking-wide text-center">
             {{ test.score }}
           </td>
-          <td class="p-3 text-sm text-black-100 tracking-wide text-left">
+          <td class="p-3 text-sm text-black-100 tracking-wide text-center">
             {{ test.createAt | date : "dd/MM/yyyy" }}
           </td>
-          <td class="p-3 text-sm text-black-100 tracking-wide text-left">
+          <td class="p-3 text-sm text-black-100 tracking-wide text-center">
             <!-- Boton eliminar icono de eliminar  -->
             <button
               (click)="deleteTest(test.id)"

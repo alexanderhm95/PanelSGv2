@@ -8,36 +8,49 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-listar',
   templateUrl: './listar.component.html',
   styleUrls: ['./listar.component.css'],
-  providers: [DatePipe, FilterTablesPipe]
+  providers: [DatePipe, FilterTablesPipe],
 })
 export class ListarComponent implements OnInit {
-
   public tests: any[] = [];
-  public search = "";
+  public search = '';
 
   constructor(
     private serviceCasoEstudiante: TestCasoEstudianteService,
     private notification: NotificationsService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    this.serviceCasoEstudiante.getAll().subscribe(
-      res => {
-        const {message, data} = res
-        this.tests = data;
-        console.log(message);
-      }
-    )
+    this.serviceCasoEstudiante.getAll().subscribe((res) => {
+      const { message, data } = res;
+      this.tests = data;
+      console.log(message);
+    });
   }
 
   deleteTest(id: any) {
-    this.serviceCasoEstudiante.delete(id).subscribe(
-      res => {
-        console.log(res);
-        this.ngOnInit();
-      }
-    )
+    this.notification
+      .showConfirm(
+        'warning',
+        'Peligro',
+        'Estas seguro de eliminar el Test?',
+        'Si, eliminar!',
+        'No, cancelar!'
+      )
+      .then((result) => {
+        this.serviceCasoEstudiante.delete(id).subscribe(
+          (res) => {
+            this.notification.showSuccess(
+              'Éxito',
+              'Test eliminado correctamente'
+            );
+            console.log(res);
+            this.ngOnInit();
+          },
+          (err) => {
+            console.log(err.error);
+            this.notification.showError('Error', 'No se pudo elimnar el test');
+          }
+        );
+      });
   }
-
-
 }
