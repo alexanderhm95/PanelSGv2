@@ -41,6 +41,7 @@ export class ListarComponent implements OnInit {
   }
 
   deleteTest(id: any) {
+    console.log(id);
     this.notification
       .showConfirm(
         'warning',
