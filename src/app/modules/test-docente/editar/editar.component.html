@@ -1,0 +1,118 @@
+<div
+  class="w-[95%] h-[90%] lg:h-[95%] lg:m-2 mx-4 my-2 bg-cameo border-4 border-camelot rounded-lg overflow-x-hidden"
+>
+  <div
+    class="w-full lg:h-[7%] text-center text-3xl font-bold text-camelot py-2"
+  >
+    Evaluación del docente
+  </div>
+
+  <div class="w-[90%] flex flex-col lg:justify-start my-2 lg:gap-2 ml-8">
+    <!-- Aquí van los datos -->
+    <div class="grid grid-cols-5 gap-2">
+      <div class="col-span-1">
+        <label class="text-camelot font-bold flex flex-row"
+          ><strong>INSTRUCCIÓN PARA LA/EL DOCENTE:</strong></label
+        >
+      </div>
+      <div class="col-span-4">
+        <label
+          class="flex flex-row text-justify text-nile-blue-200 flex-wrap break-words"
+        >
+          De los siguientes indicadores de riesgo presentes en niñas y niños
+          víctimas de violencia sexual, marque de acuerdo a la frecuencia con la
+          cual usted ha podido observar en la interacción con le niños o niña
+          referido en el contexto escolar siendo; 0 es nulo, 1 poco frecuente, 2
+          medianamente frecuente y 3 muy frecuente.
+        </label>
+      </div>
+    </div>
+    <div class="grid grid-cols-5 gap-2">
+      <div class="col-span-1">
+        <label class="text-camelot font-bold flex flex-row"
+          >Docente evaluador</label
+        >
+      </div>
+      <div class="col-span-4">
+        <label class="flex flex-row text-nile-blue-200"
+          >{{ this.caso?.nameTeacher }} {{ this.caso?.lastNameTeacher }}</label
+        >
+      </div>
+    </div>
+    <div class="grid grid-cols-5 gap-2">
+      <div class="col-span-1">
+        <label class="text-camelot font-bold flex flex-row">Estudiante:</label>
+      </div>
+      <div class="col-span-4">
+        <label class="flex flex-row text-nile-blue-200"
+          >{{ this.caso?.nameStudent }} {{ this.caso?.lastNameStudent }}</label
+        >
+      </div>
+    </div>
+    <div class="grid grid-cols-5 gap-2">
+      <div class="col-span-1">
+        <label class="text-camelot font-bold flex flex-row">Grado</label>
+      </div>
+      <div class="col-span-4">
+        <label class="flex flex-row text-nile-blue-200">{{
+          this.caso?.grade
+        }}</label>
+      </div>
+    </div>
+    <div class="grid grid-cols-5 gap-2">
+      <div class="col-span-1">
+        <label class="text-camelot font-bold flex flex-row">Paralelo</label>
+      </div>
+      <div class="col-span-4">
+        <label class="flex flex-row text-nile-blue-200">{{
+          this.caso?.parallel
+        }}</label>
+      </div>
+    </div>
+    <div class="grid grid-cols-5 gap-2">
+      <div class="col-span-1">
+        <label class="text-camelot font-bold flex flex-row"
+          >Fecha de evaluación</label
+        >
+      </div>
+      <div class="col-span-4">
+        <label class="flex flex-row text-nile-blue-200">{{
+          this.date | date : "dd/MM/yyyy"
+        }}</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- -->
+  <form (ngSubmit)="create()">
+    <fieldset>
+      <div
+        *ngFor="let pregunta of test"
+        class="w-[80%] my-2 border border-white rounded-lg p-2 flex flex-col lg:justify-start lg:gap-2 ml-4 first-letter shadow"
+      >
+        <label class="w-full text-camelot font-bold flex flex-row">
+          {{ pregunta.nameQuestion }}</label
+        >
+        <select
+          class="w-full text-nile-blue flex flex-row"
+          [(ngModel)]="answers[pregunta._id]"
+          name="{{ pregunta._id }}"
+        >
+          <option
+            *ngFor="let opcion of pregunta.answer"
+            value="{{ opcion.valueAnswer }}"
+          >
+            {{ opcion.nameAnswer }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <div class="buttons">
+          <!-- [disabled]="this.formInstitucion.form.invalid" -->
+          <button type="submit" class="btnEnviar">Registrar</button>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>

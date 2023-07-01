@@ -1,0 +1,169 @@
+<div
+  class="w-[95%] h-[90%] lg:h-[95%] lg:m-2 mx-4 my-2 bg-cameo border-4 border-camelot rounded-lg overflow-x-hidden"
+>
+  <div
+    class="w-full lg:h-[7%] text-center text-3xl font-bold text-camelot py-2"
+  >
+    Gestión de usuarios
+  </div>
+
+  <div
+    class="w-full lg:h-[10%] h-[10%] flex flex-row lg:justify-start justify-between py-2 lg:gap-4"
+  >
+    <input
+      [(ngModel)]="search"
+      class="ml-4 px-2 border-b-2 border-camelot rounded-lg bg-none text-camelot text-xs font-semibold tracking-wide w-[40%] lg:w-[20%] focus:outline-none focus:border-camelot-400"
+      placeholder="Buscar..."
+    />
+    <button
+      [routerLink]="'../registrar'"
+      type="button"
+      class="ml-4 px-2 py-2 bg-nile-blue text-cameo text-xs font-bold uppercase rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+    >
+      Registrar Admin
+    </button>
+  </div>
+  <div class="w-full lg:h-auto px-4 py-2 rounded-lg shadow hidden lg:block">
+    <table class="w-full lg:h-[85%] my-2">
+      <thead class="bg-nile-blue-200 border-b-2 border-nile-blue text-cameo">
+        <tr>
+          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+            CI
+          </th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+            Usuario
+          </th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+            Rol
+          </th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+            Estado
+          </th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+            Acciones
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of usuarios | filterTables : search">
+          <td class="p-3 text-sm text-black-100 tracking-wide text-left">
+            {{ usuario.person.CI }}
+          </td>
+          <td class="p-3 text-sm text-black-100 tracking-wide text-left">
+            {{ usuario.person.email }}
+          </td>
+          <td class="p-3 text-sm text-black-100 tracking-wide text-left">
+            {{ usuario.role }}
+          </td>
+          <td class="p-3">
+            <!-- Si es true saldra Activo en un ovalo verde caso contrario Inactivo Ovalo rojo -->
+            <div
+              *ngIf="usuario.status"
+              class="bg-green bg-opacity-25 rounded-lg p-2 text-nile-blue text-center tracking-wider text-sm"
+            >
+              Activo
+            </div>
+            <div
+              *ngIf="!usuario.status"
+              class="bg-red bg-opacity-25 rounded-lg p-2 text-nile-blue text-center tracking-wider text-sm"
+            >
+              Inactivo
+            </div>
+          </td>
+
+          <td
+            class="p-3 text-sm text-black-100 tracking-wide text-center flex flex-row items-center justify-center"
+          >
+            <button
+              (click)="changedStatusUser(usuario._id, !usuario.status)"
+              type="button"
+              class="border-2 border-camelot text-sm text-nile-blue bg-cameo rounded-lg px-2 py-1 mr-2"
+            >
+              {{ usuario.status ? "Deshabilitar" : "Habilitar" }}
+            </button>
+            <button
+              (click)="delete(usuario._id)"
+              type="button"
+              class="border-2 border-camelot text-sm text-nile-blue bg-cameo rounded-lg px-2 py-1 mr-2"
+            >
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="w-full lg:h-auto px-4 py-2 rounded-lg lg:hidden">
+    <div
+      class="w-full h-full flex flex-col mb-2 border border-camelot rounded-lg hover:shadow-sm hover:shadow-camelot-300"
+      *ngFor="let usuario of usuarios | filterTables : search">
+    >
+      <!-- CI -->
+      <div
+        class="w-full grid grid-cols-5 break-all items-left space-x-2 text pl-2 py-2 pr-2"
+      >
+        <div class="col-span-2 break-all font-bold text-camelot">CI:</div>
+        <div class="col-span-3 break-all text-nile-blue">
+          {{ usuario.CI }}
+        </div>
+      </div>
+      <!-- Usuario -->
+      <div
+        class="w-full grid grid-cols-5 break-all items-left space-x-2 text pl-2 py-2 pr-2"
+      >
+        <div class="col-span-2 break-all font-bold text-camelot">Usuario:</div>
+        <div class="col-span-3 break-all text-nile-blue">
+          {{ usuario.email }}
+        </div>
+      </div>
+      <!-- Rol -->
+      <div
+        class="w-full grid grid-cols-5 break-all items-left space-x-2 text pl-2 py-2 pr-2"
+      >
+        <div class="col-span-2 break-all font-bold text-camelot">Rol:</div>
+        <div class="col-span-3 break-all text-nile-blue">
+          {{ usuario.role }}
+        </div>
+      </div>
+      <!-- Estado -->
+      <div
+        class="w-full grid grid-cols-5 break-all items-left space-x-2 text pl-2 py-2 pr-2"
+      >
+        <div class="col-span-2 break-all font-bold text-camelot">Estado:</div>
+        <div class="col-span-3 break-all text-nile-blue">
+          <div
+            *ngIf="usuario.status"
+            class="bg-green bg-opacity-25 rounded-lg p-2 text-nile-blue text-center tracking-wider text-sm"
+          >
+            Activo
+          </div>
+          <div
+            *ngIf="!usuario.status"
+            class="bg-red bg-opacity-25 rounded-lg p-2 text-nile-blue text-center tracking-wider text-sm"
+          >
+            Inactivo
+          </div>
+        </div>
+      </div>
+      <!-- Acciones -->
+
+      <div class="flex flex-row gap-2 justify-end my-2">
+        <button
+          (click)="changedStatusUser(usuario.id, !usuario.status)"
+          type="button"
+          class="border-2 border-camelot text-sm text-nile-blue bg-cameo rounded-lg px-2 py-1 mr-2"
+        >
+          Habilitar
+        </button>
+        <button
+          [disabled]="!usuario.status"
+          type="button"
+          class="border-2 border-camelot text-sm text-nile-blue bg-cameo rounded-lg px-2 py-1 mr-2"
+        >
+          Deshabilitar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

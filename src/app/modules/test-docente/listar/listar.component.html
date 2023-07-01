@@ -1,0 +1,66 @@
+<div class="contenedor">
+    <div class="body">
+        <div class="tittle">
+            Casos Asignados
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped ">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th scope="col">Caso</th>
+                        <th scope="col">Estudiante</th>
+                        <th scope="col">Docente</th>
+                        <th scope="col">Institución</th>
+                        <th scope="col" style="text-align: center;">
+                            Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- recorro casos y añado indice -->
+                    <tr *ngFor="let caso of casos; let i = index of casos">
+                        <td>
+                            <strong>{{i+1}}</strong>
+                        </td>
+                        <td style="width: 50%; word-wrap: break-word;">
+                            <strong>CI: </strong>{{caso.CI}}
+                            <br>
+                            <strong>Nombres: </strong>{{caso.name}}
+                            <br>
+                            <strong>Apellidos: </strong>{{caso.lastName}}
+                            <br>
+                        </td>
+                        <td style="width: 50%; word-wrap: break-word;">
+                            <strong>CI: </strong>{{caso.CIteacher}}
+                            <br>
+                            <strong>Nombres: </strong>{{caso.nameT}}
+                            <br>
+                            <strong>Apellidos: </strong>{{caso.lastNameT}}
+                            <br>
+                        </td>
+                        <td style="width:  50%; word-wrap:  break-word;">
+                            <strong>Institución</strong>{{caso.institution}}
+                        </td>
+                        <td style="width: 50%; word-wrap: break-word;">
+ <!-- Si este esta en inactive se muestra una forma de boton en rojo  desahabilitado y dira Atendido-->
+                            <div [ngSwitch]="caso.statusTestTeacher">
+                                <div *ngSwitchCase="false">
+                                    <button [routerLink]="'../evaluar/'+caso.id" type="button" class="btnAccion">
+                                     Evaluar
+                                    </button>
+                                </div>
+                                <div *ngSwitchCase="true">
+                                    <button type="button" class="btnAccion" disabled>
+                                        Atendido
+                                    </button>
+                                </div>
+                            </div>                            
+                            
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

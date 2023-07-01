@@ -1,0 +1,163 @@
+<div
+  class="w-[95%] lg:h-[95%] m-2 bg-cameo border-4 border-camelot rounded-lg overflow-x-hidden"
+>
+  <div
+    class="w-full lg:h-[7%] text-center text-3xl font-bold text-camelot flex flex-col justify-end"
+  >
+    Editar datos del encargado de DECE
+  </div>
+
+  <form
+    [formGroup]="this.formDece.form"
+    (ngSubmit)="update()"
+    class="w-full lg:h-[93%] py-4"
+  >
+    <fieldset class="w-full flex flex-col items-center">
+      <!-- Datos personales  -->
+      <div
+        class="lg:w-[60%] w-[80%] h-[10%] text-start text-lg font-bold text-camelot-400 border-b-2 border-camelot py-2 mb-2"
+      >
+        Datos personales
+      </div>
+
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
+        <div class="w-full col-span-2 text-camelot text-lg mr-2 text-left">
+          <label for="CI">CI:</label>
+        </div>
+        <div class="w-full col-span-2 text-nile-blue text-lg">
+          <input
+            type="text"
+            id="CI"
+            formControlName="CI"
+            placeholder="Ingrese el CI "
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
+          />
+        </div>
+      </div>
+
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
+        <div class="w-full col-span-2 text-camelot text-lg mr-2 text-left">
+          <label for="name">Nombres:</label>
+        </div>
+        <div class="w-full col-span-2 text-nile-blue text-lg">
+          <input
+            type="text"
+            id="name"
+            formControlName="name"
+            placeholder="Ingrese los nombres "
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
+          />
+        </div>
+      </div>
+
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
+        <div class="w-full col-span-2 text-camelot text-lg mr-2 text-left">
+          <label for="lastName">Apellidos:</label>
+        </div>
+        <div class="w-full col-span-2 text-nile-blue text-lg">
+          <input
+            type="text"
+            id="lastName"
+            formControlName="lastName"
+            placeholder="Ingrese los apellidos "
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
+          />
+        </div>
+      </div>
+
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
+        <div class="w-full col-span-2 text-camelot text-lg mr-2 text-left">
+          <label for="lastName">Dirección:</label>
+        </div>
+        <div class="w-full col-span-2 text-nile-blue text-lg">
+          <input
+            type="text"
+            id="lastName"
+            formControlName="address"
+            placeholder="Ingrese la dirección "
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
+          />
+        </div>
+      </div>
+
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
+        <div class="w-full col-span-2 text-camelot text-lg mr-2 text-left">
+          <label for="email">Correo electrónico:</label>
+        </div>
+        <div class="w-full col-span-2 text-nile-blue text-lg">
+          <input
+            type="text"
+            id="email"
+            formControlName="email"
+            placeholder="Ingrese el correo electrónico "
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
+          />
+        </div>
+      </div>
+
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
+        <div class="w-full col-span-2 text-camelot text-lg mr-2 text-left">
+          <label for="phone">Telefono:</label>
+        </div>
+        <div class="w-full col-span-2 text-nile-blue text-lg">
+          <input
+            type="text"
+            id="phone"
+            formControlName="phone"
+            placeholder="Ingrese el telefono "
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
+          />
+        </div>
+      </div>
+
+      <div
+        class="lg:w-[60%] w-[80%] h-[10%] text-start text-lg font-bold text-camelot-400 border-b-2 border-camelot py-2 mb-2"
+      >
+        Datos de la institución
+      </div>
+
+      <!-- institucion -->
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
+        <div class="w-full col-span-2 text-camelot text-lg mr-2 text-left">
+          <label for="institucion"> Institución: </label>
+        </div>
+        <div class="w-full col-span-2 text-nile-blue text-lg">
+          <select
+            id="selectTeacher"
+            formControlName="nameInstitution"
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
+          >
+            <option value="0">Seleccione una institución</option>
+            <option
+              *ngFor="let institucion of instituciones"
+              [value]="institucion.nameInstitution"
+            >
+              {{ institucion.nameInstitution }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="lg:w-[60%] w-[80%] grid grid-cols-1 mb-4">
+        <div class="w-full flex text-camelot text-lg mr-2 mb-2 justify-end">
+          <!-- Cancelar (click)="cancel()" -->
+          <button
+            type="button"
+            (click)="cancel()"
+            class="border-2 border-camelot text-base text-nile-blue bg-cameo rounded-lg px-2 py-1 hover:bg-nile-blue hover:text-cameo mr-2"
+          >
+            Cancelar
+          </button>
+          <!-- Editar  [disabled]="this.formPreguntas.form.invalid" -->
+          <button
+            type="submit"
+            [disabled]="this.formDece.form.invalid"
+            class="border-2 border-camelot text-base text-nile-blue bg-cameo rounded-lg px-2 py-1 hover:bg-nile-blue hover:text-cameo"
+          >
+            Editar
+          </button>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>

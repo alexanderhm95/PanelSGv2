@@ -1,0 +1,323 @@
+<div
+  class="w-[95%] lg:h-[95%] m-2 bg-cameo border-4 border-camelot rounded-lg overflow-x-hidden"
+>
+  <div
+    class="w-full lg:h-[10%] text-center text-3xl font-bold text-camelot py-4"
+  >
+    Registrar Caso
+  </div>
+  <!-- [formGroup]="this.formInstitucion.form" (ngSubmit)="create()" -->
+  <form [formGroup]="this.formCaso.form" (ngSubmit)="create()">
+    <fieldset>
+      <div
+        class="w-full border-2 border-camelot flex items-center justify-center py-1 rounded-lg text-camelot font-extrabold text-base text-center"
+      >
+        Datos del estudiante
+      </div>
+
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1 py-2">
+        <div class="w-full col-span-2 text-camelot text-sm mr-2 text-left">
+          <label for="ciStudent"> CI: </label>
+        </div>
+        <div class="w-full col-span-2 text-nile-blue text-sm">
+          <input
+            type="text"
+            id="ciStudent"
+            formControlName="ciStudent"
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
+          />
+        </div>
+      </div>
+
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
+        <div class="w-full col-span-2 text-camelot text-sm mr-2 text-left">
+          <label for="nameStudent"> Nombre: </label>
+        </div>
+        <div class="w-full col-span-2 text-nile-blue text-sm">
+          <input
+            type="text"
+            id="nameStudent"
+            formControlName="nameStudent"
+            c
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
+          />
+        </div>
+      </div>
+
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
+        <div class="w-full col-span-2 text-camelot text-sm mr-2 text-left">
+          <label for="lastNameStudent">Apellido:</label>
+        </div>
+        <div class="w-full col-span-2 text-nile-blue text-sm">
+          <input
+            type="text"
+            id="lastNameStudent"
+            formControlName="lastNameStudent"
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
+          />
+        </div>
+      </div>
+
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
+        <div class="w-full col-span-2 text-camelot text-sm mr-2 text-left">
+          <label for="ageStudent">Edad:</label>
+        </div>
+        <div class="w-full col-span-2 text-nile-blue text-sm">
+          <input
+            type="text"
+            id="ageStudent"
+            formControlName="ageStudent"
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
+          />
+        </div>
+      </div>
+
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
+        <div class="w-full col-span-2 text-camelot text-sm mr-2 text-left">
+          <label for="addressStudent">Dirección:</label>
+        </div>
+        <div class="w-full col-span-2 text-nile-blue text-sm">
+          <input
+            type="text"
+            id="addressStudent"
+            formControlName="addressStudent"
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
+          />
+        </div>
+      </div>
+
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
+        <div class="w-full col-span-2 text-camelot text-sm mr-2 text-left">
+          <label for="phoneStudent">Telefono</label>
+        </div>
+        <div class="w-full col-span-2 text-nile-blue text-sm">
+          <input
+            type="text"
+            id="phoneStudent"
+            formControlName="phoneStudent"
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
+          />
+        </div>
+      </div>
+
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
+        <div class="w-full col-span-2 text-camelot text-sm mr-2 text-left">
+          <label for="emailStudent">Correo electrónico</label>
+        </div>
+        <div class="w-full col-span-2 text-nile-blue text-sm">
+          <input
+            type="email"
+            id="emailStudent"
+            formControlName="emailStudent"
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
+          />
+        </div>
+      </div>
+
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
+        <div class="w-full col-span-2 text-camelot text-sm mr-2 text-left">
+          <label for="gradeStudent">Grado:</label>
+        </div>
+        <div class="w-full col-span-2 text-nile-blue text-sm">
+          <input
+            type="text"
+            id="gradeStudent"
+            formControlName="gradeStudent"
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
+          />
+        </div>
+      </div>
+
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
+        <div class="w-full col-span-2 text-camelot text-sm mr-2 text-left">
+          <label for="parallelStudent">Paralelo:</label>
+        </div>
+        <div class="w-full col-span-2 text-nile-blue text-sm">
+          <input
+            type="text"
+            id="parallelStudent"
+            formControlName="parallelStudent"
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
+          />
+        </div>
+      </div>
+
+      <!-- Datos del docente -->
+      <div
+        class="w-full border-2 border-camelot flex items-center justify-center py-1 rounded-lg text-camelot font-extrabold text-base text-center"
+      >
+        Datos del docente
+      </div>
+
+      <div
+        class="w-full flex items-center justify-center py-3"
+        *ngIf="!agregar"
+      >
+        <div
+          class="w-full flex flex-row justify-center items-center gap-3 text-sm text-camelot"
+        >
+          <label for="selectTeacher">Seleccione el docente:</label>
+
+          <div class="col-span-2 text-nile-blue text-sm">
+            <select
+              id="selectTeacher"
+              formControlName="selectTeacher"
+              class="form-control"
+            >
+              <option value="0">Seleccione el docente</option>
+              <option *ngFor="let teacher of teachers" [value]="teacher.CI">
+                {{ teacher.name }} {{ teacher.lastName }}
+              </option>
+            </select>
+          </div>
+
+          <div class="right-0">
+            <button
+              type="button"
+              class="rounded-lg border-2 border-camelot bg-cameo text-nile-blue text-sm font-semibold tracking-wide px-2 py-1 mr-2"
+              (click)="agregarDocente()"
+            >
+              Crear Docente
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1 py-2"
+        *ngIf="agregar"
+      >
+        <div class="w-full col-span-2 text-camelot text-sm mr-2 text-left">
+          <label for="ciTeacher">CI:</label>
+        </div>
+        <div class="w-full col-span-2 text-nile-blue text-sm">
+          <input
+            type="text"
+            id="ciTeacher"
+            formControlName="ciTeacher"
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
+          />
+        </div>
+      </div>
+
+      <div
+        class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1 py-2"
+        *ngIf="agregar"
+      >
+        <div class="w-full col-span-2 text-camelot text-sm mr-2 text-left">
+          <label for="nameTeacher">Nombre:</label>
+        </div>
+        <div class="w-full col-span-2 text-nile-blue text-sm">
+          <input
+            type="text"
+            id="nameTeacher"
+            formControlName="nameTeacher"
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
+          />
+        </div>
+      </div>
+
+      <div
+        class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1"
+        *ngIf="agregar"
+      >
+        <div class="w-full col-span-2 text-camelot text-sm mr-2 text-left">
+          <label for="lastNameTeacher">Apellido:</label>
+        </div>
+        <div class="w-full col-span-2 text-nile-blue text-sm">
+          <input
+            type="text"
+            id="lastNameTeacher"
+            formControlName="lastNameTeacher"
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
+          />
+        </div>
+      </div>
+
+      <div
+        class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1"
+        *ngIf="agregar"
+      >
+        <div class="w-full col-span-2 text-camelot text-sm mr-2 text-left">
+          <label for="addressTeacher">Dirección:</label>
+        </div>
+        <div class="w-full col-span-2 text-nile-blue text-sm">
+          <input
+            type="text"
+            id="addressTeacher"
+            formControlName="addressTeacher"
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
+          />
+        </div>
+      </div>
+
+      <div
+        class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1"
+        *ngIf="agregar"
+      >
+        <div class="w-full col-span-2 text-camelot text-sm mr-2 text-left">
+          <label for="phoneTeacher">Telefono</label>
+        </div>
+        <div class="w-full col-span-2 text-nile-blue text-sm">
+          <input
+            type="text"
+            id="phoneTeacher"
+            formControlName="phoneTeacher"
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
+          />
+        </div>
+      </div>
+
+      <div
+        class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1"
+        *ngIf="agregar"
+      >
+        <div class="w-full col-span-2 text-camelot text-sm mr-2 text-left">
+          <label for="emailTeacher">Correo:</label>
+        </div>
+        <div class="w-full col-span-2 text-nile-blue text-sm">
+          <input
+            type="email"
+            id="emailTeacher"
+            formControlName="emailTeacher"
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
+          />
+        </div>
+      </div>
+      <!-- Selecciona la Institucion -->
+      <div
+        class="w-full border-2 border-camelot flex items-center justify-center py-1 rounded-lg text-camelot font-extrabold text-base text-center"
+      >
+        Datos de la institución
+      </div>
+      <!-- Se presenta un select con las instituciones -->
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1 py-2">
+        <div class="w-full col-span-2 text-camelot text-sm text-left">
+          <label for="institucion">Seleccione la institución:</label>
+        </div>
+        <div class="w-full col-span-2 text-nile-blue text-sm">
+          <select
+            id="institucion"
+            formControlName="nameInstitution"
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
+          >
+            <option value="0">Seleccione la institución</option>
+            <option
+              *ngFor="let institucion of institutions"
+              [value]="institucion.nameInstitution"
+            >
+              {{ institucion.nameInstitution }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="buttons">
+          <!-- [disabled]="this.formInstitucion.form.invalid "  -->
+          <button type="submit" class="btnEnviar">Registrar</button>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>

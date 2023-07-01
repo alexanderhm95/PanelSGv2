@@ -1,0 +1,156 @@
+<div
+  class="w-[95%] h-[85vh] lg:h-[95%] m-2 bg-cameo border-4 border-camelot rounded-lg overflow-x-hidden"
+>
+  <div
+    class="w-full lg:h-[7%] h-[10%] text-center text-3xl font-bold text-camelot py-2"
+  >
+    Gestión test estudiante
+  </div>
+
+  <div
+    class="w-full lg:h-[8%] h-[10%] flex flex-row lg:justify-start justify-between py-2 lg:gap-4"
+  >
+    <input
+      [(ngModel)]="search"
+      class="ml-4 px-2 border-b-2 border-camelot rounded-lg bg-none text-camelot text-xs font-semibold tracking-wide w-[40%] lg:w-[20%] focus:outline-none focus:border-camelot-400"
+      placeholder="Buscar por nombre"
+    />
+
+    <button
+      [routerLink]="'../registrar'"
+      type="button"
+      class="mr-4 px-2 py-3 bg-nile-blue text-cameo text-xs font-bold uppercase rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
+    >
+      Registrar Imagen
+    </button>
+  </div>
+  <div class="w-full lg:h-auto px-4 py-2 rounded-lg shadow hidden lg:block">
+    <table class="w-full lg:h-[85%] my-2">
+      <thead class="bg-nile-blue-200 border-b-2 border-nile-blue text-cameo">
+        <tr>
+          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+            Nombre
+          </th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+            Imagen
+          </th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+            Valor
+          </th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+            Sección
+          </th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+            Acciones
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          class="bg-nile-blue-100 border-b border-nile-blue-200 text-camelot"
+          *ngFor="let pregunta of preguntas | filterTables : search"
+        >
+          <td class="p-3 text-sm text-black-100 tracking-wide text-center">
+            {{ pregunta.name }}
+          </td>
+          <td
+            class="p-3 text-sm text-black-100 tracking-wide flex items-center justify-center"
+          >
+            <img
+              [src]="this.api + this.pregunta.link"
+              loading="lazy"
+              [style.height.px]="60"
+              [style.width.px]="80"
+            />
+          </td>
+          <td class="p-3 text-sm text-black-100 tracking-wide text-center">
+            {{ pregunta.value }}
+          </td>
+          <td class="p-3 text-sm text-black-100 tracking-wide text-center">
+            {{ pregunta.section }}
+          </td>
+          <td
+            class="p-3 text-sm text-black-100 tracking-wide text-center flex flex-row items-center justify-center"
+          >
+            <button
+              [routerLink]="'../editar/' + pregunta._id"
+              type="button"
+              class="border-2 border-camelot text-sm text-nile-blue bg-cameo rounded-lg px-2 py-1 mr-2"
+            >
+              Editar
+            </button>
+            <button
+              (click)="delete(pregunta._id)"
+              type="button"
+              class="border-2 border-camelot text-sm text-nile-blue bg-cameo rounded-lg px-2 py-1"
+            >
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="w-full lg:h-auto px-4 py-2 rounded-lg lg:hidden">
+    <div
+      class="w-full h-full flex flex-col mb-2 border border-camelot rounded-lg hover:shadow-sm hover:shadow-camelot-300"
+      *ngFor="let pregunta of preguntas | filterTables : search"
+    >
+      <!-- Nombre -->
+      <div
+        class="w-full grid grid-cols-5 break-all items-left space-x-2 text pl-2 py-2 pr-2"
+      >
+        <div class="col-span-2 break-all font-bold text-camelot">Nombre:</div>
+        <div class="col-span-3 break-all text-nile-blue">
+          {{ pregunta.name }}
+        </div>
+      </div>
+      <!-- Link -->
+      <div
+        class="w-full grid grid-cols-5 break-all items-left space-x-2 text pl-2 py-2 pr-2"
+      >
+        <div class="col-span-2 break-all font-bold text-camelot">Link:</div>
+        <div class="col-span-3 break-all text-nile-blue">
+          <a [href]="this.api + pregunta.link" target="_blank">{{
+            this.api + pregunta.link
+          }}</a>
+        </div>
+      </div>
+      <!-- Valor -->
+      <div
+        class="w-full grid grid-cols-5 break-all items-left space-x-2 text pl-2 py-2 pr-2"
+      >
+        <div class="col-span-2 break-all font-bold text-camelot">Valor:</div>
+        <div class="col-span-3 break-all text-nile-blue">
+          {{ pregunta.value }}
+        </div>
+      </div>
+      <!-- Sección -->
+      <div
+        class="w-full grid grid-cols-5 break-all items-left space-x-2 text pl-2 py-2 pr-2"
+      >
+        <div class="col-span-2 break-all font-bold text-camelot">Sección:</div>
+        <div class="col-span-3 break-all text-nile-blue">
+          {{ pregunta.section }}
+        </div>
+      </div>
+      <div class="flex flex-row gap-2 justify-end my-2">
+        <button
+          [routerLink]="'../editar/' + pregunta._id"
+          type="button"
+          class="border-2 border-camelot text-sm text-nile-blue bg-cameo rounded-lg px-2 py-1 mr-2"
+        >
+          Editar
+        </button>
+        <button
+          (click)="delete(pregunta._id)"
+          type="button"
+          class="border-2 border-camelot text-sm text-nile-blue bg-cameo rounded-lg px-2 py-1 mr-2"
+        >
+          Eliminar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

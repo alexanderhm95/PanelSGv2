@@ -1,0 +1,119 @@
+<!-- Estructuracion del dashboard -->
+<div
+  class="w-[100%] h-[100vh] lg:min-w-full lg:min-h-screen grid grid-cols-1 lg:grid-cols-6"
+>
+  <!-- Side Bar -->
+  <div
+    class="z-50 fixed w-[80%] lg:w-full lg:h-[100%] md:w-[50%] lg:static top-0 h-full overflow-y-scroll lg:overflow-y-hidden bg-cameo col-span-1 p-2 border-r border-camelot-500 transition-all"
+    [ngClass]="{ '-left-full': !isOpen, 'left-0': isOpen }"
+  >
+    <!-- Nombre y Logotipo -->
+    <div
+      class="flex flex-col py-2 px-2 border-b border-camelot lg:h-[10%] whitespace-nowrap overflow-hidden"
+    >
+      <h1
+        class="text-sm text-left text-camelot font-bold tracking-[2px] items-center justify-center flex-col"
+      >
+        Rol:
+        <span
+          *ngIf="this.role === 'ADMIN'"
+          class="text-blue-600 font-bold tracking-[2px] items-center justify-center flex-col"
+          >Administrador</span
+        >
+        <span
+          *ngIf="this.role === 'TEACHER'"
+          class="text-blue-600 font-bold tracking-[2px] items-center justify-center flex-col"
+          >Docente</span
+        >
+        <span
+          *ngIf="this.role === 'DECE'"
+          class="text-blue-600 font-bold tracking-[2px] items-center justify-center flex-col"
+          >DECE</span
+        >
+      </h1>
+      <h4
+        class="text-sm text-left text-camelot font-bold tracking-[2px] items-center justify-center flex"
+      >
+        Nombre:
+        <span
+          class="text-blue-600 font-bold tracking-[2px] items-center justify-center flex-col cursor-pointer"
+          title="{{ this.name }}"
+          style="
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+          "
+          >{{ this.name }}</span
+        >
+      </h4>
+    </div>
+
+    <div class="flex flex-col justify-between lg:h-[80%]">
+      <!-- Menu -->
+      <nav class="h-[80%] py-2 pl-2">
+        <ul class="menu-list">
+          <!-- Se presentan solo las opciones en donde this.rol sea igual a item.role -->
+          <ng-container *ngFor="let item of mainMenu">
+            <li class="flex items-center" *ngIf="item.role === this.role">
+              <a
+                class="flex items-center gap-2 p-2 text-camelot-100 rounded-lg hover:bg-paarl hover:text-nile-blue transition-colors"
+                [routerLink]="item.router"
+                (click)="toggleMenu()"
+              >
+                <i class="{{ item.icon }} text-camelot"></i>
+                {{ item.name }}
+              </a>
+            </li>
+          </ng-container>
+        </ul>
+      </nav>
+      <!-- Image Layout -->
+      <div class="flex flex-col gap-4 h-[20%]">
+        <img
+          src="assets/Login/sideBar.svg"
+          alt="Otto"
+          class="w-[75%] h-[75%]"
+        />
+        <button
+          class="flex items-center gap-2 p-4 text-camelot-100 rounded-lg hover:bg-paarl hover:text-nile-blue transition-colors"
+          (click)="logouth()"
+        >
+          <i class="fas fa-sign-out-alt text-camelot"></i>
+          Cerrar Sesión
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- boton flotante para menu responsive -->
+  <button
+    class="absolute bottom-4 right-4 lg:hidden rounded-full p-2 bg-camelot"
+    (click)="toggleMenu()"
+  >
+    <i
+      class="fas text-white"
+      [ngClass]="{ 'fa-bars': !isOpen, 'fa-circle-xmark': isOpen }"
+    ></i>
+  </button>
+
+  <!-- Header y lazy load -->
+  <div class="col-span-5">
+    <header
+      class="flex w-full h-[10vh] bg-nile-blue items-center justify-center"
+    >
+      <h1 class="text-lg text-center text-cameo font-bold px-4">
+        <ng-container *ngIf="this.institution; else adminPanel">
+          Escuela {{ this.institution }}
+        </ng-container>
+        <ng-template #adminPanel> Panel de Administración </ng-template>
+      </h1>
+    </header>
+    <main
+      class="w-full h-[90vh] flex flex-col flex-1 z-auto items-center justify-center"
+    >
+      <!-- Lazy loading -->
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

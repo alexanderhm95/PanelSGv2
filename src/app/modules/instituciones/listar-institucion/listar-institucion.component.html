@@ -1,0 +1,165 @@
+<div
+  class="w-[95%] h-[90%] lg:h-[95%] lg:m-2 mx-4 my-2 bg-cameo border-4 border-camelot rounded-lg overflow-x-hidden"
+>
+  <div
+    class="w-full lg:h-[7%] text-center text-3xl font-bold text-camelot py-2"
+  >
+    Gestión de Instituciones
+  </div>
+
+  <div
+    class="w-full lg:h-[8%] h-[10%] flex flex-row lg:justify-start justify-between py-2 lg:gap-4"
+  >
+    <input
+      [(ngModel)]="search"
+      class="ml-4 px-2 py-2 border-b-2 border-camelot rounded-lg bg-none text-camelot text-xs font-semibold tracking-wide w-[40%] lg:w-[20%] focus:outline-none focus:border-camelot-400"
+      placeholder="Buscar..."
+    />
+    <button
+      [routerLink]="'../registrar'"
+      type="button"
+      class="bg-nile-blue ml-4 px-2 text-cameo text-xs font-bold uppercase rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+    >
+      Registrar Institución
+    </button>
+  </div>
+  <div class="w-full lg:h-auto px-4 py-2 rounded-lg shadow hidden lg:block">
+    <table class="w-full lg:h-[85%] my-2">
+      <thead class="bg-nile-blue-200 border-b-2 border-nile-blue text-cameo">
+        <tr>
+          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+            Nombre
+          </th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+            Dirección
+          </th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+            Tipo
+          </th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+            Telefono
+          </th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+            Correo
+          </th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+            Acciones
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let institution of instituciones | filterTables : search">
+          <td class="p-3 text-sm text-black-100 tracking-wide text-left">
+            {{ institution.nameInstitution }}
+          </td>
+          <td class="p-3 text-sm text-black-100 tracking-wide text-left">
+            {{ institution.addressInstitution }}
+          </td>
+          <td class="p-3 text-sm text-black-100 tracking-wide text-left">
+            {{ institution.typeInstitution }}
+          </td>
+          <td class="p-3 text-sm text-black-100 tracking-wide text-left">
+            {{ institution.phoneInstitution }}
+          </td>
+          <td class="p-3 text-sm text-black-100 tracking-wide text-left">
+            {{ institution.emailInstitution }}
+          </td>
+
+          <td
+            class="p-3 text-sm text-black-100 tracking-wide text-center flex flex-row items-center justify-center"
+          >
+            <button
+              [routerLink]="'../editar/' + institution._id"
+              type="button"
+              class="border-2 border-camelot text-sm text-nile-blue bg-cameo rounded-lg px-2 py-1 mr-2"
+            >
+              Editar
+            </button>
+            <button
+              (click)="deleteInstitution(institution._id)"
+              type="button"
+              class="border-2 border-camelot text-sm text-nile-blue bg-cameo rounded-lg px-2 py-1 mr-2"
+            >
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="w-full lg:h-auto px-4 py-2 rounded-lg lg:hidden">
+    <div
+      class="w-full h-full flex flex-col mb-2 border border-camelot rounded-lg hover:shadow-sm hover:shadow-camelot-300"
+      *ngFor="let institution of instituciones"
+    >
+      <!-- Nombre -->
+      <div
+        class="w-full grid grid-cols-5 break-all items-left space-x-2 text pl-2 py-2 pr-2"
+      >
+        <div class="col-span-2 break-all font-bold text-camelot">Nombre:</div>
+        <div class="col-span-3 break-all text-nile-blue">
+          {{ institution.nameInstitution }}
+        </div>
+      </div>
+      <!-- Direccion -->
+      <div
+        class="w-full grid grid-cols-5 break-all items-left space-x-2 text pl-2 py-2 pr-2"
+      >
+        <div class="col-span-2 break-all font-bold text-camelot">
+          Dirección:
+        </div>
+        <div class="col-span-3 break-all text-nile-blue">
+          <!-- Aqui va Provincia Ciudad Dir -->
+          {{ institution.stateInstitution }}, {{ institution.cityInstitution }},
+          {{ institution.addressInstitution }}
+        </div>
+      </div>
+      <!-- Tipo -->
+      <div
+        class="w-full grid grid-cols-5 break-all items-left space-x-2 text pl-2 py-2 pr-2"
+      >
+        <div class="col-span-2 break-all font-bold text-camelot">Tipo:</div>
+        <div class="col-span-3 break-all text-nile-blue">
+          {{ institution.typeInstitution }}
+        </div>
+      </div>
+      <!-- Telefono -->
+      <div
+        class="w-full grid grid-cols-5 break-all items-left space-x-2 text pl-2 py-2 pr-2"
+      >
+        <div class="col-span-2 break-all font-bold text-camelot">Telefono:</div>
+        <div class="col-span-3 break-all text-nile-blue">
+          {{ institution.phoneInstitution }}
+        </div>
+      </div>
+      <!-- Correo -->
+      <div
+        class="w-full grid grid-cols-5 break-all items-left space-x-2 text pl-2 py-2 pr-2"
+      >
+        <div class="col-span-2 break-all font-bold text-camelot">Correo:</div>
+        <div class="col-span-3 break-all text-nile-blue">
+          {{ institution.emailInstitution }}
+        </div>
+      </div>
+      <!-- Acciones -->
+
+      <div class="flex flex-row gap-2 justify-end my-2">
+        <button
+          [routerLink]="'../editar/' + institution._id"
+          type="button"
+          class="border-2 border-camelot text-sm text-nile-blue bg-cameo rounded-lg px-2 py-1 mr-2"
+        >
+          Editar
+        </button>
+        <button
+          (click)="deleteInstitution(institution._id)"
+          type="button"
+          class="border-2 border-camelot text-sm text-nile-blue bg-cameo rounded-lg px-2 py-1 mr-2"
+        >
+          Eliminar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

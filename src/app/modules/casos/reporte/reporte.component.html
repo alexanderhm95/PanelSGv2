@@ -1,0 +1,216 @@
+<div
+  class="w-[95%] h-[90%] lg:h-[95%] lg:m-2 mx-4 my-2 bg-cameo border-4 border-camelot rounded-lg overflow-x-hidden flex flex-row justify-center"
+>
+  <div class="w-[80%]">
+    <div class="w-full text-center text-3xl font-bold text-camelot py-4">
+      Resultado de Test aplicados
+    </div>
+
+    <!-- Cabecera -->
+    <div class="w-full flex flex-col py-4">
+      <!-- Aqui van los datos  -->
+      <div class="grid grid-cols-5 gap-2">
+        <div class="col-span-1">
+          <label class="text-camelot font-bold flex flex-row"
+            >Institución</label
+          >
+        </div>
+        <div class="col-span-4">
+          <label class="flex flex-row text-nile-blue-200">
+            {{ this.caso.nameInstitutionStudent }}
+          </label>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-5 gap-2">
+        <div class="col-span-1">
+          <label class="text-camelot font-bold flex flex-row">Evaluador</label>
+        </div>
+        <div class="col-span-4">
+          <label class="flex flex-row text-nile-blue-200"
+            >{{ this.caso.nameDece }} {{ this.caso.lastNameDece }}</label
+          >
+        </div>
+      </div>
+      <div class="grid grid-cols-5 gap-2">
+        <div class="col-span-1">
+          <label class="text-camelot font-bold flex flex-row"
+            >Docente evaluador</label
+          >
+        </div>
+        <div class="col-span-4">
+          <label class="flex flex-row text-nile-blue-200"
+            >{{ this.caso.nameTeacher }} {{ this.caso.lastNameTeacher }}</label
+          >
+        </div>
+      </div>
+
+      <div class="grid grid-cols-5 gap-2">
+        <div class="col-span-1">
+          <label class="text-camelot font-bold flex flex-row"
+            >Estudiante:</label
+          >
+        </div>
+        <div class="col-span-4">
+          <label class="flex flex-row text-nile-blue-200"
+            >{{ this.caso.nameStudent }} {{ this.caso.lastNameStudent }}</label
+          >
+        </div>
+      </div>
+
+      <div class="grid grid-cols-5 gap-2">
+        <div class="col-span-1">
+          <label class="text-camelot font-bold flex flex-row">Grado</label>
+        </div>
+        <div class="col-span-4">
+          <label class="flex flex-row text-nile-blue-200">{{
+            this.caso.grade
+          }}</label>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-5 gap-2">
+        <div class="col-span-1">
+          <label class="text-camelot font-bold flex flex-row">Paralelo</label>
+        </div>
+        <div class="col-span-4">
+          <label class="flex flex-row text-nile-blue-200">{{
+            this.caso.parallel
+          }}</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resutados test Estudiante -->
+    <div *ngIf="this.caso.statusTestStudent === false" class="w-full flex py-4">
+      <!-- alerta no hay datos -->
+      <legend class="text-camelot font-bold flex flex-row">
+        Test Estudiante:
+      </legend>
+      <label> El test no se ha ejecutado, no existen datos para mostrar</label>
+    </div>
+    <div
+      *ngIf="this.caso.statusTestStudent === true"
+      class="w-full flex flex-col py-4"
+    >
+      <!-- alerta no hay datos -->
+      <div class="w-full flex py-4">
+        <legend class="text-camelot font-bold flex flex-row">
+          Test Estudiante:
+        </legend>
+        <label>{{ this.caso.diagnosticStudent }}</label>
+      </div>
+      <div class="w-full flex py-2 items-center justify-center">
+        <!-- Aqui se mostrara una bara de progreso con el pocentaje -->
+        <div class="flex items-center justify-center relative">
+          <svg class="transform -rotate-90 w-72 h-72">
+            <circle
+              cx="145"
+              cy="145"
+              r="120"
+              stroke="currentColor"
+              stroke-width="30"
+              fill="transparent"
+              class="text-black-700"
+            />
+
+            <circle
+              cx="145"
+              cy="145"
+              r="120"
+              stroke="currentColor"
+              stroke-width="30"
+              fill="transparent"
+              [attr.stroke-dasharray]="this.circumference"
+              [attr.stroke-dashoffset]="
+                this.circumference *
+                (1 -
+                  ((this.caso.scoreStudent / this.caso.scoreMaxStudent) * 100) /
+                    100)
+              "
+              [ngStyle]="{
+                stroke: getColor(
+                  (this.caso.scoreStudent / this.caso.scoreMaxStudent) * 100
+                )
+              }"
+            />
+          </svg>
+          <span class="absolute text-5xl"
+            >{{
+              (
+                (this.caso.scoreStudent / this.caso.scoreMaxStudent) *
+                100
+              ).toFixed(1)
+            }}%</span
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Resutados test Estudiante -->
+    <div *ngIf="this.caso.statusTestTeacher === false" class="w-full flex py-4">
+      <!-- alerta no hay datos -->
+      <legend class="text-camelot font-bold flex flex-row">
+        Test Docente:
+      </legend>
+      <label>El test no se ha ejecutado, no existen datos para mostrar</label>
+    </div>
+    <div
+      *ngIf="this.caso.statusTestTeacher === true"
+      class="w-full flex flex-col py-4"
+    >
+      <!-- alerta no hay datos -->
+      <div class="w-full flex py-4">
+        <legend class="text-camelot font-bold flex flex-row">
+          Test Docente:
+        </legend>
+        <label>{{ this.caso.diagnosticTeacher }}</label>
+      </div>
+      <div class="w-full flex py-2 items-center justify-center">
+        <!-- Aqui se mostrara una bara de progreso con el pocentaje -->
+        <div class="flex items-center justify-center relative">
+          <svg class="transform -rotate-90 w-72 h-72">
+            <circle
+              cx="145"
+              cy="145"
+              r="120"
+              stroke="currentColor"
+              stroke-width="30"
+              fill="transparent"
+              class="text-black-700"
+            />
+
+            <circle
+              cx="145"
+              cy="145"
+              r="120"
+              stroke="currentColor"
+              stroke-width="30"
+              fill="transparent"
+              [attr.stroke-dasharray]="this.circumference"
+              [attr.stroke-dashoffset]="
+                this.circumference *
+                (1 -
+                  ((this.caso.scoreTeacher / this.caso.scoreMaxTeacher) * 100) /
+                    100)
+              "
+              [ngStyle]="{
+                stroke: getColor(
+                  (this.caso.scoreTeacher / this.caso.scoreMaxTeacher) * 100
+                )
+              }"
+            />
+          </svg>
+          <span class="absolute text-5xl"
+            >{{
+              (
+                (this.caso.scoreTeacher / this.caso.scoreMaxTeacher) *
+                100
+              ).toFixed(1)
+            }}%</span
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
