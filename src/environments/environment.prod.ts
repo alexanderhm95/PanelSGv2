@@ -1,4 +1,4 @@
 export const environment = {
-  production: true,
+  production: false,
   api: 'https://apiseriusgame-production.up.railway.app'
 };
