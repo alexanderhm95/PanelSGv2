@@ -61,6 +61,6 @@ export class RegistrarComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigate(['../../listar'], { relativeTo: this.route });
+    this.router.navigate(['../listar'], { relativeTo: this.route });
   }
 }

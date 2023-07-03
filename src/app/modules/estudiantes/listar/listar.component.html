@@ -1,183 +1,253 @@
-<div class="w-[95%] h-[90%] lg:h-[95%] lg:m-2 mx-4 my-2 bg-cameo border-4 border-camelot rounded-lg overflow-x-hidden">
+<div
+  class="w-[95%] h-[90%] lg:h-[95%] lg:m-2 mx-4 my-2 bg-cameo border-4 border-camelot rounded-lg overflow-x-hidden"
+>
+  <div
+    class="w-full lg:h-[7%] text-center text-3xl font-bold text-camelot py-2"
+  >
+    Gestión estudiantes
+  </div>
 
+  <div
+    class="w-full lg:h-[8%] h-[10%] flex flex-row lg:justify-start justify-between py-2 lg:gap-4"
+  >
+    <input
+      [(ngModel)]="search"
+      class="ml-4 px-2 border-b-2 border-camelot rounded-lg bg-none text-camelot text-xs font-semibold tracking-wide w-[40%] lg:w-[20%] focus:outline-none focus:border-camelot-400"
+      placeholder="Buscar por nombre"
+    />
+  </div>
 
-    <div class="w-full lg:h-[7%] text-center text-3xl font-bold text-camelot py-2">
-        Gestión estudiantes
-    </div>
+  <div class="w-full lg:h-auto px-4 py-2 rounded-lg shadow hidden lg:block">
+    <table class="w-full lg:h-[92%] my-2">
+      <thead class="bg-nile-blue-200 border-b-2 border-nile-blue text-cameo">
+        <tr>
+          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+            CI
+          </th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+            Nombres
+          </th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+            Edad
+          </th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+            Email
+          </th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+            Telefono
+          </th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+            Estado
+          </th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+            Institución
+          </th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+            Grado
+          </th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+            Paralelo
+          </th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+            Acciones
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let estudiante of estudiantes | filterTables : search">
+          <td class="p-3 text-sm text-black-100 tracking-wide text-left">
+            {{ estudiante.CI }}
+          </td>
+          <td class="p-3 text-sm text-black-100 tracking-wide text-left">
+            {{ estudiante.name }} {{ estudiante.lastName }}
+          </td>
+          <td class="p-3 text-sm text-black-100 tracking-wide text-left">
+            {{ estudiante.age }}
+          </td>
+          <td class="p-3 text-sm text-black-100 tracking-wide text-left">
+            {{ estudiante.email }}
+          </td>
+          <td class="p-3 text-sm text-black-100 tracking-wide text-left">
+            {{ estudiante.phone }}
+          </td>
+          <td class="p-3 text-sm text-black-100 tracking-wide text-left">
+            <label
+              class="inline-block pl-[0.15rem] hover:cursor-pointer"
+              for="flexSwitchCheckDefault"
+            >
+              <div
+                *ngIf="estudiante.status"
+                class="bg-green bg-opacity-25 rounded-lg p-2 text-nile-blue text-center tracking-wider text-sm"
+              >
+                Activo
+              </div>
+              <div
+                *ngIf="!estudiante.status"
+                class="bg-red bg-opacity-25 rounded-lg p-2 text-nile-blue text-center tracking-wider text-sm"
+              >
+                Inactivo
+              </div>
+            </label>
+          </td>
+          <td class="p-3 text-sm text-black-100 tracking-wide text-left">
+            {{ estudiante.nameInstitution }}
+          </td>
+          <td class="p-3 text-sm text-black-100 tracking-wide text-left">
+            {{ estudiante.grade }}
+          </td>
+          <td class="p-3 text-sm text-black-100 tracking-wide text-left">
+            {{ estudiante.parallel }}
+          </td>
+          <td
+            class="p-3 text-sm text-black-100 tracking-wide text-center flex flex-row items-center justify-center"
+          >
+            <button
+              [routerLink]="'../editar/' + estudiante.id"
+              type="button"
+              class="px-2"
+              title="Editar estudiante"
+            >
+              <i
+                class="fa-solid fa-pen-to-square text-3xl text-nile-blue-200 hover:text-camelot-400"
+              ></i>
+            </button>
+            <button
+              (click)="delete(estudiante.id)"
+              type="button"
+              class="px-2"
+              title="Eliminar estudiante"
+            >
+              <i
+                class="fa fa-trash text-3xl text-red-500 font-bold hover:text-nile-blue"
+              ></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-    <div class="w-full lg:h-[8%] h-[10%] flex flex-row lg:justify-start justify-between py-2 lg:gap-4">
-        <input [(ngModel)]="search"
-            class=" ml-4   px-2 border-b-2 border-camelot rounded-lg bg-none text-camelot text-xs font-semibold tracking-wide w-[40%] lg:w-[20%] focus:outline-none focus:border-camelot-400"
-            placeholder="Buscar por nombre">
-    </div>
-
-    <div class="w-full lg:h-auto px-4 py-2 rounded-lg shadow hidden lg:block ">
-        <table class="w-full lg:h-[92%] my-2">
-            <thead class="bg-nile-blue-200 border-b-2 border-nile-blue text-cameo">
-                <tr>
-                    <th class="p-3 text-sm font-semibold tracking-wide text-center">CI</th>
-                    <th class="p-3 text-sm font-semibold tracking-wide text-center">Nombres</th>
-                    <th class="p-3 text-sm font-semibold tracking-wide text-center">Edad</th>
-                    <th class="p-3 text-sm font-semibold tracking-wide text-center">Email</th>
-                    <th class="p-3 text-sm font-semibold tracking-wide text-center">Telefono</th>
-                    <th class="p-3 text-sm font-semibold tracking-wide text-center">Estado</th>
-                    <th class="p-3 text-sm font-semibold tracking-wide text-center">Institución</th>
-                    <th class="p-3 text-sm font-semibold tracking-wide text-center">Grado</th>
-                    <th class="p-3 text-sm font-semibold tracking-wide text-center">Paralelo</th>
-                                        <th class="p-3 text-sm font-semibold tracking-wide text-center">
-                        Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-
-                <tr *ngFor="let estudiante of estudiantes | filterTables:search">
-                    <td class="p-3 text-sm text-black-100 tracking-wide text-left">{{estudiante.CI}}</td>
-                    <td class="p-3 text-sm text-black-100 tracking-wide text-left">{{estudiante.name}}
-                        {{estudiante.lastName}}</td>
-                        <td class="p-3 text-sm text-black-100 tracking-wide text-left">{{estudiante.age}}</td>
-                    <td class="p-3 text-sm text-black-100 tracking-wide text-left">{{estudiante.email}}</td>
-                    <td class="p-3 text-sm text-black-100 tracking-wide text-left">{{estudiante.phone}}</td>
-                    <td class="p-3 text-sm text-black-100 tracking-wide text-left">
-
-                        <label class="inline-block pl-[0.15rem] hover:cursor-pointer" for="flexSwitchCheckDefault">
-                            <div *ngIf="estudiante.status"
-                                class="bg-green bg-opacity-25 rounded-lg p-2 text-nile-blue text-center tracking-wider  text-sm">
-                                Activo
-                            </div>
-                            <div *ngIf="!estudiante.status"
-                                class="bg-red bg-opacity-25 rounded-lg p-2 text-nile-blue text-center tracking-wider  text-sm">
-                                Inactivo
-                            </div>
-                        </label>
-
-                    </td>
-                    <td class="p-3 text-sm text-black-100 tracking-wide text-left">{{estudiante.nameInstitution}}</td>
-                    <td class="p-3 text-sm text-black-100 tracking-wide text-left">{{estudiante.grade}}</td>
-                    <td class="p-3 text-sm text-black-100 tracking-wide text-left">{{estudiante.parallel}}</td>
-                    <td
-                        class="p-3 text-sm text-black-100 tracking-wide text-center flex flex-row items-center justify-center">
-
-                        <button [routerLink]="'../editar/'+estudiante.id" type="button"
-                            class="border-2 border-camelot text-sm text-nile-blue bg-cameo rounded-lg px-2 py-1 mr-2">
-                            Editar
-                        </button>
-                        <button (click)="delete(estudiante.id)" type="button"
-                            class="border-2 border-camelot text-sm text-nile-blue bg-cameo rounded-lg px-2 py-1  mr-2">
-                            Eliminar
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="w-full lg:h-auto px-4 py-2 rounded-lg  lg:hidden">
-        <div class="w-full h-full flex flex-col mb-2 border border-camelot rounded-lg hover:shadow-sm hover:shadow-camelot-300"
-            *ngFor="let estudiante of estudiantes | filterTables:search">
-            <!-- CI -->
-            <div class=" w-full grid grid-cols-5 break-all items-left space-x-2 text pl-2 py-2 pr-2">
-                <div class="col-span-2 break-all font-bold text-camelot ">
-                    CI:
-                </div>
-                <div class="col-span-3 break-all text-nile-blue">
-                    {{estudiante.CI}}
-                </div>
-            </div>
-            <!-- Nombres -->
-            <div class=" w-full grid grid-cols-5 break-all items-left space-x-2 text pl-2 py-2 pr-2">
-                <div class="col-span-2 break-all font-bold text-camelot ">
-                    Nombres:
-                </div>
-                <div class="col-span-3 break-all text-nile-blue gap-1">
-                    {{estudiante.name}} {{estudiante.lastName}}
-                </div>
-            </div>
-            <!-- Edad -->
-            <div class=" w-full grid grid-cols-5 break-all items-left space-x-2 text pl-2 py-2 pr-2">
-                <div class="col-span-2 break-all font-bold text-camelot ">
-                    Edad:
-                </div>
-                <div class="col-span-3 break-all text-nile-blue">
-                    {{estudiante.age}}
-                </div>
-            </div>
-            <!-- Email -->
-            <div class=" w-full grid grid-cols-5 break-all items-left space-x-2 text pl-2 py-2 pr-2">
-                <div class="col-span-2 break-all font-bold text-camelot ">
-                    Email:
-                </div>
-                <div class="col-span-3 break-all text-nile-blue">
-                    {{estudiante.email}}
-                </div>
-            </div>
-            <!-- Telefono -->
-            <div class=" w-full grid grid-cols-5 break-all items-left space-x-2 text pl-2 py-2 pr-2">
-                <div class="col-span-2 break-all font-bold text-camelot ">
-                    Telefono:
-                </div>
-                <div class="col-span-3 break-all text-nile-blue">
-                    {{estudiante.phone}}
-                </div>
-            </div>
-            <!-- Estado -->
-            <div class=" w-full grid grid-cols-5 break-all items-left space-x-2 text pl-2 py-2 pr-2">
-                <div class="col-span-2 break-all font-bold text-camelot ">
-                    Estado:
-                </div>
-                <div class="col-span-3 break-all text-nile-blue">
-                    <label class="inline-block pl-[0.15rem] hover:cursor-pointer" for="flexSwitchCheckDefault">
-                        <div *ngIf="estudiante.status"
-                            class="bg-green bg-opacity-25 rounded-lg p-2 text-nile-blue text-center tracking-wider  text-sm">
-                            Activo
-                        </div>
-                        <div *ngIf="!estudiante.status"
-                            class="bg-red bg-opacity-25 rounded-lg p-2 text-nile-blue text-center tracking-wider  text-sm">
-                            Inactivo
-                        </div>
-                    </label>
-                </div>
-            </div>
-            <!-- Institución -->
-            <div class=" w-full grid grid-cols-5 break-all items-left space-x-2 text pl-2 py-2 pr-2">
-                <div class="col-span-2 break-all font-bold text-camelot ">
-                    Institución:
-                </div>
-                <div class="col-span-3 break-all text-nile-blue">
-                    {{estudiante.nameInstitution}}
-                </div>
-            </div>
-            <!-- Grade -->
-            <div class=" w-full grid grid-cols-5 break-all items-left space-x-2 text pl-2 py-2 pr-2">
-                <div class="col-span-2 break-all font-bold text-camelot ">
-                    Grado:
-                </div>
-                <div class="col-span-3 break-all text-nile-blue">
-                    {{estudiante.grade}}
-                </div>
-            </div>
-            <!-- Paralelo -->
-            <div class=" w-full grid grid-cols-5 break-all items-left space-x-2 text pl-2 py-2 pr-2">
-                <div class="col-span-2 break-all font-bold text-camelot ">
-                    Paralelo:
-                </div>
-                <div class="col-span-3 break-all text-nile-blue">
-                    {{estudiante.parallel}}
-                </div>
-            </div>
-            <!-- Acciones -->
-            <div class="flex flex-row gap-2 justify-end my-2">
-                <button [routerLink]="'../editar/'+estudiante.id" type="button"
-                    class="border-2 border-camelot text-sm text-nile-blue bg-cameo rounded-lg px-2 py-1 mr-2">
-                    Editar
-                </button>
-                <button (click)="delete(estudiante.id)" type="button"
-                    class="border-2 border-camelot text-sm text-nile-blue bg-cameo rounded-lg px-2 py-1 ">
-                    Eliminar
-                </button>
-            </div>
-
-
-
+  <div class="w-full lg:h-auto px-4 py-2 rounded-lg lg:hidden">
+    <div
+      class="w-full h-full flex flex-col mb-2 border border-camelot rounded-lg hover:shadow-sm hover:shadow-camelot-300"
+      *ngFor="let estudiante of estudiantes | filterTables : search"
+    >
+      <!-- CI -->
+      <div
+        class="w-full grid grid-cols-5 break-all items-left space-x-2 text pl-2 py-2 pr-2"
+      >
+        <div class="col-span-2 break-all font-bold text-camelot">CI:</div>
+        <div class="col-span-3 break-all text-nile-blue">
+          {{ estudiante.CI }}
         </div>
+      </div>
+      <!-- Nombres -->
+      <div
+        class="w-full grid grid-cols-5 break-all items-left space-x-2 text pl-2 py-2 pr-2"
+      >
+        <div class="col-span-2 break-all font-bold text-camelot">Nombres:</div>
+        <div class="col-span-3 break-all text-nile-blue gap-1">
+          {{ estudiante.name }} {{ estudiante.lastName }}
+        </div>
+      </div>
+      <!-- Edad -->
+      <div
+        class="w-full grid grid-cols-5 break-all items-left space-x-2 text pl-2 py-2 pr-2"
+      >
+        <div class="col-span-2 break-all font-bold text-camelot">Edad:</div>
+        <div class="col-span-3 break-all text-nile-blue">
+          {{ estudiante.age }}
+        </div>
+      </div>
+      <!-- Email -->
+      <div
+        class="w-full grid grid-cols-5 break-all items-left space-x-2 text pl-2 py-2 pr-2"
+      >
+        <div class="col-span-2 break-all font-bold text-camelot">Email:</div>
+        <div class="col-span-3 break-all text-nile-blue">
+          {{ estudiante.email }}
+        </div>
+      </div>
+      <!-- Telefono -->
+      <div
+        class="w-full grid grid-cols-5 break-all items-left space-x-2 text pl-2 py-2 pr-2"
+      >
+        <div class="col-span-2 break-all font-bold text-camelot">Telefono:</div>
+        <div class="col-span-3 break-all text-nile-blue">
+          {{ estudiante.phone }}
+        </div>
+      </div>
+      <!-- Estado -->
+      <div
+        class="w-full grid grid-cols-5 break-all items-left space-x-2 text pl-2 py-2 pr-2"
+      >
+        <div class="col-span-2 break-all font-bold text-camelot">Estado:</div>
+        <div class="col-span-3 break-all text-nile-blue">
+          <label
+            class="inline-block pl-[0.15rem] hover:cursor-pointer"
+            for="flexSwitchCheckDefault"
+          >
+            <div
+              *ngIf="estudiante.status"
+              class="bg-green bg-opacity-25 rounded-lg p-2 text-nile-blue text-center tracking-wider text-sm"
+            >
+              Activo
+            </div>
+            <div
+              *ngIf="!estudiante.status"
+              class="bg-red bg-opacity-25 rounded-lg p-2 text-nile-blue text-center tracking-wider text-sm"
+            >
+              Inactivo
+            </div>
+          </label>
+        </div>
+      </div>
+      <!-- Institución -->
+      <div
+        class="w-full grid grid-cols-5 break-all items-left space-x-2 text pl-2 py-2 pr-2"
+      >
+        <div class="col-span-2 break-all font-bold text-camelot">
+          Institución:
+        </div>
+        <div class="col-span-3 break-all text-nile-blue">
+          {{ estudiante.nameInstitution }}
+        </div>
+      </div>
+      <!-- Grade -->
+      <div
+        class="w-full grid grid-cols-5 break-all items-left space-x-2 text pl-2 py-2 pr-2"
+      >
+        <div class="col-span-2 break-all font-bold text-camelot">Grado:</div>
+        <div class="col-span-3 break-all text-nile-blue">
+          {{ estudiante.grade }}
+        </div>
+      </div>
+      <!-- Paralelo -->
+      <div
+        class="w-full grid grid-cols-5 break-all items-left space-x-2 text pl-2 py-2 pr-2"
+      >
+        <div class="col-span-2 break-all font-bold text-camelot">Paralelo:</div>
+        <div class="col-span-3 break-all text-nile-blue">
+          {{ estudiante.parallel }}
+        </div>
+      </div>
+      <!-- Acciones -->
+      <div class="flex flex-row gap-2 justify-end my-2">
+        <button
+          [routerLink]="'../editar/' + estudiante.id"
+          type="button"
+          class="border-2 border-camelot text-sm text-nile-blue bg-cameo rounded-lg px-2 py-1 mr-2"
+        >
+          Editar
+        </button>
+        <button
+          (click)="delete(estudiante.id)"
+          type="button"
+          class="border-2 border-camelot text-sm text-nile-blue bg-cameo rounded-lg px-2 py-1"
+        >
+          Eliminar
+        </button>
+      </div>
     </div>
+  </div>
 </div>

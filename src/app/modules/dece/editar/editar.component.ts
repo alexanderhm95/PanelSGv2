@@ -1,4 +1,4 @@
-import { ClsFormDeceUpdate } from '@/app/core/classForm/cls-form-dece';
+import { ClsFormDece } from '@/app/core/classForm/cls-form-dece';
 import { InterfaceDece } from '@/app/core/interfaces/interface-dece';
 import { InterfaceInstitution } from '@/app/core/interfaces/interface-institution';
 import { DeceService } from '@/app/shared/services/api/dece.service';
@@ -14,7 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./editar.component.css'],
 })
 export class EditarComponent implements OnInit {
-  public formDece = new ClsFormDeceUpdate();
+  public formDece = new ClsFormDece();
   public dece?: InterfaceDece;
   public instituciones: InterfaceInstitution[] = [];
 
@@ -130,6 +130,6 @@ export class EditarComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigate(['../listar'], { relativeTo: this.route });
+    this.router.navigate(['../../listar'], { relativeTo: this.route });
   }
 }

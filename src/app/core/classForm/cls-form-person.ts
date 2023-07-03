@@ -18,7 +18,7 @@ export class ClsFormPerson {
                 Validators.maxLength(3)
             ]),
             address: new FormControl('', [
-                Validators.minLength(10)
+                Validators.minLength(2)
             ]),
             phone: new FormControl('', [
                 Validators.minLength(6),

@@ -11,21 +11,31 @@ export class ClsFormInstitution {
       ]),
       addressInstitution: new FormControl('', [
         Validators.required,
-        Validators.minLength(3),
+        Validators.minLength(2),
       ]),
       phoneInstitution: new FormControl('', [
         Validators.required,
         //Validators.pattern(this.isPhoneRex),
         Validators.minLength(6),
         Validators.maxLength(10),
+        Validators.pattern('[0-9]*'),
       ]),
       emailInstitution: new FormControl('', [
         Validators.required,
         Validators.email,
       ]),
-      typeInstitution: new FormControl('', [Validators.required]),
-      stateInstitution: new FormControl('', [Validators.required]),
-      cityInstitution: new FormControl('', [Validators.required]),
+      typeInstitution: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+      ]),
+      stateInstitution: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+      ]),
+      cityInstitution: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+      ]),
     });
   }
 }

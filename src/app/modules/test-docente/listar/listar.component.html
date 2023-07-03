@@ -1,66 +1,79 @@
-<div class="contenedor">
-    <div class="body">
-        <div class="tittle">
-            Casos Asignados
-        </div>
+<div
+  class="w-[95%] h-[90%] lg:h-[95%] lg:m-2 mx-4 my-2 bg-cameo border-4 border-camelot rounded-lg overflow-x-hidden"
+>
+  <div
+    class="w-full lg:h-[7%] text-center text-3xl font-bold text-camelot py-2"
+  >
+    Casos Asignados
+  </div>
 
-        <div class="table-responsive">
-            <table class="table table-striped ">
-                <thead class="thead-inverse">
-                    <tr>
-                        <th scope="col">Caso</th>
-                        <th scope="col">Estudiante</th>
-                        <th scope="col">Docente</th>
-                        <th scope="col">Institución</th>
-                        <th scope="col" style="text-align: center;">
-                            Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- recorro casos y añado indice -->
-                    <tr *ngFor="let caso of casos; let i = index of casos">
-                        <td>
-                            <strong>{{i+1}}</strong>
-                        </td>
-                        <td style="width: 50%; word-wrap: break-word;">
-                            <strong>CI: </strong>{{caso.CI}}
-                            <br>
-                            <strong>Nombres: </strong>{{caso.name}}
-                            <br>
-                            <strong>Apellidos: </strong>{{caso.lastName}}
-                            <br>
-                        </td>
-                        <td style="width: 50%; word-wrap: break-word;">
-                            <strong>CI: </strong>{{caso.CIteacher}}
-                            <br>
-                            <strong>Nombres: </strong>{{caso.nameT}}
-                            <br>
-                            <strong>Apellidos: </strong>{{caso.lastNameT}}
-                            <br>
-                        </td>
-                        <td style="width:  50%; word-wrap:  break-word;">
-                            <strong>Institución</strong>{{caso.institution}}
-                        </td>
-                        <td style="width: 50%; word-wrap: break-word;">
- <!-- Si este esta en inactive se muestra una forma de boton en rojo  desahabilitado y dira Atendido-->
-                            <div [ngSwitch]="caso.statusTestTeacher">
-                                <div *ngSwitchCase="false">
-                                    <button [routerLink]="'../evaluar/'+caso.id" type="button" class="btnAccion">
-                                     Evaluar
-                                    </button>
-                                </div>
-                                <div *ngSwitchCase="true">
-                                    <button type="button" class="btnAccion" disabled>
-                                        Atendido
-                                    </button>
-                                </div>
-                            </div>                            
-                            
-                        </td>
-
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+  <div class="w-full lg:h-auto px-4 py-2 rounded-lg shadow hidden lg:block">
+    <table class="w-full lg:h-[92%] my-2">
+      <thead class="bg-nile-blue-200 border-b-2 border-nile-blue text-cameo">
+        <tr>
+          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+            Caso
+          </th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+            Estudiante
+          </th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+            Docente
+          </th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+            Institución
+          </th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+            Acciones
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- recorro casos y añado indice -->
+        <tr *ngFor="let caso of casos; let i = index; of: casos">
+          <td class="p-3 text-sm text-black-100 tracking-wide text-center">
+            <strong>{{ i + 1 }}</strong>
+          </td>
+          <td class="p-3 text-sm text-black-100 tracking-wide text-left pl-2">
+            <strong>CI: </strong>{{ caso.CI }}
+            <br />
+            <strong>Nombres: </strong>{{ caso.name }}
+            <br />
+            <strong>Apellidos: </strong>{{ caso.lastName }}
+            <br />
+          </td>
+          <td class="p-3 text-sm text-black-100 tracking-wide text-left pl-2">
+            <strong>CI: </strong>{{ caso.CIteacher }}
+            <br />
+            <strong>Nombres: </strong>{{ caso.nameT }}
+            <br />
+            <strong>Apellidos: </strong>{{ caso.lastNameT }}
+            <br />
+          </td>
+          <td class="p-3 text-sm text-black-100 tracking-wide text-center">
+            <strong>Institución</strong>{{ caso.institution }}
+          </td>
+          <td class="p-3 text-sm text-black-100 tracking-wide flex items-center justify-center">
+            <!-- Si este esta en inactive se muestra una forma de boton en rojo  desahabilitado y dira Atendido-->
+            <div [ngSwitch]="caso.statusTestTeacher">
+              <div *ngSwitchCase="false">
+                <button
+                  [routerLink]="'../evaluar/' + caso.id"
+                  type="button"
+                  class="btnAccion"
+                >
+                  Evaluar
+                </button>
+              </div>
+              <div *ngSwitchCase="true">
+                <button type="button" class="btnAccion" disabled>
+                  Atendido
+                </button>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

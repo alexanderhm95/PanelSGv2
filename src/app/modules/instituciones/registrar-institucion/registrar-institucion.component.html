@@ -2,7 +2,7 @@
   class="w-[95%] lg:h-[95%] m-2 bg-cameo border-4 border-camelot rounded-lg overflow-x-hidden"
 >
   <div
-    class="w-full lg:h-[10%] text-center text-3xl font-bold text-camelot py-4"
+    class="w-full lg:h-[10%] text-center text-2xl font-bold text-camelot py-4 flex items-center justify-center"
   >
     Registrar Institución
   </div>
@@ -10,98 +10,266 @@
   <form
     [formGroup]="this.formInstitucion.form"
     (ngSubmit)="create()"
-    class="w-full lg:h-[90%] py-4"
+    class="w-full lg:h-[90%] py-2"
   >
     <fieldset class="w-full flex flex-col items-center">
-      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
-        <div class="w-full col-span-2 text-camelot text-lg mr-2 text-left">
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1">
+        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
           <label for="name"> Nombre: </label>
         </div>
-        <div class="w-full col-span-2 text-nile-blue text-lg">
+        <div
+          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
+        >
           <input
             type="text"
             id="name"
             formControlName="nameInstitution"
             class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
           />
+          <div
+            *ngIf="
+              formInstitucion.form.get('nameInstitution')?.invalid &&
+              formInstitucion.form.get('nameInstitution')?.touched
+            "
+            class="text-red-200 text-xl rounded pl-2 flex"
+            role="alert"
+          >
+            <ng-container
+              *ngIf="formInstitucion.form.get('nameInstitution')?.errors?.['required']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Nombre requerido"
+              ></i>
+            </ng-container>
+            <ng-container
+              *ngIf="formInstitucion.form.get('nameInstitution')?.errors?.['minlength']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Longitud minima requerida"
+              ></i>
+            </ng-container>
+          </div>
         </div>
       </div>
 
-      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
-        <div class="w-full col-span-2 text-camelot text-lg mr-2 text-left">
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1">
+        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
           <label for="state"> Provincia: </label>
         </div>
-        <div class="w-full col-span-2 text-nile-blue text-lg">
+        <div
+          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
+        >
           <input
             type="text"
             id="state"
             formControlName="stateInstitution"
             class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
           />
+
+          <div
+            *ngIf="
+              formInstitucion.form.get('stateInstitution')?.invalid &&
+              formInstitucion.form.get('stateInstitution')?.touched
+            "
+            class="text-red-200 text-xl rounded pl-2 flex"
+            role="alert"
+          >
+            <ng-container
+              *ngIf="formInstitucion.form.get('stateInstitution')?.errors?.['required']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Provincia requerida"
+              ></i>
+            </ng-container>
+            <ng-container
+              *ngIf="formInstitucion.form.get('stateInstitution')?.errors?.['minlength']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Longitud minima requerida"
+              ></i>
+            </ng-container>
+          </div>
         </div>
       </div>
 
-      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
-        <div class="w-full col-span-2 text-camelot text-lg mr-2 text-left">
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1">
+        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
           <label for="city"> Ciudad: </label>
         </div>
-        <div class="w-full col-span-2 text-nile-blue text-lg">
+        <div
+          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
+        >
           <input
             type="text"
             id="city"
             formControlName="cityInstitution"
             class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
           />
+
+          <div
+            *ngIf="
+              formInstitucion.form.get('cityInstitution')?.invalid &&
+              formInstitucion.form.get('cityInstitution')?.touched
+            "
+            class="text-red-200 text-xl rounded pl-2 flex"
+            role="alert"
+          >
+            <ng-container
+              *ngIf="formInstitucion.form.get('cityInstitution')?.errors?.['required']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Ciudad requerida"
+              ></i>
+            </ng-container>
+            <ng-container
+              *ngIf="formInstitucion.form.get('cityInstitution')?.errors?.['minlength']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Longitud minima requerida"
+              ></i>
+            </ng-container>
+          </div>
         </div>
       </div>
 
-      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
-        <div class="w-full col-span-2 text-camelot text-lg mr-2 text-left">
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1">
+        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
           <label for="dir"> Dirección: </label>
         </div>
-        <div class="w-full col-span-2 text-nile-blue text-lg">
+        <div
+          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
+        >
           <input
             type="text"
             id="dir"
             formControlName="addressInstitution"
             class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
           />
+          <div
+            *ngIf="
+              formInstitucion.form.get('addressInstitution')?.invalid &&
+              formInstitucion.form.get('addressInstitution')?.touched
+            "
+            class="text-red-200 text-xl rounded pl-2 flex"
+            role="alert"
+          >
+            <ng-container
+              *ngIf="formInstitucion.form.get('addressInstitution')?.errors?.['minlength']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Longitud minima requerida"
+              ></i>
+            </ng-container>
+          </div>
         </div>
       </div>
 
-      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
-        <div class="w-full col-span-2 text-camelot text-lg mr-2 text-left">
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1">
+        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
           <label for="telefo"> Telefono: </label>
         </div>
-        <div class="w-full col-span-2 text-nile-blue text-lg">
+        <div
+          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
+        >
           <input
             type="text"
             id="telefo"
             formControlName="phoneInstitution"
             class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
           />
+
+          <div
+            *ngIf="
+              formInstitucion.form.get('phoneInstitution')?.invalid &&
+              formInstitucion.form.get('phoneInstitution')?.touched
+            "
+            class="text-red-200 text-xl rounded pl-2 flex"
+            role="alert"
+          >
+            <ng-container
+              *ngIf="formInstitucion.form.get('phoneInstitution')?.errors?.['required']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Telefono requerida"
+              ></i>
+            </ng-container>
+            <ng-container
+              *ngIf="formInstitucion.form.get('phoneInstitution')?.errors?.['minlength']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Longitud minima requerida"
+              ></i>
+            </ng-container>
+            <ng-container
+              *ngIf="formInstitucion.form.get('phoneInstitution')?.errors?.['pattern']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Solo se permiten números"
+              ></i>
+            </ng-container>
+          </div>
         </div>
       </div>
 
-      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
-        <div class="w-full col-span-2 text-camelot text-lg mr-2 text-left">
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1">
+        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
           <label for="email"> Correo: </label>
         </div>
-        <div class="w-full col-span-2 text-nile-blue text-lg">
+        <div
+          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
+        >
           <input
             type="email"
             id="email"
             formControlName="emailInstitution"
             class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
           />
+
+          <div
+            *ngIf="
+              formInstitucion.form.get('emailInstitution')?.invalid &&
+              formInstitucion.form.get('emailInstitution')?.touched
+            "
+            class="text-red-200 text-xl rounded pl-2 flex"
+            role="alert"
+          >
+            <ng-container
+              *ngIf="formInstitucion.form.get('emailInstitution')?.errors?.['required']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Email requerido"
+              ></i>
+            </ng-container>
+            <ng-container
+              *ngIf="formInstitucion.form.get('emailInstitution')?.errors?.['email']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Correo invalido"
+              ></i>
+            </ng-container>
+          </div>
         </div>
       </div>
 
-      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
-        <div class="w-full col-span-2 text-camelot text-lg mr-2 text-left">
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1">
+        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
           <label for="opcion"> Seleccione el tipo : </label>
         </div>
-        <div class="w-full col-span-2 text-nile-blue text-lg">
+        <div
+          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
+        >
           <select
             id="opcion"
             name="opción"

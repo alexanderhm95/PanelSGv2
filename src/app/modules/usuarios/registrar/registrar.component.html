@@ -2,7 +2,7 @@
   class="w-[95%] lg:h-[95%] m-2 bg-cameo border-4 border-camelot rounded-lg overflow-x-hidden"
 >
   <div
-    class="w-full lg:h-[10%] text-center text-3xl font-bold text-camelot py-4"
+    class="w-full lg:h-[10%] text-center text-2xl font-bold text-camelot py-4 flex items-center justify-center uppercase"
   >
     Registro de usuarios
   </div>
@@ -15,46 +15,130 @@
     <fieldset class="w-full flex flex-col items-center">
       <!-- Datos personales  -->
       <div
-        class="lg:w-[60%] w-[80%] h-[10%] text-start text-lg font-bold text-camelot-400 border-b-2 border-camelot py-2 my-2"
+        class="lg:w-[60%] w-[80%] h-[8%] text-start text-lg font-bold text-camelot-400 border-b-2 border-camelot flex items-center"
       >
         Datos personales
       </div>
 
-      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
-        <div class="w-full col-span-2 text-camelot text-lg mr-2 text-left">
-          <label for="name"> CI:</label>
+      <!-- CI -->
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1">
+        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
+          <label for="name">CI:</label>
         </div>
-        <div class="w-full col-span-2 text-nile-blue text-lg">
+        <div
+          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
+        >
           <input
             type="text"
             id="CIS"
             formControlName="CI"
-            placeholder="Ingrese el CI "
-            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
+            placeholder="Ingrese el CI"
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400 pl-3"
           />
+          <div
+            *ngIf="
+              formUser.form.get('CI')?.invalid &&
+              formUser.form.get('CI')?.touched
+            "
+            class="text-red-200 text-xl rounded pl-2 flex"
+            role="alert"
+          >
+            <ng-container *ngIf="formUser.form.get('CI')?.errors?.['required']">
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Cédula requerida"
+              ></i>
+            </ng-container>
+
+            <ng-container
+              *ngIf="formUser.form.get('CI')?.errors?.['minlength']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Longitud de 10 caracteres requerida"
+              ></i>
+            </ng-container>
+
+            <ng-container *ngIf="formUser.form.get('CI')?.errors?.['pattern']">
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer"
+                title="Solo se permiten números"
+              ></i>
+            </ng-container>
+
+            <ng-container
+              *ngIf="formUser.form.get('CI')?.errors?.['maxlength']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Longitud de 10 caracteres requerida"
+              ></i>
+            </ng-container>
+          </div>
         </div>
       </div>
 
-      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
-        <div class="w-full col-span-2 text-camelot text-lg mr-2 text-left">
+      <!-- Nombre -->
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1">
+        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
           <label for="name"> Nombres:</label>
         </div>
-        <div class="w-full col-span-2 text-nile-blue text-lg">
+        <div
+          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
+        >
           <input
             type="text"
             id="name"
             formControlName="name"
             placeholder="Ingrese los nombres "
-            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400 pl-3"
           />
+
+          <div
+            *ngIf="
+              formUser.form.get('name')?.invalid &&
+              formUser.form.get('name')?.touched
+            "
+            class="text-red-200 text-xl rounded pl-2 flex"
+            role="alert"
+          >
+            <ng-container
+              *ngIf="formUser.form.get('name')?.errors?.['required']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Nombre requerido"
+              ></i>
+            </ng-container>
+            <ng-container
+              *ngIf="formUser.form.get('name')?.errors?.['minlength']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Longitud minima requerida"
+              ></i>
+            </ng-container>
+
+            <ng-container
+              *ngIf="formUser.form.get('name')?.errors?.['pattern']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Solo se permiten letras"
+              ></i>
+            </ng-container>
+          </div>
         </div>
       </div>
 
-      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
-        <div class="w-full col-span-2 text-camelot text-lg mr-2 text-left">
+      <!-- Apellidos -->
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1">
+        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
           <label for="name"> Apellidos :</label>
         </div>
-        <div class="w-full col-span-2 text-nile-blue text-lg">
+        <div
+          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
+        >
           <input
             type="text"
             id="lastName"
@@ -62,14 +146,51 @@
             placeholder="Ingrese los apellidos "
             class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
           />
+
+          <div
+            *ngIf="
+              formUser.form.get('lastName')?.invalid &&
+              formUser.form.get('lastName')?.touched
+            "
+            class="text-red-200 text-xl rounded pl-2 flex"
+            role="alert"
+          >
+            <ng-container
+              *ngIf="formUser.form.get('lastName')?.errors?.['required']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Apellidos requeridos"
+              ></i>
+            </ng-container>
+            <ng-container
+              *ngIf="formUser.form.get('lastName')?.errors?.['minlength']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Longitud minima requerida"
+              ></i>
+            </ng-container>
+            <ng-container
+              *ngIf="formUser.form.get('lastName')?.errors?.['pattern']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Solo se permiten letras"
+              ></i>
+            </ng-container>
+          </div>
         </div>
       </div>
 
-      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
-        <div class="w-full col-span-2 text-camelot text-lg mr-2 text-left">
-          <label for="name"> Dirección :</label>
+      <!-- Direccion -->
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1">
+        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
+          <label for="address"> Dirección :</label>
         </div>
-        <div class="w-full col-span-2 text-nile-blue text-lg">
+        <div
+          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
+        >
           <input
             type="text"
             id="address"
@@ -78,14 +199,35 @@
             placeholder="Ingrese la dirección "
             class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
           />
+
+          <div
+            *ngIf="
+              formUser.form.get('address')?.invalid &&
+              formUser.form.get('address')?.touched
+            "
+            class="text-red-200 text-xl rounded pl-2 flex"
+            role="alert"
+          >
+            <ng-container
+              *ngIf="formUser.form.get('address')?.errors?.['minlength']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Longitud minima requerida"
+              ></i>
+            </ng-container>
+          </div>
         </div>
       </div>
 
-      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
-        <div class="w-full col-span-2 text-camelot text-lg mr-2 text-left">
+      <!-- Telefono -->
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1">
+        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
           <label for="name"> Teléfono :</label>
         </div>
-        <div class="w-full col-span-2 text-nile-blue text-lg">
+        <div
+          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
+        >
           <input
             type="text"
             id="phone"
@@ -94,14 +236,59 @@
             placeholder="Ingrese el teléfono "
             class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
           />
+
+          <div
+            *ngIf="
+              formUser.form.get('phone')?.invalid &&
+              formUser.form.get('phone')?.touched
+            "
+            class="text-red-200 text-xl rounded pl-2 flex"
+            role="alert"
+          >
+            <ng-container
+              *ngIf="formUser.form.get('phone')?.errors?.['required']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Telefono es requerido"
+              ></i>
+            </ng-container>
+            <ng-container
+              *ngIf="formUser.form.get('phone')?.errors?.['minlength']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Longitud de 10 caracteres requerida"
+              ></i>
+            </ng-container>
+            <ng-container
+              *ngIf="formUser.form.get('phone')?.errors?.['maxlength']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Longitud de 10 caracteres requerida"
+              ></i>
+            </ng-container>
+            <ng-container
+              *ngIf="formUser.form.get('phone')?.errors?.['pattern']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Solo se permiten números"
+              ></i>
+            </ng-container>
+          </div>
         </div>
       </div>
 
-      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
-        <div class="w-full col-span-2 text-camelot text-lg mr-2 text-left">
+      <!-- Email -->
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1">
+        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
           <label for="name">Correo electrónico :</label>
         </div>
-        <div class="w-full col-span-2 text-nile-blue text-lg">
+        <div
+          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
+        >
           <input
             type="email"
             id="email"
@@ -109,46 +296,152 @@
             placeholder="Ingrese el correo electrónico "
             class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
           />
+
+          <div
+            *ngIf="
+              formUser.form.get('email')?.invalid &&
+              formUser.form.get('email')?.touched
+            "
+            class="text-red-200 text-xl rounded pl-2 flex"
+            role="alert"
+          >
+            <ng-container
+              *ngIf="formUser.form.get('email')?.errors?.['required']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Email requerido"
+              ></i>
+            </ng-container>
+            <ng-container *ngIf="formUser.form.get('email')?.errors?.['email']">
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Email invalido"
+              ></i>
+            </ng-container>
+          </div>
         </div>
       </div>
 
       <!-- Datos personales  -->
       <div
-        class="lg:w-[60%] w-[80%] h-[10%] text-start text-lg font-bold text-camelot-400 border-b-2 border-camelot py-2 my-2"
+        class="lg:w-[60%] w-[80%] h-[8%] text-start text-lg font-bold text-camelot-400 border-b-2 border-camelot flex items-center"
       >
         Datos para el inicio de sesión
       </div>
-      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
-        <div class="w-full col-span-2 text-camelot text-lg mr-2 text-left">
+
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1">
+        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
           <label for="name">Contraseña :</label>
         </div>
-        <div class="w-full col-span-2 text-nile-blue text-lg">
+        <div
+          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
+        >
           <input
             type="password"
             id="password"
             formControlName="password"
-            placeholder="Ingrese la contraseña "
+            placeholder="Ingrese la contraseña"
             class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
           />
+
+          <div
+            *ngIf="
+              formUser.form.get('password')?.invalid &&
+              formUser.form.get('password')?.touched
+            "
+            class="text-red-200 text-xl rounded pl-2 flex"
+            role="alert"
+          >
+            <ng-container
+              *ngIf="formUser.form.get('password')?.errors?.['required']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Contraseña requerida"
+              ></i>
+            </ng-container>
+            <ng-container
+              *ngIf="formUser.form.get('password')?.errors?.['minlength']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Longitud mínima requerida"
+              ></i>
+            </ng-container>
+            <ng-container
+              *ngIf="formUser.form.get('password')?.errors?.['pattern']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Se requieren números, mayúsculas, minúsculas y caracteres especiales"
+              ></i>
+            </ng-container>
+          </div>
         </div>
       </div>
-      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
-        <div class="w-full col-span-2 text-camelot text-lg mr-2 text-left">
+
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1">
+        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
           <label for="name">Confirmar contraseña :</label>
         </div>
-        <div class="w-full col-span-2 text-nile-blue text-lg">
-          <input
-            type="password"
-            id="password_confirmation"
-            formControlName="password_confirmation"
-            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
-            placeholder="Ingrese la contraseña "
-          />
-          <div
-            class="text-red-500 text-sm"
-            *ngIf="this.formUser.form.errors"
-          >
-            Las contraseñas no coinciden
+        <div
+          class="w-full col-span-1 text-nile-blue text-lg flex flex-col mt-1"
+        >
+          <div class="flex items-center justify-center">
+            <input
+              type="password"
+              id="password_confirmation"
+              formControlName="password_confirmation"
+              class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
+              placeholder="Ingrese la contraseña "
+            />
+
+            <div
+              *ngIf="
+                formUser.form.get('password_confirmation')?.invalid &&
+                formUser.form.get('password_confirmation')?.touched
+              "
+              class="text-red-200 text-xl rounded pl-2 flex"
+              role="alert"
+            >
+              <ng-container
+                *ngIf="formUser.form.get('password_confirmation')?.errors?.['required']"
+              >
+                <i
+                  class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                  title="Contraseña requerida"
+                ></i>
+              </ng-container>
+              <ng-container
+                *ngIf="formUser.form.get('password_confirmation')?.errors?.['minlength']"
+              >
+                <i
+                  class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                  title="Longitud mínima requerida"
+                ></i>
+              </ng-container>
+              <ng-container
+                *ngIf="formUser.form.get('password_confirmation')?.errors?.['pattern']"
+              >
+                <i
+                  class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                  title="Se requieren números, mayúsculas, minúsculas y caracteres especiales"
+                ></i>
+              </ng-container>
+              <ng-container
+                *ngIf="
+                  formUser.form.hasError('passwordMismatch') &&
+                  formUser.form.get('password_confirmation')?.touched
+                "
+                class="text-red-200 text-xl rounded pl-2"
+              >
+                <i
+                  class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                  title="Las contraseñas no coinciden"
+                ></i>
+              </ng-container>
+            </div>
           </div>
         </div>
       </div>

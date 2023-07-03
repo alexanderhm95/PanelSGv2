@@ -36,18 +36,11 @@ export class EditarComponent implements OnInit {
   }
 
   update() {
-    const {
-      ciTeacher,
-      name,
-      lastName,
-      address,
-      phone,
-      email,
-      nameInstitucion,
-    } = this.formDocente.form.value;
+    const { CI, name, lastName, address, phone, email, nameInstitucion } =
+      this.formDocente.form.value;
 
-    const body: EvaluatorRole = {
-      CI: ciTeacher,
+    const body = {
+      CI,
       name,
       lastName,
       address,
@@ -59,7 +52,7 @@ export class EditarComponent implements OnInit {
     this.teacherService.updateTeacher(this.id, body).subscribe(
       (res) => {
         const { message } = res;
-        this.notification.showSuccess('Exito', message);
+        this.notification.showSuccess('Exito', 'Docente actualizado con exito');
         console.log(message);
         this.router.navigate(['../../listar'], { relativeTo: this.route });
       },
@@ -70,7 +63,7 @@ export class EditarComponent implements OnInit {
             'Error de conexión con el servidor'
           );
         } else {
-          this.notification.showError('Error', 'Error al modificar docente');
+          this.notification.showError('Error', err.error.error);
           console.log(err);
         }
       }
@@ -94,7 +87,7 @@ export class EditarComponent implements OnInit {
 
   setValuesTeacher(teacher: any) {
     this.formDocente.form.setValue({
-      ciTeacher: teacher.CI,
+      CI: teacher.CI,
       name: teacher.name,
       lastName: teacher.lastName,
       address: teacher.address,

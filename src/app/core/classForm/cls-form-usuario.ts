@@ -10,44 +10,55 @@ export class ClsFormUsuario {
   constructor() {
     this.form = new FormGroup(
       {
-        name: new FormControl('', [
-          Validators.required,
-          Validators.minLength(6),
-        ]),
-        lastName: new FormControl('', [
-          Validators.required,
-          Validators.minLength(6),
-        ]),
-        age: new FormControl('', [
-          Validators.minLength(1),
-          Validators.maxLength(3),
-        ]),
-        address: new FormControl('', [Validators.minLength(10)]),
-        phone: new FormControl('', [
-          Validators.minLength(6),
-          Validators.maxLength(10),
-        ]),
-        email: new FormControl('', [Validators.required, Validators.email]),
         CI: new FormControl('', [
           Validators.required,
           Validators.minLength(10),
           Validators.maxLength(10),
+          Validators.pattern('[0-9]*'),
         ]),
-        password: new FormControl('', [
+        name: new FormControl('', [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.pattern('^[a-zA-Zñáéíöäëéöåç ]*$'),
+        ]),
+        lastName: new FormControl('', [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.pattern('^[a-zA-Zñáéíöäëéöåç ]*$'),
+        ]),
+        age: new FormControl('', [
+          Validators.minLength(1),
+          Validators.maxLength(3),
+          Validators.pattern('[0-9]*'),
+        ]),
+        address: new FormControl('', [
+          Validators.minLength(2),
+        ]),
+        phone: new FormControl('', [
           Validators.required,
           Validators.minLength(6),
           Validators.maxLength(10),
+          Validators.pattern('[0-9]*'),
+        ]),
+        email: new FormControl('', [Validators.required, Validators.email]),
+        
+        password: new FormControl('', [
+          Validators.required,
+          Validators.minLength(6),
+          Validators.pattern(
+            '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]+$'
+          ),
         ]),
         password_confirmation: new FormControl('', [
           Validators.required,
           Validators.minLength(6),
-          Validators.maxLength(10),
         ]),
       },
-      {
-        validators: this.passwordMatchValidator,
-      }
+      { validators: this.passwordMatchValidator }
     );
+    this.form.get('password_confirmation')?.valueChanges.subscribe(() => {
+      this.form.get('password_confirmation')?.updateValueAndValidity();
+    });
   }
 
   passwordMatchValidator(

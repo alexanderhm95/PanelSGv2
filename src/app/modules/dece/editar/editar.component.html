@@ -2,7 +2,7 @@
   class="w-[95%] lg:h-[95%] m-2 bg-cameo border-4 border-camelot rounded-lg overflow-x-hidden"
 >
   <div
-    class="w-full lg:h-[7%] text-center text-3xl font-bold text-camelot flex flex-col justify-end"
+    class="w-full lg:h-[10%] text-center text-2xl font-bold text-camelot py-4 flex items-center justify-center uppercase"
   >
     Editar datos del encargado de DECE
   </div>
@@ -20,41 +20,126 @@
         Datos personales
       </div>
 
-      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
-        <div class="w-full col-span-2 text-camelot text-lg mr-2 text-left">
-          <label for="CI">CI:</label>
+      <!-- +++++++++++++++++++++++ -->
+      <!-- CI -->
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1">
+        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
+          <label for="name">CI:</label>
         </div>
-        <div class="w-full col-span-2 text-nile-blue text-lg">
+        <div
+          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
+        >
           <input
             type="text"
-            id="CI"
+            id="CIS"
             formControlName="CI"
-            placeholder="Ingrese el CI "
-            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
+            placeholder="Ingrese el CI"
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400 pl-3"
           />
+          <div
+            *ngIf="
+              formDece.form.get('CI')?.invalid &&
+              formDece.form.get('CI')?.touched
+            "
+            class="text-red-200 text-xl rounded pl-2 flex"
+            role="alert"
+          >
+            <ng-container *ngIf="formDece.form.get('CI')?.errors?.['required']">
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Cédula requerida"
+              ></i>
+            </ng-container>
+
+            <ng-container
+              *ngIf="formDece.form.get('CI')?.errors?.['minlength']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Longitud de 10 caracteres requerida"
+              ></i>
+            </ng-container>
+
+            <ng-container *ngIf="formDece.form.get('CI')?.errors?.['pattern']">
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer"
+                title="Solo se permiten números"
+              ></i>
+            </ng-container>
+
+            <ng-container
+              *ngIf="formDece.form.get('CI')?.errors?.['maxlength']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Longitud de 10 caracteres requerida"
+              ></i>
+            </ng-container>
+          </div>
         </div>
       </div>
 
-      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
-        <div class="w-full col-span-2 text-camelot text-lg mr-2 text-left">
-          <label for="name">Nombres:</label>
+      <!-- Nombre -->
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1">
+        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
+          <label for="name"> Nombres:</label>
         </div>
-        <div class="w-full col-span-2 text-nile-blue text-lg">
+        <div
+          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
+        >
           <input
             type="text"
             id="name"
             formControlName="name"
             placeholder="Ingrese los nombres "
-            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400 pl-3"
           />
+
+          <div
+            *ngIf="
+              formDece.form.get('name')?.invalid &&
+              formDece.form.get('name')?.touched
+            "
+            class="text-red-200 text-xl rounded pl-2 flex"
+            role="alert"
+          >
+            <ng-container
+              *ngIf="formDece.form.get('name')?.errors?.['required']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Nombre requerido"
+              ></i>
+            </ng-container>
+            <ng-container
+              *ngIf="formDece.form.get('name')?.errors?.['minlength']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Longitud minima requerida"
+              ></i>
+            </ng-container>
+
+            <ng-container
+              *ngIf="formDece.form.get('name')?.errors?.['pattern']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Solo se permiten letras"
+              ></i>
+            </ng-container>
+          </div>
         </div>
       </div>
 
-      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
-        <div class="w-full col-span-2 text-camelot text-lg mr-2 text-left">
-          <label for="lastName">Apellidos:</label>
+      <!-- Apellidos -->
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1">
+        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
+          <label for="name"> Apellidos :</label>
         </div>
-        <div class="w-full col-span-2 text-nile-blue text-lg">
+        <div
+          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
+        >
           <input
             type="text"
             id="lastName"
@@ -62,56 +147,187 @@
             placeholder="Ingrese los apellidos "
             class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
           />
+
+          <div
+            *ngIf="
+              formDece.form.get('lastName')?.invalid &&
+              formDece.form.get('lastName')?.touched
+            "
+            class="text-red-200 text-xl rounded pl-2 flex"
+            role="alert"
+          >
+            <ng-container
+              *ngIf="formDece.form.get('lastName')?.errors?.['required']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Apellidos requeridos"
+              ></i>
+            </ng-container>
+            <ng-container
+              *ngIf="formDece.form.get('lastName')?.errors?.['minlength']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Longitud minima requerida"
+              ></i>
+            </ng-container>
+            <ng-container
+              *ngIf="formDece.form.get('lastName')?.errors?.['pattern']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Solo se permiten letras"
+              ></i>
+            </ng-container>
+          </div>
         </div>
       </div>
 
-      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
-        <div class="w-full col-span-2 text-camelot text-lg mr-2 text-left">
-          <label for="lastName">Dirección:</label>
+      <!-- Direccion -->
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1">
+        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
+          <label for="address"> Dirección :</label>
         </div>
-        <div class="w-full col-span-2 text-nile-blue text-lg">
+        <div
+          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
+        >
           <input
             type="text"
-            id="lastName"
+            id="address"
             formControlName="address"
+            class="form-control"
             placeholder="Ingrese la dirección "
             class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
           />
+
+          <div
+            *ngIf="
+              formDece.form.get('address')?.invalid &&
+              formDece.form.get('address')?.touched
+            "
+            class="text-red-200 text-xl rounded pl-2 flex"
+            role="alert"
+          >
+            <ng-container
+              *ngIf="formDece.form.get('address')?.errors?.['minlength']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Longitud minima requerida"
+              ></i>
+            </ng-container>
+          </div>
         </div>
       </div>
 
-      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
-        <div class="w-full col-span-2 text-camelot text-lg mr-2 text-left">
-          <label for="email">Correo electrónico:</label>
+      <!-- Telefono -->
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1">
+        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
+          <label for="name"> Teléfono :</label>
         </div>
-        <div class="w-full col-span-2 text-nile-blue text-lg">
+        <div
+          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
+        >
           <input
             type="text"
+            id="phone"
+            formControlName="phone"
+            class="form-control"
+            placeholder="Ingrese el teléfono "
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
+          />
+
+          <div
+            *ngIf="
+              formDece.form.get('phone')?.invalid &&
+              formDece.form.get('phone')?.touched
+            "
+            class="text-red-200 text-xl rounded pl-2 flex"
+            role="alert"
+          >
+            <ng-container
+              *ngIf="formDece.form.get('phone')?.errors?.['required']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Telefono es requerido"
+              ></i>
+            </ng-container>
+            <ng-container
+              *ngIf="formDece.form.get('phone')?.errors?.['minlength']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Longitud de 10 caracteres requerida"
+              ></i>
+            </ng-container>
+            <ng-container
+              *ngIf="formDece.form.get('phone')?.errors?.['maxlength']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Longitud de 10 caracteres requerida"
+              ></i>
+            </ng-container>
+            <ng-container
+              *ngIf="formDece.form.get('phone')?.errors?.['pattern']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Solo se permiten números"
+              ></i>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1">
+        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
+          <label for="name">Correo electrónico :</label>
+        </div>
+        <div
+          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
+        >
+          <input
+            type="email"
             id="email"
             formControlName="email"
             placeholder="Ingrese el correo electrónico "
             class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
           />
+
+          <div
+            *ngIf="
+              formDece.form.get('email')?.invalid &&
+              formDece.form.get('email')?.touched
+            "
+            class="text-red-200 text-xl rounded pl-2 flex"
+            role="alert"
+          >
+            <ng-container
+              *ngIf="formDece.form.get('email')?.errors?.['required']"
+            >
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Email requerido"
+              ></i>
+            </ng-container>
+            <ng-container *ngIf="formDece.form.get('email')?.errors?.['email']">
+              <i
+                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
+                title="Email invalido"
+              ></i>
+            </ng-container>
+          </div>
         </div>
       </div>
 
-      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
-        <div class="w-full col-span-2 text-camelot text-lg mr-2 text-left">
-          <label for="phone">Telefono:</label>
-        </div>
-        <div class="w-full col-span-2 text-nile-blue text-lg">
-          <input
-            type="text"
-            id="phone"
-            formControlName="phone"
-            placeholder="Ingrese el telefono "
-            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
-          />
-        </div>
-      </div>
+      <!-- +++++++++++++++++++++++ -->
 
       <div
-        class="lg:w-[60%] w-[80%] h-[10%] text-start text-lg font-bold text-camelot-400 border-b-2 border-camelot py-2 mb-2"
+        class="lg:w-[60%] w-[80%] h-[8%] text-start text-lg font-bold text-camelot-400 border-b-2 border-camelot flex items-center"
       >
         Datos de la institución
       </div>

@@ -29,7 +29,7 @@ export class ClsFormCaso {
             addressStudent: new FormControl('',
                 [
                     Validators.required,
-                    Validators.minLength(10)
+                    Validators.minLength(2)
                 ]),
             phoneStudent: new FormControl('',
                 [

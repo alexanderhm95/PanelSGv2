@@ -12,8 +12,8 @@
   >
     <input
       [(ngModel)]="search"
-      class="ml-4 px-2 border-b-2 border-camelot rounded-lg bg-none text-camelot text-xs font-semibold tracking-wide w-[40%] lg:w-[20%] focus:outline-none focus:border-camelot-400"
-      placeholder="Buscar..."
+      class="ml-4 px-2 border-b-4 h-[90%] border-camelot rounded-lg bg-none text-camelot text-xs font-semibold tracking-wide w-[40%] lg:w-[20%] focus:outline-none focus:border-camelot-400"
+      placeholder="Buscar por: CI, Email, rol..."
     />
     <button
       [routerLink]="'../registrar'"
@@ -23,71 +23,93 @@
       Registrar Admin
     </button>
   </div>
+
   <div class="w-full lg:h-auto px-4 py-2 rounded-lg shadow hidden lg:block">
     <table class="w-full lg:h-[85%] my-2">
       <thead class="bg-nile-blue-200 border-b-2 border-nile-blue text-cameo">
         <tr>
-          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+          <th class="p-3 text-base font-semibold tracking-wide text-center">
             CI
           </th>
-          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+          <th class="p-3 text-base font-semibold tracking-wide text-center">
             Usuario
           </th>
-          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+          <th class="p-3 text-base font-semibold tracking-wide text-center">
             Rol
           </th>
-          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+          <th class="p-3 text-base font-semibold tracking-wide text-center">
             Estado
           </th>
-          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+          <th class="p-3 text-base font-semibold tracking-wide text-center">
             Acciones
           </th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let usuario of usuarios | filterTables : search">
-          <td class="p-3 text-sm text-black-100 tracking-wide text-left">
+          <td class="p-3 text-base text-black-100 tracking-wide text-center">
             {{ usuario.person.CI }}
           </td>
-          <td class="p-3 text-sm text-black-100 tracking-wide text-left">
+          <td class="p-3 text-base text-black-100 tracking-wide text-center">
             {{ usuario.person.email }}
           </td>
-          <td class="p-3 text-sm text-black-100 tracking-wide text-left">
-            {{ usuario.role }}
+          <td class="p-3 text-base text-black-100 tracking-wide text-center">
+            <ng-container *ngIf="usuario.role === 'ADMIN'; else teacherCheck">
+              Administrador
+            </ng-container>
+            <ng-template #teacherCheck>
+              <ng-container *ngIf="usuario.role === 'TEACHER'; else deceCheck">
+                Docente
+              </ng-container>
+              <ng-template #deceCheck>
+                {{ usuario.role === "DECE" ? "DECE" : usuario.role }}
+              </ng-template>
+            </ng-template>
           </td>
-          <td class="p-3">
-            <!-- Si es true saldra Activo en un ovalo verde caso contrario Inactivo Ovalo rojo -->
-            <div
-              *ngIf="usuario.status"
-              class="bg-green bg-opacity-25 rounded-lg p-2 text-nile-blue text-center tracking-wider text-sm"
-            >
-              Activo
-            </div>
-            <div
-              *ngIf="!usuario.status"
-              class="bg-red bg-opacity-25 rounded-lg p-2 text-nile-blue text-center tracking-wider text-sm"
-            >
-              Inactivo
+          <td class="p-3 text-sm text-black-100 tracking-wide text-center">
+            <div class="flex items-center justify-center">
+              <div
+                [ngClass]="{
+                  'bg-avocado bg-opacity-70': usuario.status,
+                  'bg-red-500 text-nile-blue': !usuario.status
+                }"
+                class="w-32 rounded-lg p-2 text-cameo font-bold text-center tracking-wider text-base"
+              >
+                {{ usuario.status ? "Activo" : "Inactivo" }}
+              </div>
             </div>
           </td>
-
-          <td
-            class="p-3 text-sm text-black-100 tracking-wide text-center flex flex-row items-center justify-center"
-          >
-            <button
-              (click)="changedStatusUser(usuario._id, !usuario.status)"
-              type="button"
-              class="border-2 border-camelot text-sm text-nile-blue bg-cameo rounded-lg px-2 py-1 mr-2"
-            >
-              {{ usuario.status ? "Deshabilitar" : "Habilitar" }}
-            </button>
-            <button
-              (click)="delete(usuario._id)"
-              type="button"
-              class="border-2 border-camelot text-sm text-nile-blue bg-cameo rounded-lg px-2 py-1 mr-2"
-            >
-              Eliminar
-            </button>
+          <td class="p-3 text-sm text-black-100 tracking-wide text-center">
+            <div class="flex items-center justify-center">
+              <button
+                (click)="changedStatusUser(usuario._id, !usuario.status)"
+                type="button"
+                class="border-2 border-camelot text-sm text-nile-blue bg-cameo rounded-lg px-2 py-1 mr-2 flex items-center justify-center"
+                [style.textAlign]="usuario.status ? 'left' : 'right'"
+                title="Cambiar estado"
+              >
+                <ng-container *ngIf="usuario.status; else offState">
+                  <i
+                    class="fa fa-circle text-2xl font-bold text-avocado text-opacity-70"
+                  ></i>
+                  <span class="ml-2">ON</span>
+                </ng-container>
+                <ng-template #offState>
+                  <span class="mr-2">OFF</span>
+                  <i class="fa fa-circle text-2xl font-bold text-red-500"></i>
+                </ng-template>
+              </button>
+              <button
+                (click)="delete(usuario._id)"
+                type="button"
+                title="Eliminar usuario"
+                class="px-2"
+              >
+                <i
+                  class="fa fa-trash text-3xl text-red-500 font-bold hover:text-nile-blue"
+                ></i>
+              </button>
+            </div>
           </td>
         </tr>
       </tbody>
@@ -97,8 +119,9 @@
   <div class="w-full lg:h-auto px-4 py-2 rounded-lg lg:hidden">
     <div
       class="w-full h-full flex flex-col mb-2 border border-camelot rounded-lg hover:shadow-sm hover:shadow-camelot-300"
-      *ngFor="let usuario of usuarios | filterTables : search">
+      *ngFor="let usuario of usuarios | filterTables : search"
     >
+      >
       <!-- CI -->
       <div
         class="w-full grid grid-cols-5 break-all items-left space-x-2 text pl-2 py-2 pr-2"

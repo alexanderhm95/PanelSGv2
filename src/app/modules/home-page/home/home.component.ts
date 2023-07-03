@@ -46,12 +46,6 @@ export class HomeComponent implements OnInit {
         role: 'ADMIN',
       },
       {
-        name: 'Personas',
-        icon: 'fas fa-user',
-        router: ['personas', 'listar'],
-        role: 'ADMIN',
-      },
-      {
         name: 'Estudiantes',
         icon: 'fa fa-child',
         router: ['estudiante', 'listar'],

@@ -73,7 +73,7 @@ export class ListarComponent implements OnInit {
                 console.log(err);
                 this.notification.showError(
                   'Error',
-                  'No se pudo eliminar el registro'
+                  err.error.error 
                 );
               }
             }

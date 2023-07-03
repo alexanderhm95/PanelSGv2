@@ -75,16 +75,21 @@
             <button
               [routerLink]="'../editar/' + pregunta._id"
               type="button"
-              class="border-2 border-camelot text-sm text-nile-blue bg-cameo rounded-lg px-2 py-1 mr-2"
+              title="Editar pregunta"
             >
-              Editar
+              <i
+                class="fa-solid fa-pen-to-square text-3xl text-nile-blue-200 hover:text-camelot-400"
+              ></i>
             </button>
             <button
               (click)="delete(pregunta._id)"
               type="button"
-              class="border-2 border-camelot text-sm text-nile-blue bg-cameo rounded-lg px-2 py-1"
+              class="px-2"
+              title="Eliminar pregunta"
             >
-              Eliminar
+              <i
+                class="fa fa-trash text-3xl text-red-500 font-bold hover:text-nile-blue"
+              ></i>
             </button>
           </td>
         </tr>

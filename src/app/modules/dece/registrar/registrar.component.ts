@@ -28,22 +28,8 @@ export class RegistrarComponent implements OnInit {
     this.getInstitutions();
   }
   create() {
-    const {
-      CI,
-      name,
-      lastName,
-      address,
-      phone,
-      email,
-      nameInstitution,
-      password,
-      password_confirmation,
-    } = this.formDece.form.value;
-
-    if (password !== password_confirmation) {
-      this.notification.showError('Error', 'Las contraseñas no coinciden');
-      return;
-    }
+    const { CI, name, lastName, address, phone, email, nameInstitution } =
+      this.formDece.form.value;
 
     const newDece: InterfaceDece = {
       CI,
@@ -53,7 +39,6 @@ export class RegistrarComponent implements OnInit {
       phone,
       email,
       nameInstitution,
-      password,
     };
 
     this.deceService.createDece(newDece).subscribe(
@@ -71,8 +56,8 @@ export class RegistrarComponent implements OnInit {
           );
         } else {
           this.notification.showError(
-            'Error al registrar DECE',
-            'El correo ya se encuentra registrado'
+            'Error',
+            err.error.error || 'Error al registrar'
           );
           console.log(err.error);
         }
