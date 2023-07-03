@@ -27,6 +27,43 @@ export class ListarComponent implements OnInit {
     });
   }
 
+  scoreUpdate(id: string, op: string) {
+    if (op == 'plus') {
+      const body = {
+        scoreEvaluator: true,
+      };
+      this.serviceCasoEstudiante.updateScore(id, body).subscribe(
+        (res) => {
+          const { message, data } = res;
+          this.tests = data;
+          console.log(message);
+          this.ngOnInit();
+        },
+        (err) => {
+          console.log(err.error);
+          this.notification.showError('Error', err.error.error);
+        }
+      );
+    } else {
+      const body = {
+        score: false,
+      };
+      this.serviceCasoEstudiante.updateScore(id, body).subscribe(
+        (res) => {
+          const { message, data } = res;
+          this.tests = data;
+          console.log(message);
+
+          this.ngOnInit();
+        },
+        (err) => {
+          console.log(err.error);
+          this.notification.showError('Error', err.error.error);
+        }
+      );
+    }
+  }
+
   deleteTest(id: any) {
     this.notification
       .showConfirm(
@@ -37,20 +74,25 @@ export class ListarComponent implements OnInit {
         'No, cancelar!'
       )
       .then((result) => {
-        this.serviceCasoEstudiante.delete(id).subscribe(
-          (res) => {
-            this.notification.showSuccess(
-              'Éxito',
-              'Test eliminado correctamente'
-            );
-            console.log(res);
-            this.ngOnInit();
-          },
-          (err) => {
-            console.log(err.error);
-            this.notification.showError('Error', 'No se pudo elimnar el test');
-          }
-        );
+        if (result.isConfirmed) {
+          this.serviceCasoEstudiante.delete(id).subscribe(
+            (res) => {
+              this.notification.showSuccess(
+                'Éxito',
+                'Test eliminado correctamente'
+              );
+              console.log(res);
+              this.ngOnInit();
+            },
+            (err) => {
+              console.log(err.error);
+              this.notification.showError(
+                'Error',
+                'No se pudo elimnar el test'
+              );
+            }
+          );
+        }
       });
   }
 }

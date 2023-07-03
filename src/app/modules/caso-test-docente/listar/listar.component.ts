@@ -51,20 +51,25 @@ export class ListarComponent implements OnInit {
         'No, cancelar!'
       )
       .then((result) => {
-        this.serviceCasoTeacher.delete(id).subscribe(
-          (res) => {
-            this.notification.showSuccess(
-              'Éxito',
-              'Test eliminado correctamente'
-            );
-            console.log(res);
-            this.ngOnInit();
-          },
-          (err) => {
-            console.log(err.error);
-            this.notification.showError('Error', 'No se pudo elimnar el test');
-          }
-        );
+        if (result.isConfirmed) {
+          this.serviceCasoTeacher.delete(id).subscribe(
+            (res) => {
+              this.notification.showSuccess(
+                'Éxito',
+                'Test eliminado correctamente'
+              );
+              console.log(res);
+              this.ngOnInit();
+            },
+            (err) => {
+              console.log(err.error);
+              this.notification.showError(
+                'Error',
+                'No se pudo elimnar el test'
+              );
+            }
+          );
+        }
       });
   }
 }

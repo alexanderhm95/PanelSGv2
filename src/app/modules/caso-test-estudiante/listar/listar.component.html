@@ -21,29 +21,32 @@
     <table class="w-full lg:h-[92%] my-2">
       <thead class="bg-nile-blue-200 border-b-2 border-nile-blue text-cameo">
         <tr>
-          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+          <th class="p-3 text-base font-semibold tracking-wide text-center">
             Evaluador
           </th>
-          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+          <th class="p-3 text-base font-semibold tracking-wide text-center">
             Estudiante
           </th>
-          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+          <th class="p-3 text-base font-semibold tracking-wide text-center">
             Estado
           </th>
-          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+          <th class="p-3 text-base font-semibold tracking-wide text-center">
             Puntaje
           </th>
-          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+          <th class="p-3 text-base font-semibold tracking-wide text-center">
+            Puntaje Evaluador
+          </th>
+          <th class="p-3 text-base font-semibold tracking-wide text-center">
             Fecha Aplicacion
           </th>
-          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+          <th class="p-3 text-base font-semibold tracking-wide text-center">
             Acciones
           </th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let test of tests | filterTables : search">
-          <td class="p-3 text-sm text-black-100 tracking-wide text-left">
+          <td class="p-3 text-base text-black-100 tracking-wide text-left">
             <div class="grid grid-cols-5">
               <div class="col-span-2 flex flex-col">
                 <strong>CI:</strong>
@@ -55,7 +58,7 @@
               </div>
             </div>
           </td>
-          <td class="p-3 text-sm text-black-100 tracking-wide text-left">
+          <td class="p-3 text-base text-black-100 tracking-wide text-left">
             <div class="grid grid-cols-5">
               <div class="col-span-2 flex flex-col">
                 <strong>CI:</strong>
@@ -67,20 +70,61 @@
               </div>
             </div>
           </td>
-          <td class="p-3 text-sm text-black-100 tracking-wide text-center">
+          <td class="p-3 text-base text-black-100 tracking-wide text-center">
             <label
-              class="py-2 px-3 rounded-lg text-sm text-white"
+              class="py-2 px-3 rounded-lg text-base text-white"
               [style.backgroundColor]="test.statusTestStudent ? 'green' : 'red'"
               >{{ test.statusTestStudent ? "Atendido" : "No atendido" }}
             </label>
           </td>
-          <td class="p-3 text-sm text-black-100 tracking-wide text-center">
-            {{ test.score }}
+          <td
+            class="py-3 text-base text-black-100 tracking-wide justify-center items-center"
+          >
+            <div class="grid grid-cols-2 m-2">
+              <div
+                class="col-span-1 text-xl text-camelot border-r-2 border-camelot justify-center items-center d-flex align-items-center"
+              >
+                <label class="flex items-center justify-end px-2">
+                  {{ test.score }}
+                </label>
+              </div>
+              <div
+                class="col-span-1 border-l-2 border-camelot justify-center items-center d-flex align-items-center"
+              >
+                <div
+                  class="d-flex flex-column justify-content-center align-items-center px-2"
+                >
+                  <button
+                    type="button"
+                    class="cursor-pointer"
+                    (click)="scoreUpdate(test.id, 'plus')"
+                  >
+                    <i
+                      class="fa fa-plus text-xl text-camelot font-extrabold border-2 border-camelot mx-1 rounded-md"
+                    ></i>
+                  </button>
+                  <button
+                    type="button"
+                    class="cursor-pointer"
+                    (click)="scoreUpdate(test.id, 'less')"
+                  >
+                    <i
+                      class="fa fa-minus text-xl text-camelot font-extrabold border-2 border-camelot mx-1 rounded-md"
+                    ></i>
+                  </button>
+                </div>
+              </div>
+            </div>
           </td>
-          <td class="p-3 text-sm text-black-100 tracking-wide text-center">
+
+          <td class="p-3 text-base text-black-100 tracking-wide text-center">
+            {{ test.scoreEvaluator }}
+          </td>
+
+          <td class="p-3 text-base text-black-100 tracking-wide text-center">
             {{ test.createAt | date : "dd/MM/yyyy" }}
           </td>
-          <td class="p-3 text-sm text-black-100 tracking-wide text-center">
+          <td class="p-3 text-base text-black-100 tracking-wide text-center">
             <!-- Boton eliminar icono de eliminar  -->
             <button
               (click)="deleteTest(test.id)"
@@ -100,7 +144,7 @@
       *ngFor="let test of tests"
     >
       <div
-        class="w-full grid grid-cols-1 break-all items-center space-x-2 text-center text-camelot text-lg px-2 font-bold underline"
+        class="w-full grid grid-cols-1 break-all items-center space-x-2 text-center text-camelot text-base px-2 font-bold underline"
       >
         Evaluador
       </div>
@@ -124,7 +168,7 @@
       </div>
 
       <div
-        class="w-full grid grid-cols-1 break-all items-center space-x-2 text-center text-camelot text-lg px-2 font-bold underline"
+        class="w-full grid grid-cols-1 break-all items-center space-x-2 text-center text-camelot text-base px-2 font-bold underline"
       >
         Estudiante
       </div>
