@@ -6,7 +6,6 @@ import {
 } from '@angular/forms';
 
 export class ClsFormDece {
-  //private isPhoneRex = new RegExp('^[0-9]+$')
   form: FormGroup;
   constructor() {
     this.form = new FormGroup({

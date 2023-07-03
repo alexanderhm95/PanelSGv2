@@ -59,7 +59,7 @@ export class RegistrarComponent implements OnInit {
     } = this.formCaso.form.value;
 
     let body;
-    console.log(this.authService.getUserId())
+    console.log(this.authService.getUserId());
     if (selectTeacher === null) {
       body = {
         idDece: this.authService.getUserId(),
@@ -127,6 +127,9 @@ export class RegistrarComponent implements OnInit {
   }
 
   agregarDocente() {
-    this.agregar = true;
+    this.agregar = !this.agregar;
+  }
+  cancel() {
+    this.router.navigate(['../listar'], { relativeTo: this.route });
   }
 }

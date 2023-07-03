@@ -1,6 +1,7 @@
 import { InterfaceCaso } from '@/app/core/interfaces/interface-caso';
 import { CasosService } from '@/app/shared/services/api/casos.service';
 import { StudentService } from '@/app/shared/services/api/student.service';
+import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
 import { environment } from '@/environments/environment';
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
@@ -20,6 +21,7 @@ export class ListarComponent implements OnInit {
   public modalActivate = false;
 
   constructor(
+    private notification: NotificationsService,
     private casoService: CasosService,
     private studentService: StudentService,
     private router: Router
@@ -30,7 +32,7 @@ export class ListarComponent implements OnInit {
       (res) => {
         const { message, data } = res;
         this.casos = data;
-        console.log(this.casos)
+        console.log(this.casos);
         console.log(message);
       },
       (err) => {
@@ -73,9 +75,38 @@ export class ListarComponent implements OnInit {
   }
 
   deleteCaso(id: string) {
-    this.casoService.deleteCaso(id).subscribe((res) => {
-      console.log(res);
-      this.ngOnInit();
-    });
+    this.notification
+      .showConfirm(
+        'warning',
+        'Eliminar',
+        '¿Está seguro de eliminar este registro?',
+        'Si, eliminar',
+        'Cancelar'
+      )
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.casoService.deleteCaso(id).subscribe(
+            (res) => {
+              console.log(res);
+              this.notification.showSuccess(
+                'Eliminado',
+                'Caso eliminado correctamente'
+              );
+              this.ngOnInit();
+            },
+            (err) => {
+              if (err.status === 0) {
+                this.notification.showError(
+                  'Error',
+                  'No se pudo conectar con el servidor'
+                );
+              } else {
+                console.log(err);
+                this.notification.showError('Error', err.error.error);
+              }
+            }
+          );
+        }
+      });
   }
 }

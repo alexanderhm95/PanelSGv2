@@ -7,19 +7,25 @@
     Registrar Caso
   </div>
   <!-- [formGroup]="this.formInstitucion.form" (ngSubmit)="create()" -->
-  <form [formGroup]="this.formCaso.form" (ngSubmit)="create()">
-    <fieldset>
+  <form
+    [formGroup]="this.formCaso.form"
+    (ngSubmit)="create()"
+    class="w-full lg:h-[93%] pb-2"
+  >
+    <fieldset class="w-full flex flex-col items-center">
       <div
-        class="w-full border-2 border-camelot flex items-center justify-center py-1 rounded-lg text-camelot font-extrabold text-base text-center"
+        class="lg:w-[60%] w-[80%] h-[8%] text-start text-lg font-bold text-camelot-400 border-b-2 border-camelot flex items-center"
       >
         Datos del estudiante
       </div>
 
-      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1 py-2">
-        <div class="w-full col-span-2 text-camelot text-sm mr-2 text-left">
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1">
+        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
           <label for="ciStudent"> CI: </label>
         </div>
-        <div class="w-full col-span-2 text-nile-blue text-sm">
+        <div
+          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
+        >
           <input
             type="text"
             id="ciStudent"
@@ -29,11 +35,13 @@
         </div>
       </div>
 
-      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
-        <div class="w-full col-span-2 text-camelot text-sm mr-2 text-left">
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1">
+        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
           <label for="nameStudent"> Nombre: </label>
         </div>
-        <div class="w-full col-span-2 text-nile-blue text-sm">
+        <div
+          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
+        >
           <input
             type="text"
             id="nameStudent"
@@ -44,11 +52,13 @@
         </div>
       </div>
 
-      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
-        <div class="w-full col-span-2 text-camelot text-sm mr-2 text-left">
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1">
+        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
           <label for="lastNameStudent">Apellido:</label>
         </div>
-        <div class="w-full col-span-2 text-nile-blue text-sm">
+        <div
+          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
+        >
           <input
             type="text"
             id="lastNameStudent"
@@ -58,11 +68,13 @@
         </div>
       </div>
 
-      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
-        <div class="w-full col-span-2 text-camelot text-sm mr-2 text-left">
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1">
+        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
           <label for="ageStudent">Edad:</label>
         </div>
-        <div class="w-full col-span-2 text-nile-blue text-sm">
+        <div
+          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
+        >
           <input
             type="text"
             id="ageStudent"
@@ -72,11 +84,13 @@
         </div>
       </div>
 
-      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
-        <div class="w-full col-span-2 text-camelot text-sm mr-2 text-left">
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1">
+        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
           <label for="addressStudent">Dirección:</label>
         </div>
-        <div class="w-full col-span-2 text-nile-blue text-sm">
+        <div
+          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
+        >
           <input
             type="text"
             id="addressStudent"
@@ -86,11 +100,13 @@
         </div>
       </div>
 
-      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
-        <div class="w-full col-span-2 text-camelot text-sm mr-2 text-left">
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1">
+        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
           <label for="phoneStudent">Telefono</label>
         </div>
-        <div class="w-full col-span-2 text-nile-blue text-sm">
+        <div
+          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
+        >
           <input
             type="text"
             id="phoneStudent"
@@ -100,11 +116,13 @@
         </div>
       </div>
 
-      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
-        <div class="w-full col-span-2 text-camelot text-sm mr-2 text-left">
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1">
+        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
           <label for="emailStudent">Correo electrónico</label>
         </div>
-        <div class="w-full col-span-2 text-nile-blue text-sm">
+        <div
+          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
+        >
           <input
             type="email"
             id="emailStudent"
@@ -114,11 +132,13 @@
         </div>
       </div>
 
-      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
-        <div class="w-full col-span-2 text-camelot text-sm mr-2 text-left">
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1">
+        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
           <label for="gradeStudent">Grado:</label>
         </div>
-        <div class="w-full col-span-2 text-nile-blue text-sm">
+        <div
+          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
+        >
           <input
             type="text"
             id="gradeStudent"
@@ -128,11 +148,13 @@
         </div>
       </div>
 
-      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1">
-        <div class="w-full col-span-2 text-camelot text-sm mr-2 text-left">
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1">
+        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
           <label for="parallelStudent">Paralelo:</label>
         </div>
-        <div class="w-full col-span-2 text-nile-blue text-sm">
+        <div
+          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
+        >
           <input
             type="text"
             id="parallelStudent"
@@ -144,7 +166,7 @@
 
       <!-- Datos del docente -->
       <div
-        class="w-full border-2 border-camelot flex items-center justify-center py-1 rounded-lg text-camelot font-extrabold text-base text-center"
+        class="lg:w-[60%] w-[80%] h-[8%] text-start text-lg font-bold text-camelot-400 border-b-2 border-camelot flex items-center"
       >
         Datos del docente
       </div>
@@ -184,13 +206,15 @@
       </div>
 
       <div
-        class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1 py-2"
-        *ngIf="agregar"
+        class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1"
+        *ngIf="this.agregar"
       >
-        <div class="w-full col-span-2 text-camelot text-sm mr-2 text-left">
+        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
           <label for="ciTeacher">CI:</label>
         </div>
-        <div class="w-full col-span-2 text-nile-blue text-sm">
+        <div
+          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
+        >
           <input
             type="text"
             id="ciTeacher"
@@ -201,13 +225,15 @@
       </div>
 
       <div
-        class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1 py-2"
-        *ngIf="agregar"
+        class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1"
+        *ngIf="this.agregar"
       >
-        <div class="w-full col-span-2 text-camelot text-sm mr-2 text-left">
+        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
           <label for="nameTeacher">Nombre:</label>
         </div>
-        <div class="w-full col-span-2 text-nile-blue text-sm">
+        <div
+          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
+        >
           <input
             type="text"
             id="nameTeacher"
@@ -218,13 +244,15 @@
       </div>
 
       <div
-        class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1"
-        *ngIf="agregar"
+        class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1"
+        *ngIf="this.agregar"
       >
-        <div class="w-full col-span-2 text-camelot text-sm mr-2 text-left">
+        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
           <label for="lastNameTeacher">Apellido:</label>
         </div>
-        <div class="w-full col-span-2 text-nile-blue text-sm">
+        <div
+          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
+        >
           <input
             type="text"
             id="lastNameTeacher"
@@ -235,13 +263,15 @@
       </div>
 
       <div
-        class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1"
-        *ngIf="agregar"
+        class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1"
+        *ngIf="this.agregar"
       >
-        <div class="w-full col-span-2 text-camelot text-sm mr-2 text-left">
+        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
           <label for="addressTeacher">Dirección:</label>
         </div>
-        <div class="w-full col-span-2 text-nile-blue text-sm">
+        <div
+          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
+        >
           <input
             type="text"
             id="addressTeacher"
@@ -252,13 +282,15 @@
       </div>
 
       <div
-        class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1"
-        *ngIf="agregar"
+        class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1"
+        *ngIf="this.agregar"
       >
-        <div class="w-full col-span-2 text-camelot text-sm mr-2 text-left">
+        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
           <label for="phoneTeacher">Telefono</label>
         </div>
-        <div class="w-full col-span-2 text-nile-blue text-sm">
+        <div
+          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
+        >
           <input
             type="text"
             id="phoneTeacher"
@@ -269,13 +301,15 @@
       </div>
 
       <div
-        class="lg:w-[60%] w-[80%] grid lg:grid-cols-4 mb-4 grid-cols-1"
-        *ngIf="agregar"
+        class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1"
+        *ngIf="this.agregar"
       >
-        <div class="w-full col-span-2 text-camelot text-sm mr-2 text-left">
+        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
           <label for="emailTeacher">Correo:</label>
         </div>
-        <div class="w-full col-span-2 text-nile-blue text-sm">
+        <div
+          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
+        >
           <input
             type="email"
             id="emailTeacher"
@@ -286,7 +320,21 @@
       </div>
       <!-- Selecciona la Institucion -->
       <div
-        class="w-full border-2 border-camelot flex items-center justify-center py-1 rounded-lg text-camelot font-extrabold text-base text-center"
+        *ngIf="this.agregar"
+        class="lg:w-[60%] w-[80%] py-2 h-[8%] text-start text-lg font-bold text-camelot-400 border-b-2 border-camelot flex items-star justify-end"
+      >
+        <button
+          type="button"
+          (click)="agregarDocente()"
+          class="border-2 border-camelot text-sm text-nile-blue bg-cameo rounded-lg px-2 py-1 hover:bg-nile-blue hover:text-cameo mr-2"
+        >
+          Cancelar registro
+        </button>
+      </div>
+
+      <!-- Selecciona la Institucion -->
+      <div
+        class="lg:w-[60%] w-[80%] h-[8%] text-start text-lg font-bold text-camelot-400 border-b-2 border-camelot flex items-center"
       >
         Datos de la institución
       </div>
@@ -295,7 +343,9 @@
         <div class="w-full col-span-2 text-camelot text-sm text-left">
           <label for="institucion">Seleccione la institución:</label>
         </div>
-        <div class="w-full col-span-2 text-nile-blue text-sm">
+        <div
+          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
+        >
           <select
             id="institucion"
             formControlName="nameInstitution"
@@ -312,10 +362,24 @@
         </div>
       </div>
 
-      <div class="form-group">
-        <div class="buttons">
+      <div class="lg:w-[60%] w-[80%] grid grid-cols-1 mb-4">
+        <div class="w-full flex text-camelot text-lg mr-2 mb-2 justify-end">
+          <!-- Cancelar (click)="cancel()" -->
+          <button
+            type="button"
+            (click)="cancel()"
+            class="border-2 border-camelot text-lg text-nile-blue bg-cameo rounded-lg px-2 py-1 hover:bg-nile-blue hover:text-cameo mr-2"
+          >
+            Cancelar
+          </button>
           <!-- [disabled]="this.formInstitucion.form.invalid "  -->
-          <button type="submit" class="btnEnviar">Registrar</button>
+          <button
+            type="submit"
+            [disabled]="this.formCaso.form.invalid"
+            class="border-2 border-camelot text-lg text-nile-blue bg-cameo rounded-lg px-2 py-1 hover:bg-nile-blue hover:text-cameo mr-2"
+          >
+            Registrar
+          </button>
         </div>
       </div>
     </fieldset>
