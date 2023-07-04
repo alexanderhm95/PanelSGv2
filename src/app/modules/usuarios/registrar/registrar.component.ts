@@ -13,6 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class RegistrarComponent implements OnInit {
   public formUser = new ClsFormUsuario();
   public loading = false;
+  isTooltipVisible = false;
 
   constructor(
     private notification: NotificationsService,
@@ -23,6 +24,10 @@ export class RegistrarComponent implements OnInit {
 
   ngOnInit(): void {
     this.formUser.form.reset();
+  }
+
+  toggleTooltip() {
+    this.isTooltipVisible = !this.isTooltipVisible;
   }
 
   create() {

@@ -1,10 +1,10 @@
 <!-- Estructuracion del dashboard -->
 <div
-  class="w-[100%] h-[100vh] lg:min-w-full lg:min-h-screen grid grid-cols-1 lg:grid-cols-6"
+  class="lg:w-[100%] lg:h-[100vh] lg:min-w-full lg:min-h-screen grid grid-cols-1 lg:grid-cols-6 md:items-end items-end"
 >
   <!-- Side Bar -->
   <div
-    class="z-50 fixed w-[80%] lg:w-full lg:h-[100%] md:w-[50%] lg:static top-0 h-full overflow-y-scroll lg:overflow-y-hidden bg-cameo col-span-1 p-2 border-r border-camelot-500 transition-all"
+    class="lg:w-full lg:h-[100%] md:w-[30%] md:h-[90vh] h-[90vh] w-[45%] z-50 fixed  lg:static top-0  overflow-y-scroll lg:overflow-y-hidden bg-cameo col-span-1 p-2 border-r border-camelot-500 transition-all"
     [ngClass]="{ '-left-full': !isOpen, 'left-0': isOpen }"
   >
     <!-- Nombre y Logotipo -->
@@ -31,8 +31,8 @@
           >DECE</span
         >
       </h1>
-      <h4
-        class="text-sm text-left text-camelot font-bold tracking-[2px] items-center justify-center flex"
+      <h1
+        class="text-sm text-left text-camelot font-bold tracking-[2px] items-center justify-center flex-col"
       >
         Nombre:
         <span
@@ -47,7 +47,7 @@
           "
           >{{ this.name }}</span
         >
-      </h4>
+      </h1>
     </div>
 
     <div class="flex flex-col justify-between lg:h-[80%]">
@@ -86,13 +86,14 @@
       </div>
     </div>
   </div>
+
   <!-- boton flotante para menu responsive -->
   <button
-    class="absolute bottom-4 right-4 lg:hidden rounded-full p-2 bg-camelot"
+    class="absolute bottom-9 right-4 md:bottom-16 md:right-7 p-3 lg:hidden rounded-full bg-camelot text-center"
     (click)="toggleMenu()"
   >
     <i
-      class="fas text-white"
+      class="fas text-white text-xl"
       [ngClass]="{ 'fa-bars': !isOpen, 'fa-circle-xmark': isOpen }"
     ></i>
   </button>

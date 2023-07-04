@@ -19,6 +19,8 @@ export class EditarComponent implements OnInit {
   public date?: Date;
   public caso?: InterfaceCaso;
   public id: any;
+  answersForm = true;
+  public loading = true;
 
   constructor(
     private questionService: TestQuestionService,
@@ -35,6 +37,18 @@ export class EditarComponent implements OnInit {
     this.getTest();
   }
 
+  checkFormValidity() {
+    const respuestas: Respuesta[] = Object.entries(this.answers).map(
+      ([key, value]) => ({
+        refQuestion: key,
+        valueAnswer: parseInt(value, 10),
+      })
+    );
+    if (respuestas.length === this.test.length) {
+      this.answersForm = false;
+    }
+  }
+
   create() {
     const respuestas: Respuesta[] = Object.entries(this.answers).map(
       ([key, value]) => ({
@@ -42,6 +56,11 @@ export class EditarComponent implements OnInit {
         valueAnswer: parseInt(value, 10),
       })
     );
+
+    if (respuestas.length < this.test.length) {
+      this.notification.showError('Error', 'Debe completar todos los campos');
+      return;
+    }
 
     const body = {
       ciStudent: this.caso?.ciStudent,
@@ -76,6 +95,8 @@ export class EditarComponent implements OnInit {
       (res) => {
         const { message, data } = res;
         this.caso = data;
+        this.loading = false;
+        
         console.log(message);
       },
       (error) => {

@@ -9,7 +9,7 @@ export class ClsFormTestQuestion {
                     Validators.required,
                     Validators.minLength(3)
                 ]),
-            descripcion: new FormControl('',
+            description: new FormControl('',
                 [
                     Validators.required,
                     Validators.minLength(3)

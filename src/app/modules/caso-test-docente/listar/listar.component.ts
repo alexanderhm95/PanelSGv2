@@ -13,6 +13,7 @@ import { Component, OnInit } from '@angular/core';
 export class ListarComponent implements OnInit {
   public tests: any[] = [];
   public search = '';
+  public loading = true;
 
   constructor(
     private serviceCasoTeacher: TestDocenteService,
@@ -26,8 +27,10 @@ export class ListarComponent implements OnInit {
         this.tests = data;
         console.log(data);
         console.log(message);
+        this.loading = false;
       },
       (error) => {
+        this.loading = true;
         if (error.status === 0) {
           this.notification.showError(
             'Error',

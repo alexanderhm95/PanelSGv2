@@ -19,6 +19,7 @@ import { Router } from '@angular/router';
 export class ListarComponent implements OnInit {
   public api = environment.api + '/api/1.0';
   public search = '';
+  public loading = true;
 
   preguntas: InterfaceTestEstudiante[] = [];
 
@@ -28,6 +29,7 @@ export class ListarComponent implements OnInit {
     this.preguntaService.getAllPregunta().subscribe((res) => {
       const { message, data } = res;
       this.preguntas = data;
+      this.loading = false;
       console.log(message);
     });
   }

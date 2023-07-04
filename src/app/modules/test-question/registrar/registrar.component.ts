@@ -1,4 +1,7 @@
-import { ClsFormRespuestas, ClsFormTestQuestion } from '@/app/core/classForm/cls-form-test-question';
+import {
+  ClsFormRespuestas,
+  ClsFormTestQuestion,
+} from '@/app/core/classForm/cls-form-test-question';
 import { InterfaceQuestion } from '@/app/core/interfaces/interface-question';
 import { TestQuestionService } from '@/app/shared/services/api/test-question.service';
 import { ChangeDetectorRef, Component } from '@angular/core';
@@ -7,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-registrar',
   templateUrl: './registrar.component.html',
-  styleUrls: ['./registrar.component.css']
+  styleUrls: ['./registrar.component.css'],
 })
 export class RegistrarComponent {
   public modalActivate: Boolean = false;
@@ -17,36 +20,34 @@ export class RegistrarComponent {
 
   private testQuestion?: InterfaceQuestion;
 
-
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private questionService: TestQuestionService,
     private router: Router,
     private route: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.formRespuesta.form.reset();
     this.formPreguntas.form.reset();
   }
 
-  create(){
+  create() {
     this.testQuestion = {
       nameQuestion: this.formPreguntas.form.value.name,
-      descriptionQuestion: this.formPreguntas.form.value.descripcion,
-      answer: this.listaRespuestas
-    }
+      descriptionQuestion: this.formPreguntas.form.value.description,
+      answer: this.listaRespuestas,
+    };
 
     this.questionService.createQuestion(this.testQuestion).subscribe(
       (data) => {
-        this.router.navigate(['../listar'], {relativeTo: this.route});
-      }, 
+        this.router.navigate(['../listar'], { relativeTo: this.route });
+      },
       (error) => {
         console.log(error);
       }
-    )
+    );
   }
-
 
   openModal() {
     this.modalActivate = true;
@@ -61,7 +62,7 @@ export class RegistrarComponent {
     const respuesta: Respuestas = {
       id,
       nameAnswer: this.formRespuesta.form.value.nameAnswer,
-      valueAnswer: this.formRespuesta.form.value.valueAnswer
+      valueAnswer: this.formRespuesta.form.value.valueAnswer,
     };
 
     this.listaRespuestas.push(respuesta);
@@ -76,10 +77,9 @@ export class RegistrarComponent {
     );
   }
 
-   cancel() {
+  cancel() {
     this.router.navigate(['../listar'], { relativeTo: this.route });
   }
-  
 }
 
 interface Respuestas {

@@ -15,10 +15,10 @@ export class ImageValidatorService {
     }
   }
 
-  renameImage(file: File, destination: string):File{
+  renameImage(file: File, destination: string): File {
     const name = file.name.split('.')[0];
     const ext = file.name.split('.')[1];
-    const newName = `${destination}_${name}.${ext}`;
+    const newName = `${destination}_${name.replace(/[^a-zA-Z]/g, '')}.${ext}`;
     const newFile = new File([file], newName, { type: file.type });
     return newFile;
   }

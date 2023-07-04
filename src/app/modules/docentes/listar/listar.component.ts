@@ -14,6 +14,7 @@ export class ListarComponent implements OnInit {
   public api = environment.api + '/api/1.0';
   public docentes: TeacherData[] = [];
   public search = '';
+  public loading = true;
 
   constructor(
     private notification: NotificationsService,
@@ -29,10 +30,12 @@ export class ListarComponent implements OnInit {
       (res) => {
         const { message, data } = res;
         this.docentes = data;
-        console.log(data)
+        this.loading = false;
+        console.log(data);
         console.log(message);
       },
       (err) => {
+        this.loading = true;
         if (err.status === 0) {
           this.notification.showError(
             'Error',

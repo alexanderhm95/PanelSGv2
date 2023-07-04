@@ -19,6 +19,7 @@ export class ListarComponent implements OnInit {
   public casos: any[] = [];
   public codigo = 0;
   public modalActivate = false;
+  public loading = true;
 
   constructor(
     private notification: NotificationsService,
@@ -32,10 +33,13 @@ export class ListarComponent implements OnInit {
       (res) => {
         const { message, data } = res;
         this.casos = data;
+        this.loading = false;
         console.log(this.casos);
         console.log(message);
       },
       (err) => {
+        this.loading = true;
+        this.notification.showError('Error', err.error.error);
         console.log(err);
       }
     );

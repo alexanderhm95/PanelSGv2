@@ -13,6 +13,7 @@ import { Component, OnInit } from '@angular/core';
 export class ListarInstitucionComponent implements OnInit {
   public instituciones: InterfaceInstitution[] = [];
   public search = '';
+  public loading = true;
 
   constructor(
     private notification: NotificationsService,
@@ -24,9 +25,12 @@ export class ListarInstitucionComponent implements OnInit {
       (res) => {
         const { message, data } = res;
         this.instituciones = data;
+        this.loading = false;
         console.log(message);
       },
       (err) => {
+        this.loading = true;
+
         if (err.status === 0) {
           this.notification.showError(
             'Error de conexión',

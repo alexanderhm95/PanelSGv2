@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 export class ListarComponent implements OnInit {
   public casos: any[] = [];
   public selectedCasoValue: any;
-
+  public loading = true;
   private idUserTeacher? = '';
 
   constructor(
@@ -29,10 +29,13 @@ export class ListarComponent implements OnInit {
       (res) => {
         const { message, data } = res;
         this.casos = data;
+        this.loading = false;
         console.log(message);
         console.log(data);
       },
       (error) => {
+        this.loading = true;
+
         if (error.status === 0) {
           this.notification.showError(
             'Error',

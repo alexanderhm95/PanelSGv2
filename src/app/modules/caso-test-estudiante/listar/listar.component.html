@@ -1,5 +1,25 @@
+<!-- Este es el sniper  -->
 <div
-  class="w-[95%] h-[90%] lg:h-[95%] lg:m-2 mx-4 my-2 bg-cameo border-4 border-camelot rounded-lg overflow-x-hidden"
+  *ngIf="loading"
+  class="fixed inset-0 flex items-center justify-center z-50"
+>
+  <div class="fixed inset-0 bg-black opacity-50"></div>
+  <div class="flex items-center justify-center">
+    <div class="flex flex-col items-center">
+      <div
+        class="animate-spin rounded-full h-20 w-20 border-t-4 border-b-4 border-primary"
+      ></div>
+      <div class="flex items-center mt-2">
+        <span class="text-xl font-bold mr-1">Cargando</span>
+        <span class="text-xl animate-bounce">...</span>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Esta es la pagina  -->
+<div
+  *ngIf="!this.loading"
+  class="transition ease-in-out delay-150 w-[95%] h-[90%] lg:h-[95%] lg:m-2 mx-4 my-2 bg-cameo border-4 border-camelot rounded-lg overflow-x-hidden duration-300"
 >
   <div
     class="w-full lg:h-[7%] text-center text-3xl font-bold text-camelot py-2"
@@ -141,12 +161,12 @@
   <div class="w-full lg:h-auto px-4 py-2 rounded-lg lg:hidden">
     <div
       class="w-full h-full flex flex-col mb-2 border border-camelot rounded-lg hover:shadow-sm hover:shadow-camelot-300"
-      *ngFor="let test of tests"
+      *ngFor="let test of tests | filterTables : search"
     >
       <div
         class="w-full grid grid-cols-1 break-all items-center space-x-2 text-center text-camelot text-base px-2 font-bold underline"
       >
-        Evaluador
+        DECE Evaluador
       </div>
       <!-- CI -->
       <div
@@ -197,7 +217,7 @@
       >
         <div class="col-span-2 break-all font-bold text-camelot">Estado:</div>
         <div class="col-span-3 break-all text-nile-blue">
-          {{ test.status }}
+          {{ test.statusTestStudent }}
         </div>
       </div>
 
@@ -205,31 +225,32 @@
       <div
         class="w-full grid grid-cols-5 break-all items-left space-x-2 text pl-2 py-2 pr-2"
       >
-        <div class="col-span-2 break-all font-bold text-camelot">Puntaje:</div>
+        <div class="col-span-2 break-all font-bold text-camelot">Puntúa:</div>
         <div class="col-span-3 break-all text-nile-blue">
           {{ test.score }}
         </div>
       </div>
 
-      <!-- Fecha Aplicacion -->
+      <!-- Fecha Aplicación -->
       <div
         class="w-full grid grid-cols-5 break-all items-left space-x-2 text pl-2 py-2 pr-2"
       >
         <div class="col-span-2 break-all font-bold text-camelot">
-          Fecha Aplicacion:
+          Fecha Aplicación:
         </div>
         <div class="col-span-3 break-all text-nile-blue">
-          {{ test.createdAt | date : "dd/MM/yyyy" }}
+          {{ test.createAt | date : "dd/MM/yyyy" }}
         </div>
       </div>
 
       <!-- Acciones -->
+
       <div class="flex flex-row gap-2 justify-end my-2">
         <button
           (click)="deleteTest(test._id)"
-          class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"
+          class="border-2 border-camelot text-sm text-nile-blue bg-cameo rounded-lg px-2 py-1 mr-2"
         >
-          <i class="fas fa-trash-alt"></i>
+          Eliminar
         </button>
       </div>
     </div>

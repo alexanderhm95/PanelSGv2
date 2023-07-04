@@ -4,7 +4,8 @@
 
 export const environment = {
   production: true,
-  api: 'https://apiseriusgame-production.up.railway.app',
+  //api: 'https://apiseriusgame-production.up.railway.app',
+  api: `http://${window.location.hostname}:3001`,
 };
 
 /*

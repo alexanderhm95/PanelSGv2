@@ -13,6 +13,7 @@ import { Component, OnInit } from '@angular/core';
 export class ListarComponent implements OnInit {
   public tests: any[] = [];
   public search = '';
+  public loading = true;
 
   constructor(
     private serviceCasoEstudiante: TestCasoEstudianteService,
@@ -20,11 +21,19 @@ export class ListarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.serviceCasoEstudiante.getAll().subscribe((res) => {
-      const { message, data } = res;
-      this.tests = data;
-      console.log(message);
-    });
+    this.serviceCasoEstudiante.getAll().subscribe(
+      (res) => {
+        const { message, data } = res;
+        this.tests = data;
+        this.loading = false;
+        console.log(message);
+      },
+      (err) => {
+        this.loading = true;
+        console.log(err.error);
+        this.notification.showError('Error', err.error.error);
+      }
+    );
   }
 
   scoreUpdate(id: string, op: string) {

@@ -13,6 +13,7 @@ import { NotificationsService } from '@/app/shared/services/utils/notifications.
 export class ListarComponent implements OnInit {
   public deces: InterfaceDece[] = [];
   public search = '';
+  public loading = true;
 
   constructor(
     private notification: NotificationsService,
@@ -29,8 +30,10 @@ export class ListarComponent implements OnInit {
       (res) => {
         this.deces = res.data;
         console.log(res);
+        this.loading = false;
       },
       (err) => {
+        this.loading = true;
         if (err.status === 0) {
           this.notification.showError(
             'Error',
@@ -71,10 +74,7 @@ export class ListarComponent implements OnInit {
                 );
               } else {
                 console.log(err);
-                this.notification.showError(
-                  'Error',
-                  err.error.error 
-                );
+                this.notification.showError('Error', err.error.error);
               }
             }
           );

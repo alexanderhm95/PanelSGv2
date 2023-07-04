@@ -19,6 +19,7 @@ export class ListarComponent implements OnInit {
 
   public currentUser?: Usuario;
   public search = '';
+  public loading = true;
 
   constructor(
     private notification: NotificationsService,
@@ -51,6 +52,7 @@ export class ListarComponent implements OnInit {
     this.usuariosService.getAllUser().subscribe(
       (res) => {
         this.usuarios = res.data;
+        this.loading = false;
         console.log(res.message);
       },
       (err) => {

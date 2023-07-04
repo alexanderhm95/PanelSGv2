@@ -15,8 +15,8 @@ import { Router } from '@angular/router';
 export class ListarComponent implements OnInit {
   public api = environment.api + '/api/1.0';
   public estudiantes: any[] = [];
-
   public search = '';
+  public loading = true;
 
   constructor(
     private estudianteService: StudentService,
@@ -28,12 +28,18 @@ export class ListarComponent implements OnInit {
       (res) => {
         const { message, listaStudent } = res;
         this.estudiantes = listaStudent;
+        this.loading = false;
         console.log(listaStudent);
       },
       (err) => {
+        this.loading = true;
+
         console.log(err);
       }
     );
+  }
+  refresh() {
+    this.ngOnInit();
   }
 
   delete(id: any) {

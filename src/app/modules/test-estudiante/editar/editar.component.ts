@@ -1,26 +1,32 @@
 import { ClsFormTestEstudiante } from '@/app/core/classForm/cls-form-test-estudiante';
 import { TestEstudianteService } from '@/app/shared/services/api/test-estudiante.service';
 import { ImageValidatorService } from '@/app/shared/services/utils/image-validator.service';
+import { environment } from '@/environments/environment';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-editar',
   templateUrl: './editar.component.html',
   styleUrls: ['./editar.component.css'],
 })
-export class EditarComponent implements OnInit{
+export class EditarComponent implements OnInit {
+  public api = environment.api + '/api/1.0';
   public formTestImages = new ClsFormTestEstudiante();
   private testImages?: any;
   private srcImage = '';
   private imagenTest?: File;
+  public imageUrl = '';
   private id: string | null = '';
 
   constructor(
     private testService: TestEstudianteService,
     private imageService: ImageValidatorService,
+    private route: ActivatedRoute,
     private router: Router,
-    private route: ActivatedRoute
+    private http: HttpClient
   ) {}
 
   ngOnInit() {
@@ -42,10 +48,32 @@ export class EditarComponent implements OnInit{
     );
   }
 
+  obtenerImagen(id: string): Observable<Blob> {
+    return this.http.get(id as string, { responseType: 'blob' });
+  }
+
   setValues(data: any) {
     this.formTestImages.form.patchValue({ name: data.name });
     this.formTestImages.form.patchValue({ valor: data.value });
     this.formTestImages.form.patchValue({ section: data.section });
+    let dataImage = data.link.split('/');
+
+    console.log(dataImage);
+    this.obtenerImagen(this.api + data.link).subscribe((imagenData: Blob) => {
+      // Cambio de nombre a la variable
+      console.log('traje a:', imagenData);
+      const file = new File([imagenData], dataImage[dataImage.length - 1], {
+        type: imagenData.type,
+      });
+      console.log(file);
+      this.imagenTest = file;
+
+      this.srcImage = '/public/TestImagenes/' + this.imagenTest.name;
+      const srcImages = URL.createObjectURL(imagenData);
+      this.imageUrl = srcImages;
+      this.formTestImages.form.get('imagen')?.setValue(this.srcImage);
+    });
+
     this.formTestImages.form.markAllAsTouched();
   }
 
@@ -75,12 +103,23 @@ export class EditarComponent implements OnInit{
 
   onFileSelected(event: any) {
     const file = event.target.files[0];
+
     if (this.imageService.validateImage(file)) {
+      // Leer la imagen seleccionada como una URL
+
       this.imagenTest = this.imageService.renameImage(file, 'TestImagenes');
-      this.srcImage = '/public/TestImagenes/' + file.name;
+      this.srcImage = '/public/TestImagenes/' + this.imagenTest.name;
+      console.log('Nueva ruta: ', this.srcImage, ' Archivo', this.imagenTest);
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.imageUrl = e.target.result;
+      };
+      reader.readAsDataURL(file);
     } else {
       this.formTestImages.form.patchValue({ imagen: '' });
       this.imagenTest = undefined;
+      this.imageUrl = '';
+      return;
     }
   }
 

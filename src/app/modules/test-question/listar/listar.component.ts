@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 export class ListarComponent {
   question: InterfaceQuestion[] = [];
   public search: string = '';
+  public loading = true;
 
   constructor(
     private questionService: TestQuestionService,
@@ -25,6 +26,7 @@ export class ListarComponent {
     this.questionService.getAllQuestion().subscribe((res) => {
       const { message, data } = res;
       this.question = data;
+      this.loading = false;
       console.log(message);
     });
   }
