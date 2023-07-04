@@ -54,7 +54,7 @@ export class HomeComponent implements OnInit {
       {
         name: 'Casos',
         icon: 'fa fa-building',
-        router: ['casos/listar', 'listar'],
+        router: ['casos', 'listar'],
         role: 'DECE',
       },
       {
