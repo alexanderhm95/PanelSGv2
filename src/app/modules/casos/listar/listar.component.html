@@ -24,7 +24,7 @@
   <div
     class="w-full lg:h-[7%] text-center text-3xl font-bold text-camelot py-2"
   >
-    Gestión de casos {{ "Angel Felisisimo Rojas" }}
+    Gestión de casos 
   </div>
 
   <div
@@ -65,7 +65,20 @@
             Reporte
           </th>
           <th class="p-3 text-sm font-semibold tracking-wide text-center">
-            Acciones
+            <div class="flex justify-between">
+              <label class="flex items-center justify-center">Acciones</label
+              ><button
+                type="button"
+                (click)="refresh()"
+                title="Refrescar"
+                class="flex items-center justify-center shadow-md shadow-gold p-2"
+              >
+                <i
+                  class="fa fa-rotate-right text-xl font-extrabold"
+                  aria-hidden="true"
+                ></i>
+              </button>
+            </div>
           </th>
         </tr>
       </thead>

@@ -14,6 +14,10 @@ export class JwtService {
     return this.jwtHelper.isTokenExpired(token);
   }
 
+  public destroyToken(): void {
+    localStorage.removeItem('token');
+  }
+
   // returns the expiration date of the token
   getTokenExpirationDate(token: string): Date | null {
     const decodedToken = this.jwtHelper.decodeToken(token);

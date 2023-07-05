@@ -31,6 +31,11 @@ export class ListarComponent {
     });
   }
 
+  refresh() {
+    this.ngOnInit();
+  }
+
+
   delete(id: any) {
     this.notification
       .showConfirm(

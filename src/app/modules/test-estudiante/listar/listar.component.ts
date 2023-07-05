@@ -34,6 +34,11 @@ export class ListarComponent implements OnInit {
     });
   }
 
+  refresh() {
+    this.ngOnInit();
+  }
+
+
   delete(id: any) {
     this.preguntaService.deletePregunta(id).subscribe(
       (res) => {

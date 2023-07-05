@@ -1,35 +1,40 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import {
+  CanActivate,
+  Router,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+  UrlTree,
+} from '@angular/router';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class SessionGuard  {
+export class SessionGuard implements CanActivate {
   constructor(private cookieService: CookieService, private router: Router) {}
 
   canActivate(
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
-    return this.checkSession();
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<boolean | UrlTree> {
+    return this.checkSession().pipe(
+      map((tokenExists) => {
+        if (tokenExists) {
+          return true;
+        } else {
+          return this.router.createUrlTree(['/auth'], {
+            queryParams: { returnUrl: state.url },
+          });
+        }
+      })
+    );
   }
 
-  checkSession(): boolean {
-    try {
-      const token = this.cookieService.get('token');
-      if (token) {
-        return true;
-      } else {
-        this.router.navigate(['/auth']);
-        return false;
-      }
-    } catch (err) {
-      console.log('No se pudo redirection a la pagina', err);
-      return false;
-    }
+  checkSession(): Observable<boolean> {
+    const token = this.cookieService.get('token');
+    return of(!!token); // Devuelve un observable de booleano indicando si el token existe o no
   }
 }

@@ -42,6 +42,10 @@ export class ListarInstitucionComponent implements OnInit {
       }
     );
   }
+  
+  refresh() {
+    this.ngOnInit();
+  }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   deleteInstitution(id: any) {

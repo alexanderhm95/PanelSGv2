@@ -25,6 +25,10 @@ export class ListarComponent implements OnInit {
     this.getDeces();
   }
 
+  refresh() {
+    this.ngOnInit();
+  }
+
   getDeces() {
     this.deceService.getAllDece().subscribe(
       (res) => {

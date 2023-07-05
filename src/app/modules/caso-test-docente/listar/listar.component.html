@@ -57,7 +57,20 @@
             Fecha Aplicacion
           </th>
           <th class="p-3 text-sm font-semibold tracking-wide text-center">
-            Acciones
+            <div class="flex justify-between">
+              <label class="flex items-center justify-center">Acciones</label
+              ><button
+                type="button"
+                (click)="refresh()"
+                title="Refrescar"
+                class="flex items-center justify-center shadow-md shadow-gold p-2"
+              >
+                <i
+                  class="fa fa-rotate-right text-xl font-extrabold"
+                  aria-hidden="true"
+                ></i>
+              </button>
+            </div>
           </th>
         </tr>
       </thead>
@@ -203,7 +216,7 @@
 
       <div class="flex flex-row gap-2 justify-end my-2">
         <button
-          (click)="deleteTest(test._id)"
+          (click)="deleteTest(test.id)"
           class="border-2 border-camelot text-sm text-nile-blue bg-cameo rounded-lg px-2 py-1 mr-2"
         >
           Eliminar

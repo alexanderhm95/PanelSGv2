@@ -47,4 +47,9 @@ export class ListarComponent implements OnInit {
       }
     );
   }
+
+  refresh() {
+    this.ngOnInit();
+  }
+
 }

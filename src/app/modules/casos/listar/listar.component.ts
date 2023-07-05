@@ -1,4 +1,5 @@
 import { InterfaceCaso } from '@/app/core/interfaces/interface-caso';
+import { AuthService } from '@/app/shared/services/api/auth.service';
 import { CasosService } from '@/app/shared/services/api/casos.service';
 import { StudentService } from '@/app/shared/services/api/student.service';
 import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
@@ -20,16 +21,19 @@ export class ListarComponent implements OnInit {
   public codigo = 0;
   public modalActivate = false;
   public loading = true;
+  public id: any;
 
   constructor(
     private notification: NotificationsService,
+    private authService: AuthService,
     private casoService: CasosService,
     private studentService: StudentService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.casoService.getAllCaso().subscribe(
+    this.id = this.authService.getUserId();
+    this.casoService.getAllCaso(this.id).subscribe(
       (res) => {
         const { message, data } = res;
         this.casos = data;
@@ -45,18 +49,9 @@ export class ListarComponent implements OnInit {
     );
   }
 
-  // testStudent(CI: string) {
-  //   console.log(CI);
-  //   const body = {
-  //     CI: CI,
-  //   };
-  //   this.studentService.generateCode(body).subscribe((res) => {
-  //     const { data } = res;
-  //     this.codigo = data;
-  //     console.log(data);
-  //     this.ngOnInit();
-  //   });
-  // }
+  refresh() {
+    this.ngOnInit();
+  }
 
   closeModal() {
     this.modalActivate = false;

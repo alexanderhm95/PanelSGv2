@@ -19,7 +19,7 @@
 <!-- Esta es la pagina  -->
 <div
   *ngIf="!this.loading"
-  class="w-[95%] lg:h-[95%] m-2 bg-cameo border-4 border-camelot rounded-lg overflow-x-hidden flex flex-col items-center"
+  class="w-[95%] lg:h-[95%] m-2 rounded-lg overflow-x-hidden flex flex-col items-center"
 >
   <div
     class="grid grid-cols-1 text-center text-3xl font-bold text-camelot py-4 items-center justify-center"
@@ -103,7 +103,7 @@
         *ngFor="let pregunta of test"
         class="w-full my-2 border border-white rounded-lg p-2 flex flex-col lg:justify-start lg:gap-2 ml-4 first-letter shadow"
       >
-        <label class="w-full text-camelot font-bold flex flex-row">
+        <label class="w-full text-lg font-bold flex flex-row">
           {{ pregunta.nameQuestion }}</label
         >
         <select

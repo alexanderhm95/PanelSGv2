@@ -36,6 +36,10 @@ export class ListarComponent implements OnInit {
     );
   }
 
+  refresh() {
+    this.ngOnInit();
+  }
+  
   scoreUpdate(id: string, op: string) {
     if (op == 'plus') {
       const body = {

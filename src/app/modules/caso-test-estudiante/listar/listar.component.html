@@ -59,8 +59,21 @@
           <th class="p-3 text-base font-semibold tracking-wide text-center">
             Fecha Aplicacion
           </th>
-          <th class="p-3 text-base font-semibold tracking-wide text-center">
-            Acciones
+          <th class="p-3 text-sm font-semibold tracking-wide text-center">
+            <div class="flex justify-between">
+              <label class="flex items-center justify-center">Acciones</label
+              ><button
+                type="button"
+                (click)="refresh()"
+                title="Refrescar"
+                class="flex items-center justify-center shadow-md shadow-gold p-2"
+              >
+                <i
+                  class="fa fa-rotate-right text-xl font-extrabold"
+                  aria-hidden="true"
+                ></i>
+              </button>
+            </div>
           </th>
         </tr>
       </thead>
@@ -104,9 +117,13 @@
               <div
                 class="col-span-1 text-xl text-camelot border-r-2 border-camelot justify-center items-center d-flex align-items-center"
               >
-                <label class="flex items-center justify-end px-2">
-                  {{ test.score }}
-                </label>
+                <div
+                  class="d-flex flex-column justify-content-center align-items-center px-2"
+                >
+                  <label class="flex items-center justify-end px-2">
+                    {{ test.score }}
+                  </label>
+                </div>
               </div>
               <div
                 class="col-span-1 border-l-2 border-camelot justify-center items-center d-flex align-items-center"
@@ -115,6 +132,9 @@
                   class="d-flex flex-column justify-content-center align-items-center px-2"
                 >
                   <button
+                    [ngClass]="test.id"
+                    name="{{ test.id }}"
+                    [disabled]="test.scoreEvaluator >= 1"
                     type="button"
                     class="cursor-pointer"
                     (click)="scoreUpdate(test.id, 'plus')"
@@ -124,6 +144,7 @@
                     ></i>
                   </button>
                   <button
+                    [disabled]="test.scoreEvaluator <= 0"
                     type="button"
                     class="cursor-pointer"
                     (click)="scoreUpdate(test.id, 'less')"
@@ -247,7 +268,7 @@
 
       <div class="flex flex-row gap-2 justify-end my-2">
         <button
-          (click)="deleteTest(test._id)"
+          (click)="deleteTest(test.id)"
           class="border-2 border-camelot text-sm text-nile-blue bg-cameo rounded-lg px-2 py-1 mr-2"
         >
           Eliminar

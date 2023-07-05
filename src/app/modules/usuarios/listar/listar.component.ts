@@ -36,6 +36,10 @@ export class ListarComponent implements OnInit {
     this.getCurrentUser();
   }
 
+  refresh() {
+    this.ngOnInit();
+  }
+
   getCurrentUser(): void {
     const token = this.cookieService.get('token');
     const tokenInformation = this.jwtService.getTokenInformation(token);

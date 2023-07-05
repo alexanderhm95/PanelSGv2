@@ -14,6 +14,7 @@ import { JwtService } from '@/app/shared/services/utils/jwt.service';
 export class PageComponent implements OnInit {
   //Iniciamos variables publicas
   public backgroundImage = '../../../../assets/Inicio/Fondo.webp';
+  public image= '../../../../assets/Inicio/children.webp';
   public formLogin = new ClsFormAuth();
   public errorSession = false;
   public errorMessage = '';

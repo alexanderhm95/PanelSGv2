@@ -19,8 +19,8 @@ export class CasosService {
     return this.http.post<ApiResponse>(`${this.URL}/caso`, Caso)
   }
 
-  getAllCaso(): Observable<ApiResponse> {
-    return this.http.get<ApiResponse>(`${this.URL}/caso`);
+  getAllCaso(id:any): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(`${this.URL}/caso/casos/${id}`);
   }
 
   getAllCasosTeacher(id: any): Observable<ApiResponse> {

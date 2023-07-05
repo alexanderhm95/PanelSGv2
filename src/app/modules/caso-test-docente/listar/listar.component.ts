@@ -43,6 +43,10 @@ export class ListarComponent implements OnInit {
     );
   }
 
+  refresh() {
+    this.ngOnInit();
+  }
+
   deleteTest(id: any) {
     console.log(id);
     this.notification

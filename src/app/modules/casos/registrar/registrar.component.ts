@@ -19,10 +19,9 @@ export class RegistrarComponent implements OnInit {
   public formCaso = new ClsFormCaso();
   public agregar = false;
   public teachers: any[] = [];
-  public institutions: any[] = [];
+  public institution: any;
 
   constructor(
-    private institucionService: InstitutionService,
     private notification: NotificationsService,
     private teacherService: DocenteService,
     private casoService: CasosService,
@@ -33,7 +32,8 @@ export class RegistrarComponent implements OnInit {
 
   ngOnInit(): void {
     this.formCaso.form.reset();
-    this.getInstitutions();
+    this.institution = this.authService.getInstitution();
+    console.log(this.institution);
     this.getTeachers();
   }
 
@@ -55,7 +55,6 @@ export class RegistrarComponent implements OnInit {
       addressTeacher,
       phoneTeacher,
       emailTeacher,
-      nameInstitution,
     } = this.formCaso.form.value;
 
     let body;
@@ -78,7 +77,7 @@ export class RegistrarComponent implements OnInit {
         addressTeacher,
         phoneTeacher,
         emailTeacher,
-        nameInstitution,
+        nameInstitution: this.authService.getInstitution(),
       };
     } else {
       body = {
@@ -93,7 +92,7 @@ export class RegistrarComponent implements OnInit {
         gradeStudent,
         parallelStudent,
         ciTeacher: selectTeacher,
-        nameInstitution,
+        nameInstitution: this.authService.getInstitution(),
       };
     }
 
@@ -107,14 +106,6 @@ export class RegistrarComponent implements OnInit {
         this.notification.showError('Error', err.error.message);
       }
     );
-  }
-
-  getInstitutions() {
-    this.institucionService.getAllInstitution().subscribe((res) => {
-      const { message, data } = res;
-      this.institutions = data;
-      console.log(message);
-    });
   }
 
   getTeachers() {
