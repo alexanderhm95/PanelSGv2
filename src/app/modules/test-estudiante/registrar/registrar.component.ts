@@ -1,6 +1,7 @@
 import { ClsFormTestEstudiante } from '@/app/core/classForm/cls-form-test-estudiante';
 import { TestEstudianteService } from '@/app/shared/services/api/test-estudiante.service';
 import { ImageValidatorService } from '@/app/shared/services/utils/image-validator.service';
+import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -17,16 +18,14 @@ export class RegistrarComponent implements OnInit {
   private imagenTest?: File;
 
   constructor(
+    private notification: NotificationsService,
     private testService: TestEstudianteService,
     private imageService: ImageValidatorService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
-  }
 
-  ngOnit() {
+  ngOnInit() {
     this.formTestImages.form.reset();
   }
 
@@ -46,11 +45,22 @@ export class RegistrarComponent implements OnInit {
     this.testService.createPregunta(formData).subscribe(
       (res) => {
         const { message } = res;
+        this.notification.showSuccess(
+          'Éxito',
+          'pregunta agregada correctamente'
+        );
         console.log(message);
         this.router.navigate(['../listar'], { relativeTo: this.route });
       },
-      (err) => {
-        console.log(err);
+      (error) => {
+        if (error.status === 0) {
+          this.notification.showError(
+            'Error',
+            'Error de conexión con el servidor, inténtelo mas tarde'
+          );
+        } else {
+          this.notification.showError('Error', error.error.error);
+        }
       }
     );
   }

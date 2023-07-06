@@ -19,7 +19,7 @@
 <!-- Esta es la pagina  -->
 <div
   *ngIf="!this.loading"
-  class="w-[95%] lg:h-[95%] m-2 rounded-lg overflow-x-hidden flex flex-col items-center"
+  class="transition ease-in-out delay-150 w-[95%] h-[90%] lg:h-[95%] lg:m-2 mx-4 my-2 bg-cameo border-4 border-camelot rounded-lg overflow-x-hidden duration-300 flex flex-col items-center"
 >
   <div
     class="grid grid-cols-1 text-center text-3xl font-bold text-camelot py-4 items-center justify-center"
@@ -98,7 +98,7 @@
 
   <!-- -->
   <form (ngSubmit)="create()" class="w-[80%]">
-    <fieldset>
+    <fieldset class="w-full">
       <div
         *ngFor="let pregunta of test"
         class="w-full my-2 border border-white rounded-lg p-2 flex flex-col lg:justify-start lg:gap-2 ml-4 first-letter shadow"
@@ -121,13 +121,15 @@
         </select>
       </div>
 
-      <div class="form-group">
-        <div class="buttons">
-          <!-- [disabled]="this.formInstitucion.form.invalid" -->
-          <button type="submit" class="btnEnviar" [disabled]="answersForm">
-            Registrar
-          </button>
-        </div>
+      <div class="w-full flex text-camelot text-lg mr-2 my-4 justify-end">
+        <!-- [disabled]="this.formInstitucion.form.invalid" -->
+        <button
+          type="submit"
+          class="border-2 border-camelot text-lg text-nile-blue bg-cameo rounded-lg px-2 py-2 my-3 hover:bg-nile-blue hover:text-cameo"
+          [disabled]="answersForm"
+        >
+          Registrar
+        </button>
       </div>
     </fieldset>
   </form>

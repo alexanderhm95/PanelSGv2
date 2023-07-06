@@ -131,6 +131,9 @@
           >
             <tr>
               <th class="p-3 text-sm font-semibold tracking-wide text-center">
+              Nro.
+            </th>
+              <th class="p-3 text-sm font-semibold tracking-wide text-center">
                 Nombre
               </th>
               <th class="p-3 text-sm font-semibold tracking-wide text-center">
@@ -146,6 +149,9 @@
               class="bg-nile-blue-100 border-b border-nile-blue-200 text-camelot"
               *ngFor="let respuesta of listaRespuestas"
             >
+            <td class="p-3 text-sm text-black-100 tracking-wide text-left">
+              {{ respuesta.id }}
+            </td>
               <td class="p-3 text-sm text-black-100 tracking-wide text-left">
                 {{ respuesta.nameAnswer }}
               </td>

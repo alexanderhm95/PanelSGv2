@@ -62,6 +62,8 @@ export class EditarComponent {
         valueAnswer: testQuestion.answer[i].valueAnswer,
       };
       this.listaRespuestas.push(respuesta);
+      this.changeDetectorRef.detectChanges();
+      this.formRespuesta.form.reset();
     }
     this.formPreguntas.form.markAllAsTouched();
   }
@@ -107,7 +109,7 @@ export class EditarComponent {
 
   deleteRespuesta(id: number) {
     this.listaRespuestas = this.listaRespuestas.filter(
-      (tarjeta) => tarjeta.id! === id
+      (respuesta) => respuesta.id !== id
     );
   }
 

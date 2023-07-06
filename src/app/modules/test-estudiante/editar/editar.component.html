@@ -2,7 +2,7 @@
   class="w-[95%] lg:h-[95%] m-2 bg-cameo border-4 border-camelot rounded-lg overflow-x-hidden"
 >
   <div
-    class="w-full lg:h-[10%] text-center text-3xl font-bold text-camelot py-4 flex items-center justify-center"
+    class="w-full lg:h-[10%] text-center text-2xl font-bold text-camelot py-4 flex items-center justify-center"
   >
     Modificar pregunta para el test del estudiante
   </div>
@@ -10,6 +10,7 @@
     [formGroup]="this.formTestImages.form"
     (ngSubmit)="update()"
     class="w-full lg:h-[90%] py-2"
+    enctype="multipart/form-data"
   >
     <fieldset class="w-full flex flex-col items-center">
       <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1">
@@ -219,7 +220,7 @@
           <!-- Editar -->
           <button
             type="submit"
-            [disabled]="this.formTestImages.form.invalid"
+            [disabled]="this.formTestImages.form.invalid || !this.imageUpload"
             class="border-2 border-camelot text-lg text-nile-blue bg-cameo rounded-lg px-2 py-1 hover:bg-nile-blue hover:text-cameo"
           >
             Editar

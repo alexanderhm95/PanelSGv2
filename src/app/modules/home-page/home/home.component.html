@@ -89,11 +89,12 @@
 
   <!-- boton flotante para menu responsive -->
   <button
-    class="absolute bottom-9 right-4 md:bottom-16 md:right-7 p-3 lg:hidden rounded-full bg-camelot text-center"
+    class="flex w-10 h-10 items-center justify-center absolute bottom-9 right-4 md:bottom-16 md:right-7 p-3 lg:hidden rounded-full bg-camelot  text-center m-1"
+    [ngClass]="!isOpen ? 'bg-opacity-90' : 'bg-opacity-50'"
     (click)="toggleMenu()"
   >
     <i
-      class="fas text-white text-xl"
+      class="flex fas text-white text-xl"
       [ngClass]="{ 'fa-bars': !isOpen, 'fa-circle-xmark': isOpen }"
     ></i>
   </button>
