@@ -3,6 +3,7 @@ import { FilterTablesPipe } from '@/app/shared/pipes/filter-tables.pipe';
 import { InstitutionService } from '@/app/shared/services/api/institution.service';
 import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
 import { Component, OnInit } from '@angular/core';
+import { Subscription  } from 'rxjs';
 
 @Component({
   selector: 'app-listar-institucion',
@@ -14,6 +15,7 @@ export class ListarInstitucionComponent implements OnInit {
   public instituciones: InterfaceInstitution[] = [];
   public search = '';
   public loading = true;
+  private intervalSubscription: Subscription = new Subscription();
 
   constructor(
     private notification: NotificationsService,
@@ -21,6 +23,20 @@ export class ListarInstitucionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    //this.intervalSubscription = interval(5000) // Intervalo de 5 segundos (ajusta según tus necesidades)
+    //  .subscribe(() => {
+        this.getInstitutions(); // Carga periédica de datos
+    //  });
+  }
+
+  ngOnDestroy(): void {
+    // Cancela la suscripción al intervalo cuando el componente se destruye
+    if (this.intervalSubscription) {
+      this.intervalSubscription.unsubscribe();
+    }
+  }
+
+  getInstitutions() {
     this.institucionService.getAllInstitution().subscribe(
       (res) => {
         const { message, data } = res;
@@ -30,7 +46,6 @@ export class ListarInstitucionComponent implements OnInit {
       },
       (err) => {
         this.loading = true;
-
         if (err.status === 0) {
           this.notification.showError(
             'Error de conexión',
@@ -41,10 +56,6 @@ export class ListarInstitucionComponent implements OnInit {
         }
       }
     );
-  }
-  
-  refresh() {
-    this.ngOnInit();
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

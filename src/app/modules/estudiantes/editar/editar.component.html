@@ -341,49 +341,7 @@
         </div>
       </div>
 
-      <!-- email -->
-      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1">
-        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
-          <label for="emailStudent"> Email: </label>
-        </div>
-        <div
-          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
-        >
-          <input
-            type="text"
-            id="email"
-            formControlName="emailStudent"
-            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
-          />
-
-          <div
-            *ngIf="
-              formStudent.form.get('emailStudent')?.invalid &&
-              formStudent.form.get('emailStudent')?.touched
-            "
-            class="text-red-200 text-xl rounded pl-2 flex"
-            role="alert"
-          >
-            <ng-container
-              *ngIf="formStudent.form.get('emailStudent')?.errors?.['required']"
-            >
-              <i
-                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
-                title="Email requerido"
-              ></i>
-            </ng-container>
-
-            <ng-container
-              *ngIf="formStudent.form.get('emailStudent')?.errors?.['email']"
-            >
-              <i
-                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
-                title="Correo invalido"
-              ></i>
-            </ng-container>
-          </div>
-        </div>
-      </div>
+    
       <div
         class="lg:w-[60%] w-[80%] h-[8%] text-start text-lg font-bold text-camelot-400 border-b-2 border-camelot flex items-center"
       >

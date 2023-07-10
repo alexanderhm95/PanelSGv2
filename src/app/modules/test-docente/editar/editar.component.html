@@ -35,7 +35,7 @@
         </div>
       </div>
       <div class="col-span-2">
-        <div class="w-full flex text-nile-blue font-semibold text-justify">
+        <div class="w-full flex text-nile-blue font-semibold text-justify sm:pl-2">
           De los siguientes indicadores de riesgo presentes en niñas y niños
           víctimas de violencia sexual, marque de acuerdo a la frecuencia con la
           cual usted ha podido observar en la interacción con le niños o niña
@@ -50,7 +50,7 @@
         <div class="w-full flex text-camelot font-semibold">ESTUDIANTE</div>
       </div>
       <div class="col-span-2">
-        <div class="w-full flex text-nile-blue font-semibold">
+        <div class="w-full flex text-nile-blue font-semibold  sm:pl-2">
           {{ this.caso?.nameStudent + " " + this.caso?.lastNameStudent }}
         </div>
       </div>
@@ -63,7 +63,7 @@
         </div>
       </div>
       <div class="col-span-2 uppercase">
-        <div class="w-full flex text-nile-blue font-semibold">
+        <div class="w-full flex text-nile-blue font-semibold sm:pl-2">
           {{ this.caso?.grade + " " + this.caso?.parallel }}
         </div>
       </div>
@@ -71,12 +71,12 @@
 
     <div class="lg:grid lg:grid-cols-3 px-8 sm:flex">
       <div class="col-span-1">
-        <div class="w-full flex text-camelot font-semibold">
+        <div class="w-full flex text-camelot font-semibold ">
           DOCENTE EVALUADOR
         </div>
       </div>
       <div class="col-span-2">
-        <div class="w-full flex text-nile-blue font-semibold">
+        <div class="w-full flex text-nile-blue font-semibold sm:pl-2">
           {{ this.caso?.nameTeacher + " " + this.caso?.lastNameTeacher }}
         </div>
       </div>
@@ -89,7 +89,7 @@
         </div>
       </div>
       <div class="col-span-2">
-        <div class="w-full flex text-nile-blue font-semibold">
+        <div class="w-full flex text-nile-blue font-semibold sm:pl-2">
           {{ this.date | date : "dd/MM/yyyy" }}
         </div>
       </div>
@@ -103,16 +103,17 @@
         *ngFor="let pregunta of test"
         class="w-full my-2 border border-white rounded-lg p-2 flex flex-col lg:justify-start lg:gap-2 ml-4 first-letter shadow"
       >
-        <label class="w-full text-lg font-bold flex flex-row">
+        <label class="w-full text-nile-blue text-base font-bold flex flex-row">
           {{ pregunta.nameQuestion }}</label
         >
         <select
-          class="w-full text-nile-blue flex flex-row"
+          class="w-full  flex flex-row"
           [(ngModel)]="answers[pregunta._id]"
           name="{{ pregunta._id }}"
           (ngModelChange)="checkFormValidity()"
         >
           <option
+          class="text-black-300 font-semibold "
             *ngFor="let opcion of pregunta.answer"
             value="{{ opcion.valueAnswer }}"
           >

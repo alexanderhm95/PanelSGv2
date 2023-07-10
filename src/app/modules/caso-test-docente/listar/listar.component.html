@@ -51,25 +51,15 @@
             Estado
           </th>
           <th class="p-3 text-sm font-semibold tracking-wide text-center">
-            Puntaje
+            Puntuación
           </th>
           <th class="p-3 text-sm font-semibold tracking-wide text-center">
-            Fecha Aplicacion
+            Fecha Aplicación
           </th>
           <th class="p-3 text-sm font-semibold tracking-wide text-center">
             <div class="flex justify-between">
               <label class="flex items-center justify-center">Acciones</label
-              ><button
-                type="button"
-                (click)="refresh()"
-                title="Refrescar"
-                class="flex items-center justify-center shadow-md shadow-gold p-2"
               >
-                <i
-                  class="fa fa-rotate-right text-xl font-extrabold"
-                  aria-hidden="true"
-                ></i>
-              </button>
             </div>
           </th>
         </tr>
@@ -114,7 +104,7 @@
             {{ test.createAt | date : "dd/MM/yyyy" }}
           </td>
           <td class="p-3 text-sm text-black-100 tracking-wide text-center">
-            <!-- Boton eliminar icono de eliminar  -->
+            <!-- Botón eliminar icono de eliminar  -->
             <button
               (click)="deleteTest(test.id)"
               class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"
@@ -190,11 +180,11 @@
         </div>
       </div>
 
-      <!-- Puntaje -->
+      <!-- Puntuación -->
       <div
         class="w-full grid grid-cols-5 break-all items-left space-x-2 text pl-2 py-2 pr-2"
       >
-        <div class="col-span-2 break-all font-bold text-camelot">Puntaje:</div>
+        <div class="col-span-2 break-all font-bold text-camelot">Puntuación:</div>
         <div class="col-span-3 break-all text-nile-blue">
           {{ test.score }}
         </div>

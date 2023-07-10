@@ -1,4 +1,11 @@
+import { JwtService } from '@/app/shared/services/utils/jwt.service';
 import { Component, OnInit } from '@angular/core';
+import {
+  ActivatedRoute,
+  NavigationExtras,
+  RouteReuseStrategy,
+  Router,
+} from '@angular/router';
 import { AuthService } from 'src/app/shared/services/api/auth.service';
 
 interface MenuItem {
@@ -8,113 +15,144 @@ interface MenuItem {
   role: string;
 }
 
+const ICON_USER = 'fa fa-user';
+const ICON_CHILD = 'fa fa-child';
+const ICON_BUILDING = 'fa fa-building';
+const ICON_CHALKBOARD_USER = 'fa-solid fa-chalkboard-user';
+const ICON_LIST_CHECK = 'fas fa-list-check';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  // Variables for the menu
   public mainMenu: MenuItem[] = [];
-  // Active or inactive menu
-  public mostrarDiv = true;
-  // Show or hide menu
-  public isOpen = false;
-  // Variables of user only
+  public isMenuOpen = false;
   public institution?: string;
   public name?: string;
   public role?: string;
   public id?: string;
 
-  constructor(private serviceAuth: AuthService) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private serviceAuth: AuthService,
+    private routeReuseStrategy: RouteReuseStrategy,
+    private jwtService: JwtService
+  ) {}
 
   ngOnInit(): void {
+    // Realiza las acciones necesarias para actualizar el componente
+
+    if (this.jwtService.isLoggedIn()) {
+      this.router.navigate(['/home']);
+    }
+    this.getDataToken();
+    this.buildMenu();
+  }
+
+  goToView(ruta: any): void {
+    const url = this.router
+      .createUrlTree(ruta, { relativeTo: this.route })
+      .toString();
+
+    if (this.router.url === url) {
+      const navigationExtras: NavigationExtras = {
+        skipLocationChange: true,
+        replaceUrl: true,
+      };
+      this.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.router.navigateByUrl(url, navigationExtras);
+    } else {
+      this.router.navigate(ruta, { relativeTo: this.route });
+    }
+  }
+
+  getDataToken() {
     this.id = this.serviceAuth.getUserId();
     this.name = this.serviceAuth.getUserName();
     this.role = this.serviceAuth.getUserRole();
     this.institution = this.serviceAuth.getInstitution();
-    this.buildMenu();
   }
-
   // Build the menu
-  buildMenu() {
+  buildMenu(): void {
     this.mainMenu = [
       {
         name: 'Usuarios',
-        icon: 'fa fa-user',
+        icon: ICON_USER,
         router: ['usuarios', 'listar'],
         role: 'ADMIN',
       },
       {
         name: 'Estudiantes',
-        icon: 'fa fa-child',
+        icon: ICON_CHILD,
         router: ['estudiante', 'listar'],
         role: 'ADMIN',
       },
       {
         name: 'Casos',
-        icon: 'fa fa-building',
+        icon: ICON_BUILDING,
         router: ['casos', 'listar'],
         role: 'DECE',
       },
       {
         name: 'Instituciones',
-        icon: 'fa fa-building',
+        icon: ICON_BUILDING,
         router: ['institucion', 'listar'],
         role: 'ADMIN',
       },
       {
         name: 'DECE',
-        icon: 'fa fa-building',
+        icon: ICON_BUILDING,
         router: ['dece', 'listar'],
         role: 'ADMIN',
       },
       {
         name: 'Docentes',
-        icon: 'fa fa-building',
+        icon: ICON_BUILDING,
         router: ['docente', 'listar'],
         role: 'ADMIN',
       },
       {
         name: 'Docentes',
-        icon: 'fa-solid fa-chalkboard-user',
+        icon: ICON_CHALKBOARD_USER,
         router: ['test', 'docente', 'listar'],
         role: 'TEACHER',
       },
       {
         name: 'Test Estudiantes',
-        icon: 'fas fa-list-check',
+        icon: ICON_LIST_CHECK,
         router: ['test', 'estudiante', 'listar'],
         role: 'ADMIN',
       },
       {
         name: 'Test Docentes',
-        icon: 'fas fa-list-check',
+        icon: ICON_LIST_CHECK,
         router: ['test', 'question', 'listar'],
         role: 'ADMIN',
       },
       {
         name: 'Test Estudiantes',
-        icon: 'fas fa-list-check',
+        icon: ICON_LIST_CHECK,
         router: ['caso', 'estudiante', 'listar'],
         role: 'DECE',
       },
       {
         name: 'Test Docentes',
-        icon: 'fas fa-list-check',
+        icon: ICON_LIST_CHECK,
         router: ['caso', 'docente', 'listar'],
         role: 'DECE',
       },
     ];
   }
 
-  //closed session delete cookie and redirect to login
-  logouth() {
+  logouth = (): void => {
+    this.router.navigateByUrl('/');
     this.serviceAuth.logout();
-  }
+  };
 
-  //closed menu in mobile devices
-  toggleMenu() {
-    this.isOpen = !this.isOpen;
-  }
+  toggleMenu = (): void => {
+    this.isMenuOpen = !this.isMenuOpen;
+  };
 }

@@ -40,10 +40,6 @@ export class ClsFormEstudiante {
         Validators.maxLength(10),
         Validators.pattern('^[0-9]*$'),
       ]),
-      emailStudent: new FormControl('', [
-        Validators.required,
-        Validators.email,
-      ]),
       gradeStudent: new FormControl('', [
         Validators.required,
         Validators.minLength(1),

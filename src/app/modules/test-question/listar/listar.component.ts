@@ -19,7 +19,6 @@ export class ListarComponent {
   constructor(
     private questionService: TestQuestionService,
     private notification: NotificationsService,
-    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -31,9 +30,7 @@ export class ListarComponent {
     });
   }
 
-  refresh() {
-    this.ngOnInit();
-  }
+ 
 
 
   delete(id: any) {
@@ -59,6 +56,7 @@ export class ListarComponent {
             },
             (err) => {
               console.log(err);
+              this.ngOnInit()
               this.notification.showError(
                 'Error',
                 'No se pudo eliminar la pregunta'

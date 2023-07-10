@@ -6,6 +6,4 @@ export interface TokenInformation {
   user: string;
   institution: string;
   dateNow: Date;
-  expiresAt: Date;
-  timeLeft: number;
 }

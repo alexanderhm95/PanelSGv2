@@ -1,12 +1,8 @@
 import { FilterTablesPipe } from '@/app/shared/pipes/filter-tables.pipe';
-import { AuthService } from '@/app/shared/services/api/auth.service';
 import { UserService } from '@/app/shared/services/api/user.service';
-import { JwtService } from '@/app/shared/services/utils/jwt.service';
 import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
-
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-listar',
   templateUrl: './listar.component.html',
@@ -16,48 +12,40 @@ import { CookieService } from 'ngx-cookie-service';
 export class ListarComponent implements OnInit {
   public usuarios: Usuario[] = [];
   public modalActivate = false;
-
+  private intervalSubscription: Subscription = new Subscription();
   public currentUser?: Usuario;
   public search = '';
   public loading = true;
 
   constructor(
     private notification: NotificationsService,
-    private cookieService: CookieService,
     private usuariosService: UserService,
-    private authService: AuthService,
-    private jwtService: JwtService,
-    private route: ActivatedRoute,
-    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.getUsers();
-    this.getCurrentUser();
+    //this.intervalSubscription = interval(5000) // Intervalo de 5 segundos (ajusta según tus necesidades)
+    //  .subscribe(() => {
+        this.getUsers(); // Carga periédica de datos
+     // });
   }
 
-  refresh() {
-    this.ngOnInit();
+  ngOnDestroy(): void {
+    // Cancela la suscripción al intervalo cuando el componente se destruye
+    if (this.intervalSubscription) {
+      this.intervalSubscription.unsubscribe();
+    }
   }
 
-  getCurrentUser(): void {
-    const token = this.cookieService.get('token');
-    const tokenInformation = this.jwtService.getTokenInformation(token);
-    this.currentUser = {
-      id: tokenInformation?.user || '',
-      CI: '',
-      email: '',
-      role: tokenInformation?.role || '',
-      status: true,
-    };
-  }
+ 
+
 
   getUsers(): void {
     this.usuariosService.getAllUser().subscribe(
       (res) => {
-        this.usuarios = res.data;
+        const {message, data} = res;
+        this.usuarios = data;
         this.loading = false;
-        console.log(res.message);
+        console.log(message);
       },
       (err) => {
         console.log('Error:', err.error);
@@ -88,6 +76,7 @@ export class ListarComponent implements OnInit {
             },
             (err) => {
               console.log(err.error);
+              this.ngOnInit()
               this.notification.showError(
                 'Error',
                 'No se pudo desactivar la cuenta'
@@ -131,11 +120,13 @@ export class ListarComponent implements OnInit {
             },
             (err) => {
               if (err.status === 0) {
+                this.ngOnInit()
                 this.notification.showError(
                   'Error',
                   'Error de conexión con el servidor'
                 );
               } else {
+                this.ngOnInit()
                 console.log(err.error);
                 this.notification.showError('Error', errorMessage);
               }
@@ -151,4 +142,7 @@ interface Usuario {
   email: string;
   role: string;
   status: boolean;
+}
+function interval(arg0: number) {
+  throw new Error('Function not implemented.');
 }

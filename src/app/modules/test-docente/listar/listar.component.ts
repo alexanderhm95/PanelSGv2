@@ -37,19 +37,21 @@ export class ListarComponent implements OnInit {
         this.loading = true;
 
         if (error.status === 0) {
+
+          this.ngOnInit();
           this.notification.showError(
             'Error',
             'Error de conexión con el servidor'
           );
         } else {
+
+          this.ngOnInit();
           this.notification.showError('Error', 'Error al cargar casos');
         }
       }
     );
   }
 
-  refresh() {
-    this.ngOnInit();
-  }
+  
 
 }

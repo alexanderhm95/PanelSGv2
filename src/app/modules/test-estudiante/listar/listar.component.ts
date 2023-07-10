@@ -1,6 +1,7 @@
 import { InterfaceTestEstudiante } from '@/app/core/interfaces/test-estudiante';
 import { FilterTablesPipe } from '@/app/shared/pipes/filter-tables.pipe';
 import { TestEstudianteService } from '@/app/shared/services/api/test-estudiante.service';
+import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
 import { environment } from '@/environments/environment';
 import { NgOptimizedImage, provideImgixLoader } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
@@ -23,7 +24,10 @@ export class ListarComponent implements OnInit {
 
   preguntas: InterfaceTestEstudiante[] = [];
 
-  constructor(private preguntaService: TestEstudianteService) {}
+  constructor(
+    private preguntaService: TestEstudianteService,
+    private notification: NotificationsService
+  ) {}
 
   ngOnInit(): void {
     this.preguntaService.getAllPregunta().subscribe((res) => {
@@ -34,21 +38,37 @@ export class ListarComponent implements OnInit {
     });
   }
 
-  refresh() {
-    this.ngOnInit();
-  }
-
-
   delete(id: any) {
-    this.preguntaService.deletePregunta(id).subscribe(
-      (res) => {
-        const { message } = res;
-        console.log(message);
-        this.ngOnInit();
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+    this.notification
+      .showConfirm(
+        'warning',
+        'Peligro',
+        'Estas seguro de eliminar la pregunta?',
+        'Si, eliminar!',
+        'No, cancelar!'
+      )
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.preguntaService.deletePregunta(id).subscribe(
+            (res) => {
+              const { message } = res;
+              this.notification.showSuccess(
+                'Éxito',
+                'Pregunta eliminada correctamente'
+              );
+              console.log(message);
+              this.ngOnInit();
+            },
+            (err) => {
+              console.log(err);
+              this.ngOnInit();
+              this.notification.showError(
+                'Error',
+                'No se pudo eliminar la pregunta'
+              );
+            }
+          );
+        }
+      });
   }
 }

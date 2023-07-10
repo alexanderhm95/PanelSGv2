@@ -1,8 +1,9 @@
+import { Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { FilterTablesPipe } from '@/app/shared/pipes/filter-tables.pipe';
 import { TestDocenteService } from '@/app/shared/services/api/test-docente.service';
 import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
-import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+
 
 @Component({
   selector: 'app-listar',
@@ -21,21 +22,21 @@ export class ListarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.loadTests();
+  }
+
+  loadTests(): void {
     this.serviceCasoTeacher.getAll().subscribe(
       (res) => {
         const { message, data } = res;
         this.tests = data;
-        console.log(data);
         console.log(message);
         this.loading = false;
       },
       (error) => {
         this.loading = true;
         if (error.status === 0) {
-          this.notification.showError(
-            'Error',
-            'Error de conexión con el servidor'
-          );
+          this.notification.showError('Error', 'Error de conexión con el servidor');
         } else {
           this.notification.showError('Error', 'Error al cargar información');
         }
@@ -43,12 +44,8 @@ export class ListarComponent implements OnInit {
     );
   }
 
-  refresh() {
-    this.ngOnInit();
-  }
 
   deleteTest(id: any) {
-    console.log(id);
     this.notification
       .showConfirm(
         'warning',
@@ -65,14 +62,12 @@ export class ListarComponent implements OnInit {
                 'Éxito',
                 'Test eliminado correctamente'
               );
-              console.log(res);
               this.ngOnInit();
             },
             (err) => {
-              console.log(err.error);
               this.notification.showError(
                 'Error',
-                'No se pudo elimnar el test'
+                'No se pudo eliminar el test'
               );
             }
           );

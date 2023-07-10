@@ -1,14 +1,16 @@
-import { AuthService } from '@/app/shared/services/api/auth.service';
-import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '@/app/shared/services/api/auth.service';
+import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
+
 
 @Component({
   selector: 'app-recovery',
   templateUrl: './recovery.component.html',
   styleUrls: ['./recovery.component.css'],
 })
+
 export class RecoveryComponent implements OnInit {
   recoverForm: FormGroup = new FormGroup({});
   formCode: FormGroup = new FormGroup({});
@@ -21,14 +23,14 @@ export class RecoveryComponent implements OnInit {
   esSegura = false;
   showPassword = false;
   showPassword2 = false;
-
   emailSent = false;
   codeValidate = false;
   codeSent = false;
   codeExpired = false;
   error = false;
   errorMessage = '';
-  timeLeft = 120; // tiempo restante en minutos
+
+
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
@@ -37,9 +39,15 @@ export class RecoveryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.initForm();
+  }
+
+
+  initForm(): void {
     this.recoverForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
     });
+
     this.formCode = this.formBuilder.group({
       code1: ['', [Validators.required, Validators.maxLength(1)]],
       code2: ['', [Validators.required, Validators.maxLength(1)]],
@@ -48,6 +56,7 @@ export class RecoveryComponent implements OnInit {
       code5: ['', [Validators.required, Validators.maxLength(1)]],
       code6: ['', [Validators.required, Validators.maxLength(1)]],
     });
+
     this.formPassword = this.formBuilder.group(
       {
         password: ['', [Validators.required, Validators.minLength(6)]],
@@ -58,6 +67,10 @@ export class RecoveryComponent implements OnInit {
   }
 
   sendRecover() {
+    if (this.recoverForm.invalid) {
+      return;
+    }
+
     const body = {
       email: this.recoverForm.value.email,
     };
@@ -65,10 +78,8 @@ export class RecoveryComponent implements OnInit {
     this.authService.recoverPassword(body).subscribe(
       (res) => {
         const { message, timeExpire, seconds } = res;
-        console.log(message, ' El codigo expira:', timeExpire);
         this.emailSent = true;
         this.codeSent = true;
-        this.countdown(seconds);
       },
       (error) => {
         if (error.status === 0) {
@@ -87,17 +98,6 @@ export class RecoveryComponent implements OnInit {
     );
   }
 
-  countdown(seconds: number) {
-    const interval = setInterval(() => {
-      this.timeLeft--;
-      if (this.timeLeft == 0) {
-        this.codeExpired = true;
-        clearInterval(interval);
-      } else {
-        this.codeExpired = false;
-      }
-    }, seconds);
-  }
   onEmailInputFocus() {
     this.error = false;
     this.errorMessage = '';
@@ -113,14 +113,12 @@ export class RecoveryComponent implements OnInit {
     };
     this.authService.validateCode(body).subscribe(
       (res) => {
-        console.log(res);
         this.codeValidate = true;
         this.codeSent = false;
         this.error = false;
         this.errorMessage = '';
       },
       (err) => {
-        console.log(err);
         this.codeValidate = false;
         this.error = true;
         this.errorMessage = err.error.error;

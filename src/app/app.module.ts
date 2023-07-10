@@ -27,6 +27,7 @@ import { NgOptimizedImage } from '@angular/common';
     }),
   ],
   providers: [
+    Location, 
     JwtHelperService,
     CookieService,
     {

@@ -8,96 +8,73 @@
 
     <!-- Cabecera -->
     <div class="w-full flex flex-col py-4">
-      <!-- Aqui van los datos  -->
-      <div class="grid grid-cols-5 gap-2">
-        <div class="col-span-1">
-          <label class="text-camelot font-bold flex flex-row"
-            >Institución</label
-          >
+      <!-- Aquí van los datos -->
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-2">
+        <div>
+          <label class="text-camelot font-bold flex flex-row">Institución</label>
         </div>
-        <div class="col-span-4">
-          <label class="flex flex-row text-nile-blue-200">
-            {{ this.caso.nameInstitutionStudent }}
-          </label>
+        <div>
+          <label class="flex flex-row text-nile-blue-200">{{ this.caso.nameInstitutionStudent }}</label>
         </div>
       </div>
-
-      <div class="grid grid-cols-5 gap-2">
-        <div class="col-span-1">
-          <label class="text-camelot font-bold flex flex-row"
-            >Estudiante:</label
-          >
+    
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-2">
+        <div>
+          <label class="text-camelot font-bold flex flex-row">Estudiante:</label>
         </div>
-        <div class="col-span-4">
-          <label class="flex flex-row text-nile-blue-200"
-            >{{ this.caso.nameStudent }} {{ this.caso.lastNameStudent }}</label
-          >
+        <div>
+          <label class="flex flex-row text-nile-blue-200">{{ this.caso.nameStudent }} {{ this.caso.lastNameStudent }}</label>
         </div>
       </div>
-
-      <div class="grid grid-cols-5 gap-2">
-        <div class="col-span-1">
+    
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-2">
+        <div>
           <label class="text-camelot font-bold flex flex-row">Grado</label>
         </div>
-        <div class="col-span-4">
-          <label class="flex flex-row text-nile-blue-200">{{
-            this.caso.grade
-          }}</label>
+        <div>
+          <label class="flex flex-row text-nile-blue-200">{{ this.caso.grade }}</label>
         </div>
       </div>
-
-      <div class="grid grid-cols-5 gap-2">
-        <div class="col-span-1">
+    
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-2">
+        <div>
           <label class="text-camelot font-bold flex flex-row">Paralelo</label>
         </div>
-        <div class="col-span-4">
-          <label class="flex flex-row text-nile-blue-200">{{
-            this.caso.parallel
-          }}</label>
+        <div>
+          <label class="flex flex-row text-nile-blue-200">{{ this.caso.parallel }}</label>
         </div>
       </div>
-
-      <div class="grid grid-cols-5 gap-2">
-        <div class="col-span-1">
+    
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-2">
+        <div>
           <label class="text-camelot font-bold flex flex-row">Docente</label>
         </div>
-        <div class="col-span-4">
-          <label class="flex flex-row text-nile-blue-200"
-            >{{ this.caso.nameTeacher }} {{ this.caso.lastNameTeacher }}</label
-          >
+        <div>
+          <label class="flex flex-row text-nile-blue-200">{{ this.caso.nameTeacher }} {{ this.caso.lastNameTeacher }}</label>
         </div>
       </div>
-
-      <div class="grid grid-cols-5 gap-2">
-        <div class="col-span-1">
+    
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-2">
+        <div>
           <label class="text-camelot font-bold flex flex-row">Evaluador</label>
         </div>
-        <div class="col-span-4">
-          <label class="flex flex-row text-nile-blue-200"
-            >{{ this.caso.nameDece }} {{ this.caso.lastNameDece }}</label
-          >
+        <div>
+          <label class="flex flex-row text-nile-blue-200">{{ this.caso.nameDece }} {{ this.caso.lastNameDece }}</label>
         </div>
       </div>
-
-      <div class="grid grid-cols-5 gap-2">
-        <div class="col-span-1">
-          <label class="text-camelot font-bold flex flex-row"
-            >Observaciones:</label
-          >
+    
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-2 w-full">
+        <div>
+          <label class="text-camelot font-bold flex flex-row">Observaciones:</label>
         </div>
-        <div class="col-span-4">
-          <label
-            class="flex flex-row text-nile-blue-200"
-            *ngIf="this.caso.scoreEvaluator !== null"
-          >
-            {{
-              this.caso.scoreEvaluator +
-                " punto agregado al test del estudiante"
-            }}
+        <div>
+          <label class="flex flex-row text-nile-blue-200" *ngIf="this.caso.scoreEvaluator !== null">
+            {{ this.caso.scoreEvaluator + " punto agregado al test del estudiante" }}
           </label>
         </div>
       </div>
     </div>
+    
 
     <!-- Resutados test Estudiante -->
     <div *ngIf="this.caso.statusTestStudent === false" class="w-full flex py-4">

@@ -48,9 +48,7 @@ export class ListarComponent implements OnInit {
     );
   }
   
-  refresh() {
-    this.ngOnInit();
-  }
+ 
 
   delete(id: string) {
     this.notification
@@ -71,11 +69,15 @@ export class ListarComponent implements OnInit {
             },
             (error) => {
               if (error.status === 0) {
+
+                this.ngOnInit();
                 this.notification.showError(
                   'Error ',
                   'No se pudo conectar con el servidor'
                 );
               } else {
+
+                this.ngOnInit();
                 this.notification.showError('Error ', error.error.error);
                 console.log(error);
               }

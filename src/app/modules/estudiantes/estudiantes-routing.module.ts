@@ -2,20 +2,32 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EditarComponent } from './editar/editar.component';
 import { ListarComponent } from './listar/listar.component';
+import { AuthGuard } from '@/app/core/guards/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: ListarComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
+    title: 'Estudiante',
   },
   {
     path: 'listar',
-    component: ListarComponent
+    component: ListarComponent,
+    canActivate: [AuthGuard], 
+    data: {
+      requiredRole: 'ADMIN', // Especificar el rol requerido para acceder a la ruta
+    },
+    title: 'Estudiante',
   },
   {
     path: 'editar/:id',
-    component: EditarComponent
+    component: EditarComponent,
+    canActivate: [AuthGuard], 
+    data: {
+      requiredRole: 'ADMIN', // Especificar el rol requerido para acceder a la ruta
+    },
+    title: 'Estudiante',
   }];
 
 @NgModule({

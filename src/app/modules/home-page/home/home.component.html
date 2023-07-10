@@ -4,8 +4,8 @@
 >
   <!-- Side Bar -->
   <div
-    class="lg:w-full lg:h-[100%] md:w-[30%] md:h-[90vh] h-[90vh] w-[45%] z-50 fixed  lg:static top-0  overflow-y-scroll lg:overflow-y-hidden bg-cameo col-span-1 p-2 border-r border-camelot-500 transition-all"
-    [ngClass]="{ '-left-full': !isOpen, 'left-0': isOpen }"
+    class="lg:w-full lg:h-[100%] md:w-[30%] md:h-[90vh] h-[90vh] w-[45%] z-50 fixed lg:static top-0 overflow-y-scroll lg:overflow-y-hidden bg-cameo col-span-1 p-2 border-r border-camelot-500 transition-all"
+    [ngClass]="{ '-left-full': !isMenuOpen, 'left-0': isMenuOpen }"
   >
     <!-- Nombre y Logotipo -->
     <div
@@ -56,13 +56,16 @@
         <ul class="menu-list">
           <!-- Se presentan solo las opciones en donde this.rol sea igual a item.role -->
           <ng-container *ngFor="let item of mainMenu">
-            <li class="flex items-center" *ngIf="item.role === this.role">
+            <li class="flex items-center transition-transform transform-gpu hover:scale-95 active:scale-95 cursor-pointer" 
+            *ngIf="item.role === this.role">
               <a
-                class="flex items-center gap-2 p-2 text-camelot-100 rounded-lg hover:bg-paarl hover:text-nile-blue transition-colors"
-                [routerLink]="item.router"
-                (click)="toggleMenu()"
+                class="flex items-center gap-2  text-camelot-100 rounded-lg hover:bg-paarl hover:text-nile-blue py-2 px-4 "
+                (click)="goToView(item.router)"
               >
-                <i class="{{ item.icon }} text-camelot"></i>
+                <i
+                  class="{{ item.icon }} text-camelot "
+                  (click)="toggleMenu()"
+                ></i>
                 {{ item.name }}
               </a>
             </li>
@@ -89,13 +92,13 @@
 
   <!-- boton flotante para menu responsive -->
   <button
-    class="flex w-10 h-10 items-center justify-center absolute bottom-9 right-4 md:bottom-16 md:right-7 p-3 lg:hidden rounded-full bg-camelot  text-center m-1"
-    [ngClass]="!isOpen ? 'bg-opacity-90' : 'bg-opacity-50'"
+    class="flex w-10 h-10 items-center justify-center absolute bottom-9 right-4 md:bottom-16 md:right-7 p-3 lg:hidden rounded-full bg-camelot text-center m-1"
+    [ngClass]="!isMenuOpen ? 'bg-opacity-90' : 'bg-opacity-50'"
     (click)="toggleMenu()"
   >
     <i
       class="flex fas text-white text-xl"
-      [ngClass]="{ 'fa-bars': !isOpen, 'fa-circle-xmark': isOpen }"
+      [ngClass]="{ 'fa-bars': !isMenuOpen, 'fa-circle-xmark': isMenuOpen }"
     ></i>
   </button>
 

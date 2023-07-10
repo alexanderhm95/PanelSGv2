@@ -2,20 +2,32 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ListarComponent } from './listar/listar.component';
 import { RegistrarComponent } from './registrar/registrar.component';
+import { AuthGuard } from '@/app/core/guards/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     component:ListarComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
+    title: 'Usuarios',
   },
   {
     path: 'registrar',
-    component:RegistrarComponent
+    component:RegistrarComponent,
+    canActivate: [AuthGuard], // Proteger la ruta con el guard de ruta
+    data: {
+      requiredRole: 'ADMIN', // Especificar el rol requerido para acceder a la ruta
+    },
+    title: 'Usuarios',
   },
   {
     path: 'listar',
-    component:ListarComponent
+    component:ListarComponent,
+    canActivate: [AuthGuard], // Proteger la ruta con el guard de ruta
+    data: {
+      requiredRole: 'ADMIN', // Especificar el rol requerido para acceder a la ruta
+    },
+    title: 'Usuarios',
   },
 
 

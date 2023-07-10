@@ -25,9 +25,7 @@ export class ListarComponent implements OnInit {
     this.getDeces();
   }
 
-  refresh() {
-    this.ngOnInit();
-  }
+ 
 
   getDeces() {
     this.deceService.getAllDece().subscribe(
@@ -72,12 +70,16 @@ export class ListarComponent implements OnInit {
             },
             (err) => {
               if (err.status === 0) {
+
+                this.ngOnInit();
                 this.notification.showError(
                   'Error',
                   'No se pudo conectar con el servidor'
                 );
               } else {
                 console.log(err);
+
+                this.ngOnInit();
                 this.notification.showError('Error', err.error.error);
               }
             }

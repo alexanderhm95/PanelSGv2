@@ -36,9 +36,7 @@ export class ListarComponent implements OnInit {
     );
   }
 
-  refresh() {
-    this.ngOnInit();
-  }
+  
   
   scoreUpdate(id: string, op: string) {
     if (op == 'plus') {
@@ -71,6 +69,8 @@ export class ListarComponent implements OnInit {
         },
         (err) => {
           console.log(err.error);
+
+          this.ngOnInit();
           this.notification.showError('Error', err.error.error);
         }
       );
@@ -99,6 +99,8 @@ export class ListarComponent implements OnInit {
             },
             (err) => {
               console.log(err.error);
+
+              this.ngOnInit();
               this.notification.showError(
                 'Error',
                 'No se pudo elimnar el test'

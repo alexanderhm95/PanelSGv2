@@ -38,9 +38,7 @@ export class ListarComponent implements OnInit {
       }
     );
   }
-  refresh() {
-    this.ngOnInit();
-  }
+  
 
   delete(id: any) {
     this.notification
@@ -65,11 +63,15 @@ export class ListarComponent implements OnInit {
             },
             (error) => {
               if (error.status === 0) {
+
+                this.ngOnInit();
                 this.notification.showError(
                   'Error',
                   'Error de conexión con el servidor, inténtelo mas tarde'
                 );
               } else {
+
+                this.ngOnInit();
                 this.notification.showError('Error', error.error.error);
               }
             }

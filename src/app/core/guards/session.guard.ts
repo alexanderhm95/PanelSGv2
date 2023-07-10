@@ -9,32 +9,32 @@ import {
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
+import { JwtService } from '@/app/shared/services/utils/jwt.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SessionGuard implements CanActivate {
-  constructor(private cookieService: CookieService, private router: Router) {}
+  constructor(
+    private router: Router,
+    private cookieService: CookieService,
+    private jwtService: JwtService
+  ) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Observable<boolean | UrlTree> {
-    return this.checkSession().pipe(
-      map((tokenExists) => {
-        if (tokenExists) {
-          return true;
-        } else {
-          return this.router.createUrlTree(['/auth'], {
-            queryParams: { returnUrl: state.url },
-          });
-        }
-      })
-    );
-  }
-
-  checkSession(): Observable<boolean> {
+  ): boolean {
     const token = this.cookieService.get('token');
-    return of(!!token); // Devuelve un observable de booleano indicando si el token existe o no
+    const isLoggedIn = token && !this.jwtService.isTokenExpired(token);
+
+    if (isLoggedIn) {
+      return true;
+    } else {
+      this.router.navigate(['/auth'], {
+        queryParams: { returnUrl: state.url },
+      });
+      return false;
+    }
   }
 }

@@ -29,10 +29,6 @@ export class ClsFormCaso {
         Validators.minLength(6),
         Validators.maxLength(10),
       ]),
-      emailStudent: new FormControl('', [
-        Validators.required,
-        Validators.email,
-      ]),
       gradeStudent: new FormControl('', [
         Validators.required,
         Validators.minLength(1),
@@ -59,7 +55,7 @@ export class ClsFormCaso {
       ]),
       addressTeacher: new FormControl('', [
         Validators.required,
-        Validators.minLength(10),
+        Validators.minLength(2),
       ]),
       phoneTeacher: new FormControl('', [
         Validators.required,

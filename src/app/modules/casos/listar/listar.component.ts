@@ -7,6 +7,7 @@ import { environment } from '@/environments/environment';
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject, interval, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-listar',
@@ -16,6 +17,7 @@ import { Router } from '@angular/router';
 })
 export class ListarComponent implements OnInit {
   public api = environment.api + '/api/1.0';
+  private destroy$: Subject<void> = new Subject<void>(); // Subject para indicar la finalización del componente
 
   public casos: any[] = [];
   public codigo = 0;
@@ -32,6 +34,19 @@ export class ListarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    interval(5000)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.getCasos();
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  getCasos() {
     this.id = this.authService.getUserId();
     this.casoService.getAllCaso(this.id).subscribe(
       (res) => {
@@ -47,10 +62,6 @@ export class ListarComponent implements OnInit {
         console.log(err);
       }
     );
-  }
-
-  refresh() {
-    this.ngOnInit();
   }
 
   closeModal() {
