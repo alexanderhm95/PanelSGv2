@@ -181,7 +181,7 @@
           </td>
           <td class="p-3 text-sm text-black-100 tracking-wide text-center">
             <!-- Icono de reporte -->
-            <button [routerLink]="'../reporte/' + caso.id" type="button">
+            <button [routerLink]="'../reporte/' + caso._id" type="button">
               <i
                 class="fas fa-file-alt text-3xl text-camelot font-bold hover:text-nile-blue"
                 title="Ir al reporte..."
@@ -191,7 +191,7 @@
 
           <td class="p-3 text-sm text-black-100 tracking-wide text-center">
             <!-- Icono de eliminar-->
-            <button (click)="deleteCaso(caso.id)" type="button">
+            <button (click)="deleteCaso(caso._id)" type="button">
               <i
                 class="fas fa-trash-alt text-3xl text-red-500 font-bold hover:text-nile-blue"
                 title="Eliminar..."
@@ -381,7 +381,7 @@
           <div
             class="grid grid-cols-1 items-center space-x-2 text-lg text-center text-camelot font-bold underline pl-2 py-2 pr-2"
           >
-            <button [routerLink]="'../reporte/' + caso.id" type="button">
+            <button [routerLink]="'../reporte/' + caso._id" type="button">
               <i
                 class="fas fa-file-alt text-3xl text-camelot font-bold hover:text-nile-blue"
                 title="Ir al reporte..."
@@ -401,7 +401,7 @@
           <div
             class="grid grid-cols-1 items-center space-x-2 text-lg text-center font-bold pl-2 py-2 pr-2"
           >
-            <button (click)="deleteCaso(caso.id)" type="button">
+            <button (click)="deleteCaso(caso._id)" type="button">
               <i
                 class="fas fa-trash-alt text-3xl text-red-500 font-bold hover:text-nile-blue"
                 title="Eliminar..."

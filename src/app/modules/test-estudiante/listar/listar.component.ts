@@ -21,6 +21,9 @@ export class ListarComponent implements OnInit {
   public api = environment.api + '/api/1.0';
   public search = '';
   public loading = true;
+  public currentPage = 0;
+  public pageSize = 0;
+  public totalPages = 0;
 
   preguntas: InterfaceTestEstudiante[] = [];
 
@@ -30,12 +33,40 @@ export class ListarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.preguntaService.getAllPregunta().subscribe((res) => {
-      const { message, data } = res;
-      this.preguntas = data;
-      this.loading = false;
-      console.log(message);
-    });
+    //this.preguntaService.getAllPregunta().subscribe((res) => {
+    //  const { message, data } = res;
+    //  this.preguntas = data;
+    //  this.loading = false;
+    //  console.log(message);
+    //});
+    this.getData();
+  }
+
+  nextPage(): void {
+    this.currentPage++;
+    this.getData();
+  }
+
+  previousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.getData();
+    }
+  }
+
+  getData(): void {
+    this.loading = true;
+    this.preguntaService
+      .getAllPreguntaPaginated(this.currentPage, this.pageSize)
+      .subscribe((res) => {
+        const { message, data } = res;
+        this.preguntas = data.testImages.docs;
+        this.currentPage = data.testImages.page;
+        this.totalPages = data.testImages.totalPages; // Calcular el número total de páginas
+        this.loading = false;
+        console.log(message);
+        console.log(res);
+      });
   }
 
   delete(id: any) {

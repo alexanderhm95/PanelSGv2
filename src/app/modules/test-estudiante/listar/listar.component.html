@@ -117,6 +117,28 @@
           </tr>
         </tbody>
       </table>
+
+      <div class="flex items-center justify-center w-full">
+        <div class="w-[50%] flex items-center justify-between mt-4">
+          <button
+            class="px-4 py-2 text-sm font-medium text-camelot  border-2 border-camelot bg-blue-500 rounded hover:bg-blue-600"
+            (click)="previousPage()"
+            [disabled]="currentPage === 1"
+          >
+            Previous
+          </button>
+          <span class="text-black-400 font-bold">Page {{ currentPage }} of {{ totalPages }}</span>
+          <button
+            class="px-4 py-2 text-sm font-medium text-camelot border-2 border-camelot bg-blue-500 rounded hover:bg-blue-600"
+            (click)="nextPage()"
+          >
+            Next
+          </button>
+        </div>
+      </div>
+      
+
+
     </div>
 
     <div class="w-full lg:h-auto px-4 py-2 rounded-lg lg:hidden">

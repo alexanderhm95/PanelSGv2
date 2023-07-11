@@ -1,6 +1,6 @@
 import { InterfaceTestEstudiante } from '@/app/core/interfaces/test-estudiante';
 import { environment } from '@/environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Form } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -23,6 +23,13 @@ export class TestEstudianteService {
     return this.http.get(`${this.URL}/testImages`);
   }
 
+  getAllPreguntaPaginated(page: number, pageSize: number): Observable<any> {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('pageSize', pageSize.toString());
+  
+    return this.http.get(`${this.URL}/testImages/paginated`, { params });
+  }
 
   getPregunta(id: any): Observable<any> {
     return this.http.get(`${this.URL}/testImages/${id}`);
