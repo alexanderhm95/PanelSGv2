@@ -26,6 +26,9 @@ export class ClsFormEstudiante {
         Validators.minLength(3),
         Validators.pattern('^[a-zA-Zñáéíöäëéöåç ]*$'),
       ]),
+      gender: new FormControl('', [
+        Validators.required
+      ]),
       ageStudent: new FormControl('', [
         Validators.required,
         Validators.minLength(1),

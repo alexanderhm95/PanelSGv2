@@ -1,28 +1,29 @@
+import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
 import { AuthGuard } from '@/app/core/guards/auth.guard';
 
 const routes: Routes = [
+
   {
     path: 'usuarios',
     loadChildren: () =>
       import('../usuarios/usuarios.module').then((m) => m.UsuariosModule),
-    canActivate: [AuthGuard], // Proteger la ruta con el guard de ruta
+    canActivate: [AuthGuard], // Proteger la ruta con el guard de sesión
     data: {
       requiredRole: 'ADMIN', // Especificar el rol requerido para acceder a la ruta
-    },
-    title: 'Usuarios',
+      title: 'Usuarios'
+    }
   },
   {
     path: 'casos',
     loadChildren: () =>
       import('../casos/casos.module').then((m) => m.CasosModule),
-    canActivate: [AuthGuard], // Proteger la ruta con el guard de ruta
+    canActivate: [AuthGuard], // Proteger la ruta con el guard de sesión
     data: {
       requiredRole: 'DECE', // Especificar el rol requerido para acceder a la ruta
-    },
-    title: 'Casos',
+      title: 'Casos'
+    }
   },
   {
     path: 'institucion',
@@ -30,30 +31,30 @@ const routes: Routes = [
       import('../instituciones/instituciones.module').then(
         (m) => m.InstitucionesModule
       ),
-    canActivate: [AuthGuard], // Proteger la ruta con el guard de ruta
+    canActivate: [AuthGuard], // Proteger la ruta con el guard de sesión
     data: {
       requiredRole: 'ADMIN', // Especificar el rol requerido para acceder a la ruta
-    },
-    title: 'Institución',
+      title: 'Institución'
+    }
   },
   {
     path: 'dece',
     loadChildren: () => import('../dece/dece.module').then((m) => m.DeceModule),
-    canActivate: [AuthGuard], // Proteger la ruta con el guard de ruta
+    canActivate: [AuthGuard], // Proteger la ruta con el guard de sesión
     data: {
       requiredRole: 'ADMIN', // Especificar el rol requerido para acceder a la ruta
-    },
-    title: 'DECE',
+      title: 'DECE'
+    }
   },
   {
     path: 'docente',
     loadChildren: () =>
       import('../docentes/docentes.module').then((m) => m.DocentesModule),
-    canActivate: [AuthGuard], // Proteger la ruta con el guard de ruta
+    canActivate: [AuthGuard], // Proteger la ruta con el guard de sesión
     data: {
       requiredRole: 'ADMIN', // Especificar el rol requerido para acceder a la ruta
-    },
-    title: 'Docente',
+      title: 'Docente'
+    }
   },
   {
     path: 'estudiante',
@@ -61,21 +62,21 @@ const routes: Routes = [
       import('../estudiantes/estudiantes.module').then(
         (m) => m.EstudiantesModule
       ),
-    canActivate: [AuthGuard], // Proteger la ruta con el guard de ruta
+    canActivate: [AuthGuard], // Proteger la ruta con el guard de sesión
     data: {
       requiredRole: 'ADMIN', // Especificar el rol requerido para acceder a la ruta
-    },
-    title: 'Estudiante',
+      title: 'Estudiante'
+    }
   },
   {
     path: 'personas',
     loadChildren: () =>
       import('../personas/personas.module').then((m) => m.PersonasModule),
-    canActivate: [AuthGuard], // Proteger la ruta con el guard de ruta
+    canActivate: [AuthGuard], // Proteger la ruta con el guard de sesión
     data: {
       requiredRole: 'ADMIN', // Especificar el rol requerido para acceder a la ruta
-    },
-    title: 'Personas',
+      title: 'Personas'
+    }
   },
   {
     path: 'test/estudiante',
@@ -83,11 +84,11 @@ const routes: Routes = [
       import('../test-estudiante/test-estudiante.module').then(
         (m) => m.TestEstudianteModule
       ),
-    canActivate: [AuthGuard], // Proteger la ruta con el guard de ruta
+    canActivate: [AuthGuard], // Proteger la ruta con el guard de sesión
     data: {
       requiredRole: 'ADMIN', // Especificar el rol requerido para acceder a la ruta
-    },
-    title: 'Test Estudiante',
+      title: 'Test Estudiante'
+    }
   },
   {
     path: 'test/question',
@@ -95,11 +96,11 @@ const routes: Routes = [
       import('../test-question/test-question.module').then(
         (m) => m.TestQuestionModule
       ),
-    canActivate: [AuthGuard], // Proteger la ruta con el guard de ruta
+    canActivate: [AuthGuard], // Proteger la ruta con el guard de sesión
     data: {
       requiredRole: 'ADMIN', // Especificar el rol requerido para acceder a la ruta
-    },
-    title: 'Test Question',
+      title: 'Test Question'
+    }
   },
   {
     path: 'test/docente',
@@ -107,11 +108,11 @@ const routes: Routes = [
       import('../test-docente/test-docente.module').then(
         (m) => m.TestDocenteModule
       ),
-    canActivate: [AuthGuard], // Proteger la ruta con el guard de ruta
+    canActivate: [AuthGuard], // Proteger la ruta con el guard de sesión
     data: {
       requiredRole: 'TEACHER', // Especificar el rol requerido para acceder a la ruta
-    },
-    title: 'Docente',
+      title: 'Test Docente'
+    }
   },
   {
     path: 'caso/estudiante',
@@ -119,11 +120,11 @@ const routes: Routes = [
       import('../caso-test-estudiante/caso-test-estudiante.module').then(
         (m) => m.CasoTestEstudianteModule
       ),
-    canActivate: [AuthGuard], // Proteger la ruta con el guard de ruta
+    canActivate: [AuthGuard], // Proteger la ruta con el guard de sesión
     data: {
       requiredRole: 'DECE', // Especificar el rol requerido para acceder a la ruta
-    },
-    title: 'Test Estudiantes',
+      title: 'Test Estudiantes'
+    }
   },
   {
     path: 'caso/docente',
@@ -131,12 +132,12 @@ const routes: Routes = [
       import('../caso-test-docente/caso-test-docente.module').then(
         (m) => m.CasoTestDocenteModule
       ),
-    canActivate: [AuthGuard], // Proteger la ruta con el guard de ruta
+    canActivate: [AuthGuard], // Proteger la ruta con el guard de sesión
     data: {
       requiredRole: 'DECE', // Especificar el rol requerido para acceder a la ruta
-    },
-    title: 'Test Docentes',
-  },
+      title: 'Test Docentes'
+    }
+  }
 ];
 
 @NgModule({

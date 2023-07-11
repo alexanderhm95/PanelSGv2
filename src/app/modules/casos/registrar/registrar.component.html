@@ -70,6 +70,20 @@
 
       <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1">
         <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
+          <label for="gender">Género:</label>
+        </div>
+        <div class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1">
+          <select id="gender" formControlName="gender" class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400">
+            <option value="M">Masculino</option>
+            <option value="F">Femenino</option>
+            <option value="O">Otro</option>
+          </select>
+        </div>
+      </div>
+      
+
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1">
+        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
           <label for="ageStudent">Edad:</label>
         </div>
         <div

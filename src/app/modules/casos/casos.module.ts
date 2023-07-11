@@ -6,15 +6,17 @@ import { RegistrarComponent } from './registrar/registrar.component';
 import { ListarComponent } from './listar/listar.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ReporteComponent } from './reporte/reporte.component';
+import { RegistroDocenteComponent } from './registroDocente/registroDocente.component';
 
 @NgModule({
   declarations: [
     RegistrarComponent,
+    RegistroDocenteComponent,
     ListarComponent,
     ReporteComponent
   ],
   imports: [
-    
+  
 
     CommonModule,
     CasosRoutingModule,

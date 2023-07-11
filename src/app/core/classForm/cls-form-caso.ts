@@ -19,6 +19,7 @@ export class ClsFormCaso {
         Validators.required,
         Validators.minLength(3),
       ]),
+      gender: new FormControl('', [Validators.required]),
       ageStudent: new FormControl('', [Validators.required]),
       addressStudent: new FormControl('', [
         Validators.required,

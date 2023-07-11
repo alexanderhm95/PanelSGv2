@@ -34,17 +34,10 @@ export class ListarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    interval(5000)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(() => {
         this.getCasos();
-      });
   }
 
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
+
 
   getCasos() {
     this.id = this.authService.getUserId();

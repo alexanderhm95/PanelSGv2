@@ -22,6 +22,10 @@ export class TestCasoEstudianteService {
     return this.http.get(`${this.URL}/testStudent/${id}`);
   }
 
+  getTestStudentReporte(id: any): Observable<Blob> {
+    return this.http.get<Blob>(`${this.URL}/testStudent/reporte/${id}`);
+  }
+
   update(id: any, body: any): Observable<any> {
     return this.http.put(`${this.URL}/testStudent/${id}`, body);
   }

@@ -45,9 +45,9 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     // Realiza las acciones necesarias para actualizar el componente
 
-    if (this.jwtService.isLoggedIn()) {
-      this.router.navigate(['/home']);
-    }
+    if (this.jwtService.isLoggedIn()) {   
+      this.router.navigateByUrl(this.router.url);
+     }
     this.getDataToken();
     this.buildMenu();
   }
@@ -58,12 +58,10 @@ export class HomeComponent implements OnInit {
       .toString();
 
     if (this.router.url === url) {
-      const navigationExtras: NavigationExtras = {
-        skipLocationChange: true,
-        replaceUrl: true,
-      };
-      this.routeReuseStrategy.shouldReuseRoute = () => false;
-      this.router.navigateByUrl(url, navigationExtras);
+      this.router.navigate(['/']);
+      console.log("saca ala raiz" )
+      this.router.navigate(ruta, { relativeTo: this.route });
+      console.log("Va ala ruta" )
     } else {
       this.router.navigate(ruta, { relativeTo: this.route });
     }
@@ -144,11 +142,16 @@ export class HomeComponent implements OnInit {
         router: ['caso', 'docente', 'listar'],
         role: 'DECE',
       },
+      {
+        name: 'Registro Docentes',
+        icon: ICON_LIST_CHECK,
+        router: ['casos', 'registro'],
+        role: 'DECE',
+      },
     ];
   }
 
   logouth = (): void => {
-    this.router.navigateByUrl('/');
     this.serviceAuth.logout();
   };
 

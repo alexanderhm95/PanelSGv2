@@ -12,16 +12,16 @@ const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule),
-    title: 'Login'
+    data: { title: 'Login' }
   },
   {
     path: 'home',
     component: HomeComponent,
     loadChildren: () => import('./modules/home-page/home-page.module').then(m => m.HomePageModule),
     canActivate: [SessionGuard],
-    title: 'Inicio'
+    data: { title: 'Home' }
   },
-  //rutas desconocidas
+  // Rutas desconocidas
   {
     path: '**',
     redirectTo: 'auth/login'

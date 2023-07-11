@@ -46,6 +46,7 @@ export class AuthService {
 
   logout(): void {
     this.cookieService.delete('token');
+    this.cookieService.deleteAll();
     this.jwtService.destroyToken();
     this.route.navigate(['/']);
   }
