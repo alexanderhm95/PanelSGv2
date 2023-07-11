@@ -34,7 +34,6 @@ export class EditarComponent implements OnInit {
     this.date = new Date();
     this.id = this.route.snapshot.paramMap.get('id');
     this.getCaso();
-    this.getTest();
   }
 
   checkFormValidity() {
@@ -95,7 +94,7 @@ export class EditarComponent implements OnInit {
       (res) => {
         const { message, data } = res;
         this.caso = data;
-        this.loading = false;
+        this.getTest();
         
         console.log(message);
       },
@@ -120,6 +119,8 @@ export class EditarComponent implements OnInit {
       (res) => {
         const { message, data } = res;
         this.test = data;
+
+        this.loading = false;
         console.log(res);
         console.log(message);
       },

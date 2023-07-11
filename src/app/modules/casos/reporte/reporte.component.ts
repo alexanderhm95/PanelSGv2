@@ -17,6 +17,7 @@ export class ReporteComponent implements OnInit {
   public id: any;
   public modalActivate: Boolean = false;
   public listaRespuestas: Respuestas[] = [];
+  public loading = true;
 
   public caso: any = {};
   public circumference: any = ((2 * 22) / 7) * 120;
@@ -38,9 +39,11 @@ export class ReporteComponent implements OnInit {
       (res) => {
         const { message, data } = res;
         this.caso = data;
+        this.loading =false;
         console.log(message);
       },
       (err) => {
+        this.loading = true;
         console.log(err);
       }
     );

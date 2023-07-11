@@ -1,4 +1,24 @@
+<!-- Este es el sniper  -->
 <div
+  *ngIf="loading"
+  class="fixed inset-0 flex items-center justify-center z-50"
+>
+  <div class="fixed inset-0 bg-black opacity-50"></div>
+  <div class="flex items-center justify-center">
+    <div class="flex flex-col items-center">
+      <div
+        class="animate-spin rounded-full h-20 w-20 border-t-4 border-b-4 border-primary"
+      ></div>
+      <div class="flex items-center mt-2">
+        <span class="text-xl font-bold mr-1">Cargando</span>
+        <span class="text-xl animate-bounce">...</span>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Esta es la pagina  -->
+<div
+  *ngIf="!this.loading"
   class="w-[95%] h-[90%] lg:h-[95%] lg:m-2 mx-4 my-2 bg-cameo border-4 border-camelot rounded-lg overflow-x-hidden flex flex-row justify-center"
 >
   <div class="w-[80%]">
