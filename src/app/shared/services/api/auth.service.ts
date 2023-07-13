@@ -44,11 +44,11 @@ export class AuthService {
     return this.http.post(`${this.URL}/auth/login`, { email, password });
   }
 
-  logout(): void {
-    this.cookieService.delete('token');
+  logout() {
     this.cookieService.deleteAll();
-    this.jwtService.destroyToken();
-    this.route.navigate(['/']);
+    this.cookieService.delete('token','/');
+    window.sessionStorage.clear();
+    this.route.navigate(['auth/login'])
   }
 
   validateAddAdmin(body: any): Observable<any> {

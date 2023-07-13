@@ -7,12 +7,7 @@ import { AuthGuard } from '@/app/core/guards/auth.guard';
 import { RegistroDocenteComponent } from './registroDocente/registroDocente.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: ListarComponent,
-    pathMatch: 'full',
-    title: 'Casos',
-  },
+
   {
     path: 'listar',
     component: ListarComponent,

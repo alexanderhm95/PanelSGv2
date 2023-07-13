@@ -1,8 +1,9 @@
-import { FilterTablesPipe } from '@/app/shared/pipes/filter-tables.pipe';
-import { UserService } from '@/app/shared/services/api/user.service';
-import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
-import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { FilterTablesPipe } from "@/app/shared/pipes/filter-tables.pipe";
+import { UserService } from "@/app/shared/services/api/user.service";
+import { NotificationsService } from "@/app/shared/services/utils/notifications.service";
+import { Component, OnInit } from "@angular/core";
+import { Subscription } from "rxjs";
+
 @Component({
   selector: 'app-listar',
   templateUrl: './listar.component.html',
@@ -12,7 +13,6 @@ import { Subscription } from 'rxjs';
 export class ListarComponent implements OnInit {
   public usuarios: Usuario[] = [];
   public modalActivate = false;
-  private intervalSubscription: Subscription = new Subscription();
   public currentUser?: Usuario;
   public search = '';
   public loading = true;
@@ -23,21 +23,8 @@ export class ListarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    //this.intervalSubscription = interval(5000) // Intervalo de 5 segundos (ajusta según tus necesidades)
-    //  .subscribe(() => {
-        this.getUsers(); // Carga periédica de datos
-     // });
+        this.getUsers(); 
   }
-
-  ngOnDestroy(): void {
-    // Cancela la suscripción al intervalo cuando el componente se destruye
-    if (this.intervalSubscription) {
-      this.intervalSubscription.unsubscribe();
-    }
-  }
-
- 
-
 
   getUsers(): void {
     this.usuariosService.getAllUser().subscribe(
@@ -142,7 +129,4 @@ interface Usuario {
   email: string;
   role: string;
   status: boolean;
-}
-function interval(arg0: number) {
-  throw new Error('Function not implemented.');
 }

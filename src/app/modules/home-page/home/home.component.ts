@@ -38,31 +38,26 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private serviceAuth: AuthService,
-    private routeReuseStrategy: RouteReuseStrategy,
-    private jwtService: JwtService
   ) {}
 
   ngOnInit(): void {
-    // Realiza las acciones necesarias para actualizar el componente
-
-    if (this.jwtService.isLoggedIn()) {   
-      this.router.navigateByUrl(this.router.url);
-     }
+    
     this.getDataToken();
     this.buildMenu();
   }
+
 
   goToView(ruta: any): void {
     const url = this.router
       .createUrlTree(ruta, { relativeTo: this.route })
       .toString();
-
     if (this.router.url === url) {
-      this.router.navigate(['/']);
-      console.log("saca ala raiz" )
-      this.router.navigate(ruta, { relativeTo: this.route });
-      console.log("Va ala ruta" )
+      console.log("Recargando componente");
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+        this.router.navigateByUrl(url);
+      });
     } else {
+      console.log("Navegando a la ruta", ruta);
       this.router.navigate(ruta, { relativeTo: this.route });
     }
   }
@@ -151,11 +146,12 @@ export class HomeComponent implements OnInit {
     ];
   }
 
-  logouth = (): void => {
+  logouth () {
     this.serviceAuth.logout();
+    console.log("Me voy pa fuera con ")
   };
 
-  toggleMenu = (): void => {
+  toggleMenu () {
     this.isMenuOpen = !this.isMenuOpen;
   };
 }

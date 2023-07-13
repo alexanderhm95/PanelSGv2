@@ -29,9 +29,7 @@ export class PageComponent implements OnInit {
 
   ngOnInit(): void {
     this.formLogin.form.reset();
-    if (this.jwtService.isLoggedIn()) {
-      this.router.navigate(['/home']);
-    }
+  
   }
 
   sendLogin() {
@@ -52,7 +50,7 @@ export class PageComponent implements OnInit {
           200
         );
         setTimeout(() => {
-          this.router.navigate(['/home']);
+          this.router.navigate(['/']);
         }, 200);
       },
       (error) => {

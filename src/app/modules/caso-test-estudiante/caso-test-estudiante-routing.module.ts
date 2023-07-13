@@ -5,12 +5,6 @@ import { AuthGuard } from '@/app/core/guards/auth.guard';
 
 const routes: Routes = [
   {
-    path:'',
-    component:ListarComponent,
-    pathMatch:'full',
-    title: 'Casos',
-  },
-  {
     path:'listar',
     component: ListarComponent,
     canActivate: [AuthGuard], 

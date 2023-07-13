@@ -35,7 +35,10 @@ export class JwtService {
     const exp = decodedToken && decodedToken.exp;
 
     if (exp) {
-      return Math.floor(exp) * 1000;
+      const expDate = new Date(exp * 1000)
+      
+      console.log("Fecha de Expiracion: "+expDate+ "con UTC "+expDate.getUTCFullYear())
+      return expDate;
     }
 
     return 0;
@@ -67,7 +70,7 @@ export class JwtService {
 
   setCookieAccess(token: string) {
     const exp = this.getTokenExpirationDate(token);
-    this.cookieService.set('token', token, exp ? exp : undefined, '/');
+    this.cookieService.set('token', token, new Date(exp), '/','',true,'Strict');
   }
 
   isLoggedIn() {

@@ -6,12 +6,7 @@ import { RegistrarComponent } from './registrar/registrar.component';
 import { AuthGuard } from '@/app/core/guards/auth.guard';
 
 const routes: Routes = [
-  {
-    path: '',
-    component:ListarComponent,
-    pathMatch: 'full',
-  title: 'DECE',
-  },
+  
   {
     path: 'registrar',
     component:RegistrarComponent,

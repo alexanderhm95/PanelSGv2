@@ -1,4 +1,4 @@
-
+import { AuthService } from '@/app/shared/services/api/auth.service';
 import { inject } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
@@ -15,21 +15,23 @@ export const SessionGuard = (
 
   const router = inject(Router);
   const cookieService = inject(CookieService);
+  const authService = inject(AuthService);
 
   try {
     const token = cookieService.check('token');
 
     if (!token) {
-    console.log("Sesión no autorizado ")
-      router.navigate(['/auth'], {
+      console.log('Sesión no autorizado ');
+      cookieService.deleteAll();
+      router.navigate(['auth'], {
         queryParams: { returnUrl: state.url },
       });
       return false;
     }
-    console.log("Acceso correcto...")
+    console.log('Acceso correcto...');
     return token;
   } catch (e) {
-    console.log('Acceso no autorizado');
+    console.log('Acceso no autorizado' + e);
     return false;
   }
 };

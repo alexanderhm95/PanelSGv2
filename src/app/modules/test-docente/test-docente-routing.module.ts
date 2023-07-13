@@ -5,12 +5,7 @@ import { ListarComponent } from './listar/listar.component';
 import { AuthGuard } from '@/app/core/guards/auth.guard';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: ListarComponent,
-    pathMatch: 'full',
-    title: 'Evaluación Docente',
-  },
+ 
   {
     path: 'listar',
     component: ListarComponent,

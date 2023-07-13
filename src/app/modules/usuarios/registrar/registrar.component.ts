@@ -1,9 +1,10 @@
-import { ClsFormUsuario } from '@/app/core/classForm/cls-form-usuario';
-import { UserRole } from '@/app/core/interfaces/interface-roleAdmin';
-import { UserService } from '@/app/shared/services/api/user.service';
-import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ClsFormUsuario } from "@/app/core/classForm/cls-form-usuario";
+import { UserRole } from "@/app/core/interfaces/interface-roleAdmin";
+import { UserService } from "@/app/shared/services/api/user.service";
+import { NotificationsService } from "@/app/shared/services/utils/notifications.service";
+import { Component, OnInit } from "@angular/core";
+import { Router, ActivatedRoute } from "@angular/router";
+
 
 @Component({
   selector: 'app-registrar',
