@@ -30,7 +30,15 @@
             type="text"
             id="ciStudent"
             formControlName="ciStudent"
-            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
+            (mouseover)="
+              formCaso.form.get('ciStudent')?.invalid &&
+                formCaso.form.get('ciStudent')?.touched &&
+                notification.showTooltip(
+                  controlError.getErrorMessage(this.formCaso.form, 'ciStudent')
+                )
+            "
+            (mouseout)="this.notification.close()"
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400 pl-3 py-1"
           />
         </div>
       </div>
@@ -46,8 +54,18 @@
             type="text"
             id="nameStudent"
             formControlName="nameStudent"
-            c
-            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
+            (mouseover)="
+              formCaso.form.get('nameStudent')?.invalid &&
+                formCaso.form.get('nameStudent')?.touched &&
+                notification.showTooltip(
+                  controlError.getErrorMessage(
+                    this.formCaso.form,
+                    'nameStudent'
+                  )
+                )
+            "
+            (mouseout)="this.notification.close()"
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400 pl-3 py-1"
           />
         </div>
       </div>
@@ -63,7 +81,18 @@
             type="text"
             id="lastNameStudent"
             formControlName="lastNameStudent"
-            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
+            (mouseover)="
+              formCaso.form.get('lastNameStudent')?.invalid &&
+                formCaso.form.get('lastNameStudent')?.touched &&
+                notification.showTooltip(
+                  controlError.getErrorMessage(
+                    this.formCaso.form,
+                    'lastNameStudent'
+                  )
+                )
+            "
+            (mouseout)="this.notification.close()"
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400 pl-3 py-1"
           />
         </div>
       </div>
@@ -72,15 +101,28 @@
         <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
           <label for="gender">Género:</label>
         </div>
-        <div class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1">
-          <select id="gender" formControlName="gender" class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400">
+        <div
+          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
+        >
+          <select
+            id="gender"
+            formControlName="gender"
+            (mouseover)="
+              formCaso.form.get('gender')?.invalid &&
+                formCaso.form.get('gender')?.touched &&
+                notification.showTooltip(
+                  controlError.getErrorMessage(this.formCaso.form, 'gender')
+                )
+            "
+            (mouseout)="this.notification.close()"
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400 pl-3 py-1"
+          >
             <option value="M">Masculino</option>
             <option value="F">Femenino</option>
             <option value="O">Otro</option>
           </select>
         </div>
       </div>
-      
 
       <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1">
         <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
@@ -93,7 +135,15 @@
             type="text"
             id="ageStudent"
             formControlName="ageStudent"
-            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
+            (mouseover)="
+              formCaso.form.get('ageStudent')?.invalid &&
+                formCaso.form.get('ageStudent')?.touched &&
+                notification.showTooltip(
+                  controlError.getErrorMessage(this.formCaso.form, 'ageStudent')
+                )
+            "
+            (mouseout)="this.notification.close()"
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400 pl-3 py-1"
           />
         </div>
       </div>
@@ -109,7 +159,18 @@
             type="text"
             id="addressStudent"
             formControlName="addressStudent"
-            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
+            (mouseover)="
+              formCaso.form.get('addressStudent')?.invalid &&
+                formCaso.form.get('addressStudent')?.touched &&
+                notification.showTooltip(
+                  controlError.getErrorMessage(
+                    this.formCaso.form,
+                    'addressStudent'
+                  )
+                )
+            "
+            (mouseout)="this.notification.close()"
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400 pl-3 py-1"
           />
         </div>
       </div>
@@ -125,12 +186,21 @@
             type="text"
             id="phoneStudent"
             formControlName="phoneStudent"
-            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
+            (mouseover)="
+              formCaso.form.get('phoneStudent')?.invalid &&
+                formCaso.form.get('phoneStudent')?.touched &&
+                notification.showTooltip(
+                  controlError.getErrorMessage(
+                    this.formCaso.form,
+                    'phoneStudent'
+                  )
+                )
+            "
+            (mouseout)="this.notification.close()"
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400 pl-3 py-1"
           />
         </div>
       </div>
-
-    
 
       <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1">
         <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
@@ -143,7 +213,18 @@
             type="text"
             id="gradeStudent"
             formControlName="gradeStudent"
-            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
+            (mouseover)="
+              formCaso.form.get('gradeStudent')?.invalid &&
+                formCaso.form.get('gradeStudent')?.touched &&
+                notification.showTooltip(
+                  controlError.getErrorMessage(
+                    this.formCaso.form,
+                    'gradeStudent'
+                  )
+                )
+            "
+            (mouseout)="this.notification.close()"
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400 pl-3 py-1"
           />
         </div>
       </div>
@@ -159,7 +240,18 @@
             type="text"
             id="parallelStudent"
             formControlName="parallelStudent"
-            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
+            (mouseover)="
+              formCaso.form.get('parallelStudent')?.invalid &&
+                formCaso.form.get('parallelStudent')?.touched &&
+                notification.showTooltip(
+                  controlError.getErrorMessage(
+                    this.formCaso.form,
+                    'parallelStudent'
+                  )
+                )
+            "
+            (mouseout)="this.notification.close()"
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400 pl-3 py-1"
           />
         </div>
       </div>
@@ -171,168 +263,36 @@
         Datos del docente
       </div>
 
-      <div
-        class="w-full flex items-center justify-center py-3"
-        *ngIf="!agregar"
-      >
-        <div
-          class="w-full flex flex-row justify-center items-center gap-3 text-base text-camelot"
-        >
-          <label for="selectTeacher">Seleccione el docente:</label>
-
-          <div class="col-span-2 text-nile-blue ">
-            <select
-              id="selectTeacher"
-              formControlName="selectTeacher"
-              class="form-control"
-            >
-              <option value="0">Seleccione el docente</option>
-              <option *ngFor="let teacher of teachers" [value]="teacher.CI">
-                {{ teacher.name }} {{ teacher.lastName }}
-              </option>
-            </select>
-          </div>
-
-          <div class="right-0">
-            <button
-              type="button"
-              class="rounded-lg border-2 border-camelot bg-cameo text-nile-blue text-sm font-semibold tracking-wide px-2 py-1 mr-2"
-              (click)="agregarDocente()"
-            >
-              Crear Docente
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div
-        class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1"
-        *ngIf="this.agregar"
-      >
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1">
         <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
-          <label for="ciTeacher">CI:</label>
+          <label for="selectTeacher">Selecciona el docente:</label>
         </div>
         <div
           class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
         >
-          <input
-            type="text"
-            id="ciTeacher"
-            formControlName="ciTeacher"
-            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
-          />
+          <select
+            id="selectTeacher"
+            formControlName="selectTeacher"
+            (mouseover)="
+              formCaso.form.get('selectTeacher')?.invalid &&
+                formCaso.form.get('selectTeacher')?.touched &&
+                notification.showTooltip(
+                  controlError.getErrorMessage(
+                    this.formCaso.form,
+                    'selectTeacher'
+                  )
+                )
+            "
+            (mouseout)="this.notification.close()"
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400 pl-3 py-1"
+          >
+            <option value="0">Seleccione el docente</option>
+            <option *ngFor="let teacher of teachers" [value]="teacher.CI">
+              {{ teacher.name }} {{ teacher.lastName }}
+            </option>
+          </select>
         </div>
       </div>
-
-      <div
-        class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1"
-        *ngIf="this.agregar"
-      >
-        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
-          <label for="nameTeacher">Nombre:</label>
-        </div>
-        <div
-          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
-        >
-          <input
-            type="text"
-            id="nameTeacher"
-            formControlName="nameTeacher"
-            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
-          />
-        </div>
-      </div>
-
-      <div
-        class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1"
-        *ngIf="this.agregar"
-      >
-        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
-          <label for="lastNameTeacher">Apellido:</label>
-        </div>
-        <div
-          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
-        >
-          <input
-            type="text"
-            id="lastNameTeacher"
-            formControlName="lastNameTeacher"
-            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
-          />
-        </div>
-      </div>
-
-      <div
-        class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1"
-        *ngIf="this.agregar"
-      >
-        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
-          <label for="addressTeacher">Dirección:</label>
-        </div>
-        <div
-          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
-        >
-          <input
-            type="text"
-            id="addressTeacher"
-            formControlName="addressTeacher"
-            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
-          />
-        </div>
-      </div>
-
-      <div
-        class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1"
-        *ngIf="this.agregar"
-      >
-        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
-          <label for="phoneTeacher">Teléfono</label>
-        </div>
-        <div
-          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
-        >
-          <input
-            type="text"
-            id="phoneTeacher"
-            formControlName="phoneTeacher"
-            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
-          />
-        </div>
-      </div>
-
-      <div
-        class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1"
-        *ngIf="this.agregar"
-      >
-        <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
-          <label for="emailTeacher">Correo:</label>
-        </div>
-        <div
-          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
-        >
-          <input
-            type="email"
-            id="emailTeacher"
-            formControlName="emailTeacher"
-            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
-          />
-        </div>
-      </div>
-      <!-- Selecciona la Institución -->
-      <div
-        *ngIf="this.agregar"
-        class="lg:w-[60%] w-[80%] py-2 h-[8%] text-start text-lg font-bold text-camelot-400 border-b-2 border-camelot flex items-star justify-end"
-      >
-        <button
-          type="button"
-          (click)="agregarDocente()"
-          class="border-2 border-camelot text-lg text-nile-blue bg-cameo rounded-lg px-2 py-1 hover:bg-nile-blue hover:text-cameo mr-2"
-        >
-          Cancelar registro
-        </button>
-      </div>
-
- 
 
       <div class="lg:w-[60%] w-[80%] grid grid-cols-1 mb-4 my-4">
         <div class="w-full flex text-camelot text-lg mr-2 mb-2 justify-end">
@@ -340,7 +300,7 @@
           <button
             type="button"
             (click)="cancel()"
-            class="border-2 border-camelot text-lg text-nile-blue bg-cameo rounded-lg px-2 py-1 hover:bg-nile-blue hover:text-cameo mr-2"
+            class="border-2 border-camelot lg:text-lg text-nile-blue bg-cameo rounded-lg lg:p-3 p-2 hover:bg-nile-blue hover:text-cameo mr-2"
           >
             Cancelar
           </button>
@@ -348,7 +308,7 @@
           <button
             type="submit"
             [disabled]="this.formCaso.form.invalid"
-            class="border-2 border-camelot text-lg text-nile-blue bg-cameo rounded-lg px-2 py-1 hover:bg-nile-blue hover:text-cameo mr-2"
+            class="border-2 border-camelot lg:text-lg text-nile-blue bg-cameo rounded-lg lg:p-3 p-2 hover:bg-nile-blue hover:text-cameo"
           >
             Registrar
           </button>

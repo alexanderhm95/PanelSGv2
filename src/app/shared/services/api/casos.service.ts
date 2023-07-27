@@ -35,6 +35,10 @@ export class CasosService {
     return this.http.get<ApiResponse>(`${this.URL}/caso/${id}`);
   }
 
+  getReporte(id: any): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(`${this.URL}/caso/reporte/${id}`);
+  }
+
   updateCaso(id: any, Caso: any): Observable<ApiResponse> {
     return this.http.put<ApiResponse>(`${this.URL}/caso/${id}`, Caso);
   }

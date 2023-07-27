@@ -1,5 +1,6 @@
 import { ClsFormTestEstudiante } from '@/app/core/classForm/cls-form-test-estudiante';
 import { TestEstudianteService } from '@/app/shared/services/api/test-estudiante.service';
+import { ControlErrorService } from '@/app/shared/services/utils/controlErrorService';
 import { ImageValidatorService } from '@/app/shared/services/utils/image-validator.service';
 import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
 import { Component, OnInit } from '@angular/core';
@@ -18,7 +19,8 @@ export class RegistrarComponent implements OnInit {
   private imagenTest?: File;
 
   constructor(
-    private notification: NotificationsService,
+    public controlError: ControlErrorService,
+    public notification: NotificationsService,
     private testService: TestEstudianteService,
     private imageService: ImageValidatorService,
     private router: Router,
@@ -72,8 +74,7 @@ export class RegistrarComponent implements OnInit {
       // Leer la imagen seleccionada como una URL
 
       this.imagenTest = this.imageService.renameImage(file, 'TestImagenes');
-      this.srcImage = '/public/TestImagenes/' + this.imagenTest.name;
-      console.log('Nueva ruta: ', this.srcImage, ' Archivo', this.imagenTest);
+      this.srcImage = '/public/TestImagenes/' + this.imagenTest.name.split('_').pop();
       const reader = new FileReader();
       reader.onload = (e: any) => {
         this.imageUrl = e.target.result;

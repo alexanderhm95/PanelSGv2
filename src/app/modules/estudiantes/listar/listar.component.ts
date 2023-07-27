@@ -4,7 +4,6 @@ import { NotificationsService } from '@/app/shared/services/utils/notifications.
 import { environment } from '@/environments/environment';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-listar',
@@ -29,12 +28,11 @@ export class ListarComponent implements OnInit {
         const { message, listaStudent } = res;
         this.estudiantes = listaStudent;
         this.loading = false;
-        console.log(listaStudent);
       },
       (err) => {
-        this.loading = true;
-
-        console.log(err);
+        console.log('Error:', err.error);
+        this.loading = false;
+        this.notification.showError('Error', 'No se pudo obtener el test');
       }
     );
   }

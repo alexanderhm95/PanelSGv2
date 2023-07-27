@@ -2,10 +2,7 @@ import { ClsFormCaso } from '@/app/core/classForm/cls-form-caso';
 import { AuthService } from '@/app/shared/services/api/auth.service';
 import { CasosService } from '@/app/shared/services/api/casos.service';
 import { DocenteService } from '@/app/shared/services/api/docente.service';
-import { InstitutionService } from '@/app/shared/services/api/institution.service';
-import { PersonaService } from '@/app/shared/services/api/persona.service';
-import { StudentService } from '@/app/shared/services/api/student.service';
-import { UserService } from '@/app/shared/services/api/user.service';
+import { ControlErrorService } from '@/app/shared/services/utils/controlErrorService';
 import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -22,7 +19,8 @@ export class RegistrarComponent implements OnInit {
   public institution: any;
 
   constructor(
-    private notification: NotificationsService,
+    public controlError: ControlErrorService,
+    public notification: NotificationsService,
     private teacherService: DocenteService,
     private casoService: CasosService,
     private authService: AuthService,
@@ -33,7 +31,6 @@ export class RegistrarComponent implements OnInit {
   ngOnInit(): void {
     this.formCaso.form.reset();
     this.institution = this.authService.getInstitution();
-    console.log(this.institution);
     this.getTeachers();
   }
 
@@ -49,70 +46,45 @@ export class RegistrarComponent implements OnInit {
       gradeStudent,
       parallelStudent,
       selectTeacher,
-      ciTeacher,
-      nameTeacher,
-      lastNameTeacher,
-      addressTeacher,
-      phoneTeacher,
-      emailTeacher,
     } = this.formCaso.form.value;
 
-    let body;
-    console.log(this.authService.getUserId());
-    if (selectTeacher === null) {
-      body = {
-        idDece: this.authService.getUserId(),
-        ciStudent,
-        nameStudent,
-        lastNameStudent,
-        addressStudent,
-        gender: gender,
-        ageStudent,
-        phoneStudent,
-        gradeStudent,
-        parallelStudent,
-        ciTeacher,
-        nameTeacher,
-        lastNameTeacher,
-        addressTeacher,
-        phoneTeacher,
-        emailTeacher,
-        nameInstitution: this.authService.getInstitution(),
-      };
-    } else {
-      body = {
-        idDece: this.authService.getUserId(),
-        ciStudent,
-        nameStudent,
-        lastNameStudent,
-        addressStudent,
-        gender:gender,
-        ageStudent,
-        phoneStudent,
-        gradeStudent,
-        parallelStudent,
-        ciTeacher: selectTeacher,
-        nameInstitution: this.authService.getInstitution(),
-      };
+    if (selectTeacher === null && this.agregar === true) {
+      this.notification.showError('Error', 'Debe seleccionar un docente');
+      return;
     }
+
+    const body = {
+      idDece: this.authService.getUserId(),
+      ciStudent,
+      nameStudent,
+      lastNameStudent,
+      addressStudent,
+      gender: gender,
+      ageStudent,
+      phoneStudent,
+      gradeStudent,
+      parallelStudent,
+      ciTeacher: selectTeacher,
+      nameInstitution: this.authService.getInstitution(),
+    };
 
     this.casoService.createCaso(body).subscribe(
       (res) => {
         const { message, data } = res;
         this.notification.showSuccess('Exito', message);
-        this.router.navigate(['/casos']);
+        this.router.navigate(['/casos/listar']);
       },
       (err) => {
-        this.notification.showError('Error', err.error.message);
+        this.notification.showError('Error', err.error.error);
       }
     );
   }
 
   getTeachers() {
-    this.teacherService.getAllTeacher().subscribe((res) => {
+    this.teacherService.getTeachersInstitutions({data:this.authService.getInstitution()}).subscribe(
+    (res) => {
       const { message, data } = res;
       this.teachers = data;
-      console.log(this.teachers);
       console.log(message);
     });
   }

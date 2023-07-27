@@ -1,8 +1,10 @@
 import { ClsFormDocente } from '@/app/core/classForm/cls-form-docente';
 import { InterfaceInstitution } from '@/app/core/interfaces/interface-institution';
 import { EvaluatorRole } from '@/app/core/interfaces/interface-roleEvaluator';
+import { AuthService } from '@/app/shared/services/api/auth.service';
 import { DocenteService } from '@/app/shared/services/api/docente.service';
 import { InstitutionService } from '@/app/shared/services/api/institution.service';
+import { ControlErrorService } from '@/app/shared/services/utils/controlErrorService';
 import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,24 +16,26 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class RegistroDocenteComponent implements OnInit {
   public formDocente = new ClsFormDocente();
-  public instituciones: InterfaceInstitution[] = [];
+  public institucion:any;
   public teacher?: EvaluatorRole;
 
   constructor(
     private institutionService: InstitutionService,
-    private notification: NotificationsService,
+    public controlError: ControlErrorService,
+    public notification: NotificationsService,
     private teacherService: DocenteService,
+    private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
 
   ngOnInit(): void {
     this.formDocente.form.reset();
-    this.getInstitutions();
+    this.institucion = this.authService.getInstitution();
   }
 
   create() {
-    const { CI, name, lastName, address, phone, email, nameInstitucion } =
+    const { CI, name, lastName, address, phone, email } =
       this.formDocente.form.value;
 
     const body = {
@@ -41,7 +45,7 @@ export class RegistroDocenteComponent implements OnInit {
       address,
       phone,
       email,
-      nameInstitution: nameInstitucion,
+      nameInstitution: this.institucion,
     };
 
     this.teacherService.createTeacher(body).subscribe(
@@ -67,17 +71,8 @@ export class RegistroDocenteComponent implements OnInit {
 
  
 
- 
-
-  getInstitutions() {
-    this.institutionService.getAllInstitution().subscribe((res) => {
-      const { message, data } = res;
-      this.instituciones = data;
-      console.log(message);
-    });
-  }
 
   cancel() {
-    this.router.navigate(['../listar'], { relativeTo: this.route });
+    this.router.navigate(['../listar/docentes'], { relativeTo: this.route });
   }
 }

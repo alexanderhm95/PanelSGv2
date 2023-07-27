@@ -15,15 +15,15 @@ export class TestCasoEstudianteService {
     return this.http.post(`${this.URL}/testStudent`, body);
   }
 
-  getAll(): Observable<any> {
-    return this.http.get(`${this.URL}/testStudent`);
+  getAll(id:any): Observable<any> {
+    return this.http.get(`${this.URL}/testStudent/student/${id}`);
   }
   getTestStudent(id: any): Observable<any> {
     return this.http.get(`${this.URL}/testStudent/${id}`);
   }
 
-  getTestStudentReporte(id: any): Observable<Blob> {
-    return this.http.get<Blob>(`${this.URL}/testStudent/reporte/${id}`);
+  getTestStudentReporte(id: any): Observable<any> {
+    return this.http.get<any>(`${this.URL}/testStudent/reporte/${id}`);
   }
 
   update(id: any, body: any): Observable<any> {

@@ -36,8 +36,6 @@ export class JwtService {
 
     if (exp) {
       const expDate = new Date(exp * 1000)
-      
-      console.log("Fecha de Expiracion: "+expDate+ "con UTC "+expDate.getUTCFullYear())
       return expDate;
     }
 

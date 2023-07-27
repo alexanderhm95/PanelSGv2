@@ -31,10 +31,12 @@ export class ClsFormInstitution {
       stateInstitution: new FormControl('', [
         Validators.required,
         Validators.minLength(2),
+        Validators.pattern('^[a-zA-Zñáéíöäëéöåç ]*$'),
       ]),
       cityInstitution: new FormControl('', [
         Validators.required,
         Validators.minLength(2),
+        Validators.pattern('^[a-zA-Zñáéíöäëéöåç ]*$'),
       ]),
     });
   }

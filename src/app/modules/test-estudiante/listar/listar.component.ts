@@ -4,7 +4,7 @@ import { TestEstudianteService } from '@/app/shared/services/api/test-estudiante
 import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
 import { environment } from '@/environments/environment';
 import { NgOptimizedImage, provideImgixLoader } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -24,6 +24,7 @@ export class ListarComponent implements OnInit {
   public currentPage = 0;
   public pageSize = 0;
   public totalPages = 0;
+  isButtonPressed: boolean = false;
 
   preguntas: InterfaceTestEstudiante[] = [];
 
@@ -33,12 +34,6 @@ export class ListarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    //this.preguntaService.getAllPregunta().subscribe((res) => {
-    //  const { message, data } = res;
-    //  this.preguntas = data;
-    //  this.loading = false;
-    //  console.log(message);
-    //});
     this.getData();
   }
 
@@ -54,19 +49,48 @@ export class ListarComponent implements OnInit {
     }
   }
 
+  @HostListener('window:keydown', ['$event'])
+  handleKeyDown(event: KeyboardEvent): void {
+    console.log('Entre a la derecha');
+    if (event.key === 'ArrowRight' && this.currentPage<this.totalPages) {
+      console.log('Me voy a  DER');
+      this.isButtonPressed = true;
+      this.nextPage();
+    }
+
+    this.isButtonPressed = false;
+  }
+
+  @HostListener('window:keyup', ['$event'])
+  handleKeyUp(event: KeyboardEvent): void {
+    if (event.key === 'ArrowLeft' && this.currentPage>1) {
+      console.log('Me voy a  IZQ');
+      this.isButtonPressed = true;
+      this.previousPage();
+    }
+
+    this.isButtonPressed = false;
+  }
+
   getData(): void {
     this.loading = true;
     this.preguntaService
       .getAllPreguntaPaginated(this.currentPage, this.pageSize)
-      .subscribe((res) => {
-        const { message, data } = res;
-        this.preguntas = data.testImages.docs;
-        this.currentPage = data.testImages.page;
-        this.totalPages = data.testImages.totalPages; // Calcular el número total de páginas
-        this.loading = false;
-        console.log(message);
-        console.log(res);
-      });
+      .subscribe(
+        (res) => {
+          const { message, data } = res;
+          this.preguntas = data.testImages.docs;
+          this.currentPage = data.testImages.page;
+          this.totalPages = data.testImages.totalPages; // Calcular el número total de páginas
+          this.loading = false;
+          console.log(message);
+        },
+        (err) => {
+          console.log('Error:', err.error);
+          this.loading = false;
+          this.notification.showError('Error', 'No se pudo obtener el test');
+        }
+      );
   }
 
   delete(id: any) {

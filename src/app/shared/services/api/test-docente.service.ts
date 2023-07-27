@@ -18,8 +18,8 @@ export class TestDocenteService {
     return this.http.post(`${this.URL}/testTeacher`, body)
   }
 
-  getAll(): Observable<any> {
-    return this.http.get(`${this.URL}/testTeacher`);
+  getAll(id:any): Observable<any> {
+    return this.http.get(`${this.URL}/testTeacher/teacher/${id}`);
   }
   getTestTeacher(id: any): Observable<any> {
     return this.http.get(`${this.URL}/testTeacher/${id}`);

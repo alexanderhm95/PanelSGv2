@@ -24,12 +24,12 @@ export class ClsFormRespuestas {
         this.form = new FormGroup({
             nameAnswer: new FormControl('',
                 [
-                    Validators.required,
-                    Validators.minLength(3)
+                    Validators.required
                 ]),
             valueAnswer: new FormControl('',
                 [
-                    Validators.required
+                    Validators.required,
+        Validators.pattern('[0-9]*'),
                 ])
         })
     }

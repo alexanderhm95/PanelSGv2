@@ -35,7 +35,7 @@ export class ReporteComponent implements OnInit {
   }
 
   getCaso() {
-    this.serviceCaso.getCaso(this.id).subscribe(
+    this.serviceCaso.getReporte(this.id).subscribe(
       (res) => {
         const { message, data } = res;
         this.caso = data;
@@ -77,26 +77,10 @@ export class ReporteComponent implements OnInit {
     this.listaRespuestas = [];
   }
 
-  generarReporte(id: string) {
-    this.testEstudiante.getTestStudentReporte(id).subscribe(
-      (res: Blob) => {
-        const url = window.URL.createObjectURL(res);
-
-        // Crear un enlace temporal y descargar el archivo
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = 'informe.pdf';
-        link.click();
-        // Liberar la URL del blob
-        window.URL.revokeObjectURL(url);
-
-        console.log('Reporte generado con éxito');
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+  goBack() {
+    this.router.navigate(['../../listar'], { relativeTo: this.route });
   }
+
 }
 
 interface Respuestas {

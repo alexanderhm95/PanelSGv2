@@ -34,48 +34,14 @@
             id="CIS"
             formControlName="CI"
             placeholder="Ingrese el CI"
-            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400 pl-3"
-          />
-          <div
-            *ngIf="
+            (mouseover)="
               formDocente.form.get('CI')?.invalid &&
-              formDocente.form.get('CI')?.touched
+                formDocente.form.get('CI')?.touched &&
+                notification.showTooltip(controlError.getErrorMessage(this.formDocente.form ,'CI'))
             "
-            class="text-red-200 text-xl rounded pl-2 flex"
-            role="alert"
-          >
-            <ng-container *ngIf="formDocente.form.get('CI')?.errors?.['required']">
-              <i
-                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
-                title="Cédula requerida"
-              ></i>
-            </ng-container>
-
-            <ng-container
-              *ngIf="formDocente.form.get('CI')?.errors?.['minlength']"
-            >
-              <i
-                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
-                title="Longitud de 10 caracteres requerida"
-              ></i>
-            </ng-container>
-
-            <ng-container *ngIf="formDocente.form.get('CI')?.errors?.['pattern']">
-              <i
-                class="fa fa-exclamation-circle animate-bounce cursor-pointer"
-                title="Solo se permiten números"
-              ></i>
-            </ng-container>
-
-            <ng-container
-              *ngIf="formDocente.form.get('CI')?.errors?.['maxlength']"
-            >
-              <i
-                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
-                title="Longitud de 10 caracteres requerida"
-              ></i>
-            </ng-container>
-          </div>
+            (mouseout)="this.notification.close()"
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400 pl-3 py-1"
+          />
         </div>
       </div>
 
@@ -92,43 +58,15 @@
             id="name"
             formControlName="name"
             placeholder="Ingrese los nombres "
-            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400 pl-3"
+            (mouseover)="
+              formDocente.form.get('name')?.invalid &&
+                formDocente.form.get('name')?.touched &&
+                notification.showTooltip(controlError.getErrorMessage(this.formDocente.form ,'name'))
+            "
+            (mouseout)="this.notification.close()"
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400 pl-3 py-1"
           />
 
-          <div
-            *ngIf="
-              formDocente.form.get('name')?.invalid &&
-              formDocente.form.get('name')?.touched
-            "
-            class="text-red-200 text-xl rounded pl-2 flex"
-            role="alert"
-          >
-            <ng-container
-              *ngIf="formDocente.form.get('name')?.errors?.['required']"
-            >
-              <i
-                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
-                title="Nombre requerido"
-              ></i>
-            </ng-container>
-            <ng-container
-              *ngIf="formDocente.form.get('name')?.errors?.['minlength']"
-            >
-              <i
-                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
-                title="Longitud minima requerida"
-              ></i>
-            </ng-container>
-
-            <ng-container
-              *ngIf="formDocente.form.get('name')?.errors?.['pattern']"
-            >
-              <i
-                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
-                title="Solo se permiten letras"
-              ></i>
-            </ng-container>
-          </div>
         </div>
       </div>
 
@@ -145,42 +83,14 @@
             id="lastName"
             formControlName="lastName"
             placeholder="Ingrese los apellidos "
-            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
-          />
-
-          <div
-            *ngIf="
+            (mouseover)="
               formDocente.form.get('lastName')?.invalid &&
-              formDocente.form.get('lastName')?.touched
+                formDocente.form.get('lastName')?.touched &&
+                notification.showTooltip(controlError.getErrorMessage(this.formDocente.form ,'lastName'))
             "
-            class="text-red-200 text-xl rounded pl-2 flex"
-            role="alert"
-          >
-            <ng-container
-              *ngIf="formDocente.form.get('lastName')?.errors?.['required']"
-            >
-              <i
-                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
-                title="Apellidos requeridos"
-              ></i>
-            </ng-container>
-            <ng-container
-              *ngIf="formDocente.form.get('lastName')?.errors?.['minlength']"
-            >
-              <i
-                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
-                title="Longitud minima requerida"
-              ></i>
-            </ng-container>
-            <ng-container
-              *ngIf="formDocente.form.get('lastName')?.errors?.['pattern']"
-            >
-              <i
-                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
-                title="Solo se permiten letras"
-              ></i>
-            </ng-container>
-          </div>
+            (mouseout)="this.notification.close()"
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400 pl-3 py-1"
+          />
         </div>
       </div>
 
@@ -198,26 +108,14 @@
             formControlName="address"
             class="form-control"
             placeholder="Ingrese la dirección "
-            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
-          />
-
-          <div
-            *ngIf="
+            (mouseover)="
               formDocente.form.get('address')?.invalid &&
-              formDocente.form.get('address')?.touched
+                formDocente.form.get('address')?.touched &&
+                notification.showTooltip(controlError.getErrorMessage(this.formDocente.form ,'address'))
             "
-            class="text-red-200 text-xl rounded pl-2 flex"
-            role="alert"
-          >
-            <ng-container
-              *ngIf="formDocente.form.get('address')?.errors?.['minlength']"
-            >
-              <i
-                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
-                title="Longitud minima requerida"
-              ></i>
-            </ng-container>
-          </div>
+            (mouseout)="this.notification.close()"
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400 pl-3 py-1"
+          />
         </div>
       </div>
 
@@ -235,50 +133,14 @@
             formControlName="phone"
             class="form-control"
             placeholder="Ingrese el teléfono "
-            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
-          />
-
-          <div
-            *ngIf="
+            (mouseover)="
               formDocente.form.get('phone')?.invalid &&
-              formDocente.form.get('phone')?.touched
+                formDocente.form.get('phone')?.touched &&
+                notification.showTooltip(controlError.getErrorMessage(this.formDocente.form ,'phone'))
             "
-            class="text-red-200 text-xl rounded pl-2 flex"
-            role="alert"
-          >
-            <ng-container
-              *ngIf="formDocente.form.get('phone')?.errors?.['required']"
-            >
-              <i
-                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
-                title="Telefono es requerido"
-              ></i>
-            </ng-container>
-            <ng-container
-              *ngIf="formDocente.form.get('phone')?.errors?.['minlength']"
-            >
-              <i
-                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
-                title="Longitud de 10 caracteres requerida"
-              ></i>
-            </ng-container>
-            <ng-container
-              *ngIf="formDocente.form.get('phone')?.errors?.['maxlength']"
-            >
-              <i
-                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
-                title="Longitud de 10 caracteres requerida"
-              ></i>
-            </ng-container>
-            <ng-container
-              *ngIf="formDocente.form.get('phone')?.errors?.['pattern']"
-            >
-              <i
-                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
-                title="Solo se permiten números"
-              ></i>
-            </ng-container>
-          </div>
+            (mouseout)="this.notification.close()"
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400 pl-3 py-1"
+          />
         </div>
       </div>
 
@@ -295,32 +157,15 @@
             id="email"
             formControlName="email"
             placeholder="Ingrese el correo electrónico "
-            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
+            (mouseover)="
+              formDocente.form.get('email')?.invalid &&
+                formDocente.form.get('email')?.touched &&
+                notification.showTooltip(controlError.getErrorMessage(this.formDocente.form ,'email'))
+            "
+            (mouseout)="this.notification.close()"
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400 pl-3 py-1"
           />
 
-          <div
-            *ngIf="
-              formDocente.form.get('email')?.invalid &&
-              formDocente.form.get('email')?.touched
-            "
-            class="text-red-200 text-xl rounded pl-2 flex"
-            role="alert"
-          >
-            <ng-container
-              *ngIf="formDocente.form.get('email')?.errors?.['required']"
-            >
-              <i
-                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
-                title="Email requerido"
-              ></i>
-            </ng-container>
-            <ng-container *ngIf="formDocente.form.get('email')?.errors?.['email']">
-              <i
-                class="fa fa-exclamation-circle animate-bounce cursor-pointer px-1"
-                title="Email invalido"
-              ></i>
-            </ng-container>
-          </div>
         </div>
       </div>
 
@@ -337,11 +182,17 @@
         <div class="w-full col-span-2 text-camelot text-lg mr-2 text-left">
           <label for="institucion"> Institución: </label>
         </div>
-        <div class="w-full col-span-2 text-nile-blue text-lg">
+        <div class="w-full col-span-2 text-nile-blue text-lg my-2">
           <select
             id="selectTeacher"
             formControlName="nameInstitucion"
-            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400"
+            (mouseover)="
+              formDocente.form.get('nameInstitucion')?.invalid &&
+                formDocente.form.get('nameInstitucion')?.touched &&
+                notification.showTooltip(controlError.getErrorMessage(this.formDocente.form ,'nameInstitucion'))
+            "
+            (mouseout)="this.notification.close()"
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400 pl-3 py-1"
           >
             <option value="0">Seleccione una institución</option>
             <option
@@ -360,15 +211,14 @@
           <button
             type="button"
             (click)="cancel()"
-            class="border-2 border-camelot text-base text-nile-blue bg-cameo rounded-lg px-2 py-1 hover:bg-nile-blue hover:text-cameo mr-2"
+            class="border-2 border-camelot lg:text-lg text-nile-blue bg-cameo rounded-lg lg:p-3 p-2 hover:bg-nile-blue hover:text-cameo mr-2"
           >
             Cancelar
           </button>
-          <!-- Editar  [disabled]="this.formPreguntas.form.invalid" -->
           <button
+            [disabled]="this.formDocente.form.invalid "
             type="submit"
-            [disabled]="this.formDocente.form.invalid"
-            class="border-2 border-camelot text-base text-nile-blue bg-cameo rounded-lg px-2 py-1 hover:bg-nile-blue hover:text-cameo"
+            class="border-2 border-camelot lg:text-lg text-nile-blue bg-cameo rounded-lg lg:p-3 p-2 hover:bg-nile-blue hover:text-cameo"
           >
             Editar
           </button>

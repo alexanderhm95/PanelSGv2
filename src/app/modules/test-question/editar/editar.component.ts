@@ -3,6 +3,8 @@ import {
   ClsFormTestQuestion,
 } from '@/app/core/classForm/cls-form-test-question';
 import { InterfaceQuestion } from '@/app/core/interfaces/interface-question';
+import { ControlErrorService } from '@/app/shared/services/utils/controlErrorService';
+import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
 import { TestQuestionService } from '@/app/shared/services/api/test-question.service';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -22,6 +24,8 @@ export class EditarComponent {
   private id: any;
 
   constructor(
+    public controlError: ControlErrorService,
+    public notification: NotificationsService,
     private changeDetectorRef: ChangeDetectorRef,
     private questionService: TestQuestionService,
     private router: Router,
@@ -39,7 +43,6 @@ export class EditarComponent {
     this.questionService.getQuestion(this.id).subscribe(
       (data) => {
         this.testQuestion = data;
-        console.log(this.testQuestion);
         this.setValues(this.testQuestion);
       },
       (error) => {

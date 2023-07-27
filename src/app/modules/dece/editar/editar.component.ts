@@ -4,6 +4,7 @@ import { InterfaceInstitution } from '@/app/core/interfaces/interface-institutio
 import { DeceService } from '@/app/shared/services/api/dece.service';
 import { InstitutionService } from '@/app/shared/services/api/institution.service';
 import { PersonaService } from '@/app/shared/services/api/persona.service';
+import { ControlErrorService } from '@/app/shared/services/utils/controlErrorService';
 import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -22,9 +23,9 @@ export class EditarComponent implements OnInit {
   public id: any;
 
   constructor(
-    private notification: NotificationsService,
+    public controlError: ControlErrorService,
+    public notification: NotificationsService,
     private institutionService: InstitutionService,
-    private personService: PersonaService,
     private deceService: DeceService,
     private route: ActivatedRoute,
     private router: Router

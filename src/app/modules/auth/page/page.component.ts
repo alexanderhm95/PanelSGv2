@@ -29,14 +29,13 @@ export class PageComponent implements OnInit {
 
   ngOnInit(): void {
     this.formLogin.form.reset();
-  
   }
 
   sendLogin() {
     if (this.formLogin.form.invalid) return;
-    
+
     const { email, password } = this.formLogin.form.value;
-    
+
     this.errorSession = false;
     this.errorMessage = '';
 
@@ -44,14 +43,7 @@ export class PageComponent implements OnInit {
       (res) => {
         this.jwtService.setCookieAccess(res.token);
         this.formLogin.form.reset();
-        this.notification.showLoading(
-          'Iniciando sesión',
-          'Espere por favor',
-          200
-        );
-        setTimeout(() => {
-          this.router.navigate(['/']);
-        }, 200);
+        this.router.navigate(['/']);
       },
       (error) => {
         if (error.status === 0) {

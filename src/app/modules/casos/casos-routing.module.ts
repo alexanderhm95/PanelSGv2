@@ -5,6 +5,8 @@ import { RegistrarComponent } from './registrar/registrar.component';
 import { ReporteComponent } from './reporte/reporte.component';
 import { AuthGuard } from '@/app/core/guards/auth.guard';
 import { RegistroDocenteComponent } from './registroDocente/registroDocente.component';
+import { ListarDocenteComponent } from './listar-docente/listar-docente.component';
+import { EditarComponent } from './editar/editar.component';
 
 const routes: Routes = [
 
@@ -27,8 +29,26 @@ const routes: Routes = [
     title: 'Casos',
   },
   {
+    path: 'editar/:id',
+    component: EditarComponent,
+    canActivate: [AuthGuard], 
+    data: {
+      requiredRole: 'DECE', // Especificar el rol requerido para acceder a la ruta
+    },
+    title: 'Casos',
+  },
+  {
     path: 'registro',
     component: RegistroDocenteComponent,
+    canActivate: [AuthGuard], 
+    data: {
+      requiredRole: 'DECE', // Especificar el rol requerido para acceder a la ruta
+    },
+    title: 'Casos',
+  },
+  {
+    path: 'listar/docentes',
+    component: ListarDocenteComponent,
     canActivate: [AuthGuard], 
     data: {
       requiredRole: 'DECE', // Especificar el rol requerido para acceder a la ruta
@@ -43,6 +63,10 @@ const routes: Routes = [
       requiredRole: 'DECE', // Especificar el rol requerido para acceder a la ruta
     },
     title: 'Casos',
+  },
+  {
+    path: '**',
+    redirectTo: 'casos/listar',
   },
 ];
 

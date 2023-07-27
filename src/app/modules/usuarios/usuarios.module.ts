@@ -5,13 +5,15 @@ import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { ListarComponent } from "./listar/listar.component";
 import { RegistrarComponent } from "./registrar/registrar.component";
 import { UsuariosRoutingModule } from "./usuarios-routing.module";
+import { EditarComponent } from './editar/editar.component';
 
 
 
 @NgModule({
   declarations: [
     ListarComponent,
-    RegistrarComponent
+    RegistrarComponent,
+    EditarComponent
   ],
   imports: [
     CommonModule,

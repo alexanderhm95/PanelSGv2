@@ -27,7 +27,12 @@ export class ListarComponent {
       this.question = data;
       this.loading = false;
       console.log(message);
-    });
+    },(err) => {
+      console.log('Error:', err.error);
+      this.loading = false;
+      this.notification.showError('Error', 'No se pudo obtener el test');
+    }
+    );
   }
 
  

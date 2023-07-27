@@ -3,6 +3,7 @@ import { InterfaceDece } from '@/app/core/interfaces/interface-dece';
 import { InterfaceInstitution } from '@/app/core/interfaces/interface-institution';
 import { DeceService } from '@/app/shared/services/api/dece.service';
 import { InstitutionService } from '@/app/shared/services/api/institution.service';
+import { ControlErrorService } from '@/app/shared/services/utils/controlErrorService';
 import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,7 +17,8 @@ export class RegistrarComponent implements OnInit {
   public formDece = new ClsFormDece();
   public instituciones: InterfaceInstitution[] = [];
   constructor(
-    private notification: NotificationsService,
+    public controlError: ControlErrorService,
+    public notification: NotificationsService,
     private institutionService: InstitutionService,
     private deceService: DeceService,
     private route: ActivatedRoute,
@@ -57,7 +59,7 @@ export class RegistrarComponent implements OnInit {
         } else {
           this.notification.showError(
             'Error',
-            err.error.error || 'Error al registrar'
+            err.error.error
           );
           console.log(err.error);
         }

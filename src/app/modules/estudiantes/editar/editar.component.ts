@@ -2,6 +2,7 @@ import { ClsFormEstudiante } from '@/app/core/classForm/cls-form-estudiante';
 import { InstitutionService } from '@/app/shared/services/api/institution.service';
 import { PersonaService } from '@/app/shared/services/api/persona.service';
 import { StudentService } from '@/app/shared/services/api/student.service';
+import { ControlErrorService } from '@/app/shared/services/utils/controlErrorService';
 import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
 import { Component, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -21,9 +22,9 @@ export class EditarComponent {
 
   constructor(
     private institutionService: InstitutionService,
-    private notification: NotificationsService,
+    public controlError: ControlErrorService,
+    public notification: NotificationsService,
     private studentService: StudentService,
-    private personService: PersonaService,
     private route: ActivatedRoute,
     private router: Router
   ) {}

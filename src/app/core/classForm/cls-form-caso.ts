@@ -10,17 +10,23 @@ export class ClsFormCaso {
         Validators.required,
         Validators.minLength(10),
         Validators.maxLength(10),
+        Validators.pattern('[0-9]*'),
       ]),
       nameStudent: new FormControl('', [
         Validators.required,
         Validators.minLength(3),
+        Validators.pattern('^[a-zA-Zñáéíöäëéöåç ]*$'),
       ]),
       lastNameStudent: new FormControl('', [
         Validators.required,
         Validators.minLength(3),
+        Validators.pattern('^[a-zA-Zñáéíöäëéöåç ]*$'),
       ]),
       gender: new FormControl('', [Validators.required]),
-      ageStudent: new FormControl('', [Validators.required]),
+      ageStudent: new FormControl('', [
+Validators.required,
+        Validators.pattern('[0-9]*'),
+]),
       addressStudent: new FormControl('', [
         Validators.required,
         Validators.minLength(2),
@@ -29,43 +35,23 @@ export class ClsFormCaso {
         Validators.required,
         Validators.minLength(6),
         Validators.maxLength(10),
+        Validators.pattern('[0-9]*'),
       ]),
       gradeStudent: new FormControl('', [
         Validators.required,
         Validators.minLength(1),
         Validators.maxLength(2),
+        Validators.pattern('[0-9]*'),
       ]),
       parallelStudent: new FormControl('', [
         Validators.required,
         Validators.minLength(1),
         Validators.maxLength(1),
+        Validators.pattern('^[a-zA-Z]*$'),
       ]),
-      selectTeacher: new FormControl('', []),
-      ciTeacher: new FormControl('', [
+      selectTeacher: new FormControl('', [
+
         Validators.required,
-        Validators.minLength(10),
-        Validators.maxLength(10),
-      ]),
-      nameTeacher: new FormControl('', [
-        Validators.required,
-        Validators.minLength(3),
-      ]),
-      lastNameTeacher: new FormControl('', [
-        Validators.required,
-        Validators.minLength(3),
-      ]),
-      addressTeacher: new FormControl('', [
-        Validators.required,
-        Validators.minLength(2),
-      ]),
-      phoneTeacher: new FormControl('', [
-        Validators.required,
-        Validators.minLength(6),
-        Validators.maxLength(10),
-      ]),
-      emailTeacher: new FormControl('', [
-        Validators.required,
-        Validators.email,
       ]),
     });
   }

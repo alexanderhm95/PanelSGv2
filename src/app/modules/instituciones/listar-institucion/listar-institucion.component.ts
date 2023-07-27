@@ -15,7 +15,6 @@ export class ListarInstitucionComponent implements OnInit {
   public instituciones: InterfaceInstitution[] = [];
   public search = '';
   public loading = true;
-  private intervalSubscription: Subscription = new Subscription();
 
   constructor(
     private notification: NotificationsService,
@@ -23,18 +22,9 @@ export class ListarInstitucionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    //this.intervalSubscription = interval(5000) // Intervalo de 5 segundos (ajusta según tus necesidades)
-    //  .subscribe(() => {
-        this.getInstitutions(); // Carga periédica de datos
-    //  });
+        this.getInstitutions(); 
   }
 
-  ngOnDestroy(): void {
-    // Cancela la suscripción al intervalo cuando el componente se destruye
-    if (this.intervalSubscription) {
-      this.intervalSubscription.unsubscribe();
-    }
-  }
 
   getInstitutions() {
     this.institucionService.getAllInstitution().subscribe(
@@ -45,15 +35,11 @@ export class ListarInstitucionComponent implements OnInit {
         console.log(message);
       },
       (err) => {
-        this.loading = true;
-        if (err.status === 0) {
+        this.loading = false;
           this.notification.showError(
             'Error de conexión',
-            'No se ha podido conectar con el servidor'
-          );
-        } else {
+            'No se pudo obtener instituciones')
           console.log(err);
-        }
       }
     );
   }

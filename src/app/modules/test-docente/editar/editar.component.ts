@@ -71,6 +71,7 @@ export class EditarComponent implements OnInit {
       (res) => {
         const { message } = res;
         console.log(message);
+        this.notification.showSuccess('Éxito','Evaluación completa')
         this.router.navigate(['../../listar'], { relativeTo: this.route });
       },
       (error) => {

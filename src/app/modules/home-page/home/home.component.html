@@ -92,7 +92,7 @@
 
   <!-- boton flotante para menu responsive -->
   <button
-    class="flex w-10 h-10 items-center justify-center absolute bottom-9 right-4 md:bottom-16 md:right-7 p-3 lg:hidden rounded-full bg-camelot text-center m-1"
+    class="flex w-10 h-10 items-center justify-center absolute bottom-9 right-5 md:bottom-16 md:right-7 p-3 lg:hidden rounded-full bg-camelot text-center m-1 z-10 shadow-white shadow-white/50 shadow-xl hover:shadow-cameo hover:shadow-cameo/50 "
     [ngClass]="!isMenuOpen ? 'bg-opacity-90' : 'bg-opacity-50'"
     (click)="toggleMenu()"
   >
@@ -114,11 +114,13 @@
         <ng-template #adminPanel> Panel de Administración </ng-template>
       </h1>
     </header>
-    <main
-      class="w-full h-[90vh] flex flex-col flex-1 z-auto items-center justify-center"
-    >
+    <main class="w-full h-[90vh] flex flex-col flex-1 z-auto items-center justify-center relative">
       <!-- Lazy loading -->
-      <router-outlet></router-outlet>
+      <div *ngIf="!isRouteActive" class="w-[95%] lg:h-[95%] h-[90%] m-2 bg-cameo border-4 border-camelot rounded-lg overflow-x-hidden z-0">
+        <img [src]="this.imageMain" [ngClass]="{ 'image-full': !isRouteActive }">
+      </div>
+      <router-outlet *ngIf="isRouteActive" class="z-10 absolute inset-0"></router-outlet>
     </main>
+    
   </div>
 </div>

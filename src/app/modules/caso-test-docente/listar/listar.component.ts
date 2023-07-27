@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { AuthService } from '@/app/shared/services/api/auth.service';
 import { FilterTablesPipe } from '@/app/shared/pipes/filter-tables.pipe';
 import { TestDocenteService } from '@/app/shared/services/api/test-docente.service';
 import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
@@ -15,9 +16,11 @@ export class ListarComponent implements OnInit {
   public tests: any[] = [];
   public search = '';
   public loading = true;
+public id:any;
 
   constructor(
     private serviceCasoTeacher: TestDocenteService,
+    private authService: AuthService,
     private notification: NotificationsService
   ) {}
 
@@ -26,7 +29,9 @@ export class ListarComponent implements OnInit {
   }
 
   loadTests(): void {
-    this.serviceCasoTeacher.getAll().subscribe(
+
+    this.id = this.authService.getUserId();
+    this.serviceCasoTeacher.getAll(this.id).subscribe(
       (res) => {
         const { message, data } = res;
         this.tests = data;

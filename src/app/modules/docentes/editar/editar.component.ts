@@ -1,9 +1,10 @@
-import { ClsFormDocente } from '@/app/core/classForm/cls-form-docente';
+import { ClsFormUpdateDocente } from '@/app/core/classForm/cls-form-docente';
 import { InterfaceInstitution } from '@/app/core/interfaces/interface-institution';
 import { EvaluatorRole } from '@/app/core/interfaces/interface-roleEvaluator';
 import { DocenteService } from '@/app/shared/services/api/docente.service';
 import { InstitutionService } from '@/app/shared/services/api/institution.service';
 import { PersonaService } from '@/app/shared/services/api/persona.service';
+import { ControlErrorService } from '@/app/shared/services/utils/controlErrorService';
 import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,7 +15,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./editar.component.css'],
 })
 export class EditarComponent implements OnInit {
-  public formDocente = new ClsFormDocente();
+  public formDocente = new ClsFormUpdateDocente();
   public instituciones: InterfaceInstitution[] = [];
   public teacher?: EvaluatorRole;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -22,7 +23,8 @@ export class EditarComponent implements OnInit {
 
   constructor(
     private institutionService: InstitutionService,
-    private notification: NotificationsService,
+    public controlError: ControlErrorService,
+    public notification: NotificationsService,
     private teacherService: DocenteService,
     private route: ActivatedRoute,
     private router: Router
@@ -53,7 +55,6 @@ export class EditarComponent implements OnInit {
       (res) => {
         const { message } = res;
         this.notification.showSuccess('Exito', 'Docente actualizado con exito');
-        console.log(message);
         this.router.navigate(['../../listar'], { relativeTo: this.route });
       },
       (err) => {
@@ -75,7 +76,6 @@ export class EditarComponent implements OnInit {
       (res) => {
         const { message, data } = res;
         this.teacher = data;
-        console.log(data);
         this.setValuesTeacher(this.teacher);
         console.log(message);
       },

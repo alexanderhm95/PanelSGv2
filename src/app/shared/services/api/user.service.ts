@@ -17,6 +17,13 @@ export class UserService {
     return this.http.post<ApiResponse>(`${this.URL}/user`, user);
   }
 
+  updateUser(id: any, user: any): Observable<any> {
+    return this.http.put(`${this.URL}/user/${id}`, user);
+  }
+
+ changePasswordUser(id: any): Observable<any> {
+    return this.http.post(`${this.URL}/user/pass`,id);
+  }
   getAllUser(): Observable<ApiResponse> {
     return this.http.get<ApiResponse>(`${this.URL}/user`);
   }

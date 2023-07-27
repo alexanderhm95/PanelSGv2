@@ -2,6 +2,7 @@ import { ClsFormTestEstudiante } from '@/app/core/classForm/cls-form-test-estudi
 import { TestEstudianteService } from '@/app/shared/services/api/test-estudiante.service';
 import { ImageValidatorService } from '@/app/shared/services/utils/image-validator.service';
 import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
+import { ControlErrorService } from '@/app/shared/services/utils/controlErrorService';
 import { environment } from '@/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
@@ -24,7 +25,8 @@ export class EditarComponent implements OnInit {
   public imageUpload = false;
 
   constructor(
-    private notification: NotificationsService,
+    public controlError: ControlErrorService,
+    public notification: NotificationsService,
     private testService: TestEstudianteService,
     private imageService: ImageValidatorService,
     private route: ActivatedRoute,
@@ -42,7 +44,6 @@ export class EditarComponent implements OnInit {
     this.testService.getPregunta(this.id).subscribe(
       (data) => {
         this.testImages = data;
-        console.log(data);
         this.setValues(this.testImages);
       },
       (error) => {
@@ -125,7 +126,7 @@ export class EditarComponent implements OnInit {
 
     if (file && this.imageService.validateImage(file)) {
       this.imagenTest = this.imageService.renameImage(file, 'TestImagenes');
-      this.srcImage = '/public/TestImagenes/' + this.imagenTest.name;
+      this.srcImage = '/public/TestImagenes/' + this.imagenTest.name.split('_').pop();
       this.imageUpload = true;
 
       const reader = new FileReader();

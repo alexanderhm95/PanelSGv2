@@ -1,10 +1,11 @@
 import { JwtService } from '@/app/shared/services/utils/jwt.service';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import {
   ActivatedRoute,
   NavigationExtras,
   RouteReuseStrategy,
   Router,
+NavigationEnd
 } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/api/auth.service';
 
@@ -33,15 +34,24 @@ export class HomeComponent implements OnInit {
   public name?: string;
   public role?: string;
   public id?: string;
+  public isRouteActive: boolean=false;
+  public imageMain= 'assets/Inicio/Main.webp';
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private serviceAuth: AuthService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    
+ this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        // Verificar si hay una ruta activa
+        this.isRouteActive = this.router.url !== '/';
+        this.cdr.detectChanges(); // Forzar detección de cambios
+      }
+    });
     this.getDataToken();
     this.buildMenu();
   }
@@ -52,13 +62,14 @@ export class HomeComponent implements OnInit {
       .createUrlTree(ruta, { relativeTo: this.route })
       .toString();
     if (this.router.url === url) {
-      console.log("Recargando componente");
       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
         this.router.navigateByUrl(url);
       });
+    this.toggleMenu();
     } else {
-      console.log("Navegando a la ruta", ruta);
       this.router.navigate(ruta, { relativeTo: this.route });
+
+    this.toggleMenu();
     }
   }
 
@@ -96,6 +107,12 @@ export class HomeComponent implements OnInit {
         role: 'ADMIN',
       },
       {
+        name: 'Docentes',
+        icon: ICON_BUILDING,
+        router: ['casos', 'listar','docentes'],
+        role: 'DECE',
+      },
+      {
         name: 'DECE',
         icon: ICON_BUILDING,
         router: ['dece', 'listar'],
@@ -108,7 +125,7 @@ export class HomeComponent implements OnInit {
         role: 'ADMIN',
       },
       {
-        name: 'Docentes',
+        name: 'Casos Asignados',
         icon: ICON_CHALKBOARD_USER,
         router: ['test', 'docente', 'listar'],
         role: 'TEACHER',
@@ -137,18 +154,11 @@ export class HomeComponent implements OnInit {
         router: ['caso', 'docente', 'listar'],
         role: 'DECE',
       },
-      {
-        name: 'Registro Docentes',
-        icon: ICON_LIST_CHECK,
-        router: ['casos', 'registro'],
-        role: 'DECE',
-      },
     ];
   }
 
   logouth () {
     this.serviceAuth.logout();
-    console.log("Me voy pa fuera con ")
   };
 
   toggleMenu () {

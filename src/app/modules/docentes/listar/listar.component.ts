@@ -11,7 +11,6 @@ import { NotificationsService } from '@/app/shared/services/utils/notifications.
   providers: [FilterTablesPipe],
 })
 export class ListarComponent implements OnInit {
-  public api = environment.api + '/api/1.0';
   public docentes: TeacherData[] = [];
   public search = '';
   public loading = true;
@@ -31,19 +30,11 @@ export class ListarComponent implements OnInit {
         const { message, data } = res;
         this.docentes = data;
         this.loading = false;
-        console.log(data);
         console.log(message);
-      },
-      (err) => {
-        this.loading = true;
-        if (err.status === 0) {
-          this.notification.showError(
-            'Error',
-            'Error de conexión, fallo en el servidor'
-          );
-        } else {
-          console.log(err);
-        }
+      },(err) => {
+        console.log('Error:', err.error);
+        this.loading = false;
+        this.notification.showError('Error', 'No se pudo obtener el test');
       }
     );
   }

@@ -14,12 +14,12 @@ export class ClsFormTestEstudiante {
       imagen: new FormControl(null),
       valor: new FormControl('', [
         Validators.required,
-        Validators.minLength(3),
-        Validators.pattern('^[0-9]*$'),
+        Validators.minLength(1),
+        Validators.pattern('^[01]$'),
       ]),
       section: new FormControl('', [
         Validators.required,
-        Validators.minLength(3),
+        Validators.minLength(1),
         Validators.pattern('^[0-9]*$'),
       ]),
     });

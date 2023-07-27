@@ -21,6 +21,12 @@ export class DocenteService {
   getAllTeacher(): Observable<ApiResponse> {
     return this.http.get<ApiResponse>(`${this.URL}/teacher`);
   }
+
+
+  getTeachersInstitutions(data: any): Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(`${this.URL}/teacher/casos`, data);
+  }
+
   getTeacher(id: any): Observable<ApiResponse> {
     return this.http.get<ApiResponse>(`${this.URL}/teacher/${id}`);
   }

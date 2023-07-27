@@ -1,6 +1,7 @@
 import { ClsFormInstitution } from '@/app/core/classForm/cls-form-institution';
 import { InterfaceInstitution } from '@/app/core/interfaces/interface-institution';
 import { InstitutionService } from '@/app/shared/services/api/institution.service';
+import { ControlErrorService } from '@/app/shared/services/utils/controlErrorService';
 import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -17,7 +18,8 @@ export class EditarInstitucionComponent implements OnInit {
   private id: any;
 
   constructor(
-    private notification: NotificationsService,
+    public controlError: ControlErrorService,
+    public notification: NotificationsService,
     private serviceIntitucion: InstitutionService,
     private router: Router,
     private route: ActivatedRoute

@@ -31,22 +31,12 @@ export class ListarComponent implements OnInit {
     this.deceService.getAllDece().subscribe(
       (res) => {
         this.deces = res.data;
-        console.log(res);
         this.loading = false;
-      },
-      (err) => {
-        this.loading = true;
-        if (err.status === 0) {
-          this.notification.showError(
-            'Error',
-            'No se pudo conectar con el servidor'
-          );
-        } else {
-          console.log(err);
-          this.notification.showError('Error', 'No se pudo obtener los datos');
-        }
-      }
-    );
+      },(err) => {
+      console.log('Error:', err.error);
+      this.loading = false;
+      this.notification.showError('Error', 'No se pudo obtener el test');
+    })
   }
   deleteDece(id: string) {
     this.notification

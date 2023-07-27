@@ -1,6 +1,7 @@
 import { ClsFormInstitution } from '@/app/core/classForm/cls-form-institution';
 import { InterfaceInstitution } from '@/app/core/interfaces/interface-institution';
 import { InstitutionService } from '@/app/shared/services/api/institution.service';
+import { ControlErrorService } from '@/app/shared/services/utils/controlErrorService';
 import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -18,7 +19,8 @@ export class RegistrarInstitucionComponent implements OnInit {
 
   constructor(
     private serviceIntitucion: InstitutionService,
-    private notification: NotificationsService,
+    public controlError: ControlErrorService,
+    public notification: NotificationsService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
@@ -72,7 +74,7 @@ export class RegistrarInstitucionComponent implements OnInit {
           );
           console.log(error.error);
         }
-       }
+      }
     );
   }
 

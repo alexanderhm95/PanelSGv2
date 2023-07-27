@@ -4,35 +4,30 @@ import Swal, { SweetAlertOptions } from 'sweetalert2';
 @Injectable({
   providedIn: 'root',
 })
+
+/**
+ * Clase que proporciona métodos para mostrar alertas utilizando SweetAlert.
+ */
 export class NotificationsService {
-  showSuccess(title: string, text: string | undefined) {
+  /**
+   * Muestra una alerta de éxito utilizando SweetAlert.
+   * @param title El título de la alerta.
+   * @param text El texto de la alerta.
+   */
+  showSuccess(title: string, text?: string) {
     Swal.fire({
-      title: title ? title : 'Exitoso',
-      text: text ? text : 'operación exitosa',
+      title: title,
+      text: text,
       icon: 'success',
       confirmButtonText: 'Aceptar',
     });
   }
 
-  showLoading(title: string, text: string, duration: number) {
-    const options: SweetAlertOptions = {
-      title: title,
-      text: text,
-      allowOutsideClick: false,
-      allowEscapeKey: false,
-      allowEnterKey: false,
-      showConfirmButton: false,
-      didOpen: () => {
-        Swal.showLoading();
-        setTimeout(() => {
-          Swal.close();
-        }, duration);
-      },
-    };
-
-    Swal.fire(options);
-  }
-
+  /**
+   * Muestra una alerta de error utilizando SweetAlert.
+   * @param title El título de la alerta de error.
+   * @param text El texto de la alerta de error.
+   */
   showError(title: string, text: string) {
     Swal.fire({
       title: title,
@@ -42,6 +37,15 @@ export class NotificationsService {
     });
   }
 
+  /**
+   * Muestra una alerta de confirmación utilizando SweetAlert.
+   * @param icon El icono de la alerta de confirmación.
+   * @param title El título de la alerta de confirmación.
+   * @param text El texto de la alerta de confirmación.
+   * @param confirmButtonText El texto del botón de confirmación.
+   * @param cancelButtonText El texto del botón de cancelación.
+   * @returns Una promesa que se resuelve con el resultado de la confirmación.
+   */
   showQuestion(title: string, text: string) {
     Swal.fire({
       title: title,
@@ -51,15 +55,43 @@ export class NotificationsService {
     });
   }
 
+  showTooltip(text: string) {
+    Swal.fire({
+      title: 'Error',
+      text: text,
+      icon: 'error',
+      position: 'top',
+      toast: true,
+      timer: 3000,
+      timerProgressBar: true,
+      showConfirmButton: false,
+    });
+  }
+
+  getTooltipTopPosition(input: HTMLElement): string {
+    const rect = input.offsetTop;
+  return `${rect + window.pageYOffset}px`;
+  }
+  
+  getTooltipLeftPosition(input: HTMLElement): string {
+    const rect = input.offsetLeft;
+    return `${rect + window.pageXOffset}px`;
+  }
+  
+
+  close(){
+    Swal.close()
+  }
+
   /**
-   * showConfirm
-   * @param icon
-   * @param title
-   * @param text
-   * @param confirmButtonText
-   * @param cancelButtonText
+   * Muestra una alerta de confirmación utilizando SweetAlert.
+   * @param icon El icono de la alerta de confirmación.
+   * @param title El título de la alerta de confirmación.
+   * @param text El texto de la alerta de confirmación.
+   * @param confirmButtonText El texto del botón de confirmación.
+   * @param cancelButtonText El texto del botón de cancelación.
+   * @returns Una promesa que se resuelve con el resultado de la confirmación.
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   showConfirm(
     icon: any,
     title: string,

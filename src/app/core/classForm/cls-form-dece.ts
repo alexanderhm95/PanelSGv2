@@ -11,7 +11,7 @@ export class ClsFormDece {
     this.form = new FormGroup({
       CI: new FormControl('', [
         Validators.required,
-        Validators.maxLength(10),
+        Validators.minLength(10),
         Validators.maxLength(10),
         Validators.pattern('[0-9]*'),
       ]),

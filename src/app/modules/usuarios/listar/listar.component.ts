@@ -16,6 +16,7 @@ export class ListarComponent implements OnInit {
   public currentUser?: Usuario;
   public search = '';
   public loading = true;
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private notification: NotificationsService,
@@ -26,102 +27,62 @@ export class ListarComponent implements OnInit {
         this.getUsers(); 
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
   getUsers(): void {
-    this.usuariosService.getAllUser().subscribe(
-      (res) => {
-        const {message, data} = res;
-        this.usuarios = data;
-        this.loading = false;
-        console.log(message);
-      },
-      (err) => {
-        console.log('Error:', err.error);
-        this.notification.showError('Error', 'No se pudo obtener los usuarios');
-      }
+    this.loading = true;
+    this.subscriptions.push(
+      this.usuariosService.getAllUser().subscribe(
+        (res) => {
+          const { message, data } = res;
+          this.usuarios = data;
+          this.loading = false;
+          console.log(message);
+        },
+        (err) => {
+          console.log('Error:', err.error);
+          this.loading = false;
+          this.notification.showError('Error', 'No se pudo obtener los usuarios');
+        }
+      )
     );
   }
 
-  delete(id: string) {
+  delete(id: string): void {
     this.notification
       .showConfirm(
         'warning',
         'Peligro',
-        'Estas seguro de eliminar este usuario?',
+        'Estás seguro de eliminar este usuario?',
         'Si, eliminar!',
         'No, cancelar!'
       )
       .then((result) => {
         if (result.isConfirmed) {
-          this.usuariosService.deleteUser(id).subscribe(
-            (res) => {
-              this.notification.showSuccess(
-                'Éxito',
-                'Cuenta desactivada correctamente'
-              );
-              console.log(res.message);
-              this.ngOnInit();
-            },
-            (err) => {
-              console.log(err.error);
-              this.ngOnInit()
-              this.notification.showError(
-                'Error',
-                'No se pudo desactivar la cuenta'
-              );
-            }
-          );
-        }
-      });
-  }
-
-  changedStatusUser(id: string, action: boolean) {
-    const iconMessage = action ? 'info' : 'warning';
-    const titleMessage = action ? 'Información' : 'Peligro';
-    const message = action
-      ? 'Estas seguro de activar este usuario?'
-      : 'Estas seguro de desactivar este usuario?';
-    const confirmButton = action ? 'Si, activar!' : 'Si, desactivar!';
-    const cancelButton = action ? 'No, cancelar!' : 'No, cancelar!';
-    const confirmMessage = action
-      ? 'Cuenta activada correctamente'
-      : 'Cuenta desactivada correctamente';
-    const errorMessage = action
-      ? 'No se pudo activar la cuenta'
-      : 'No se pudo desactivar la cuenta';
-
-    this.notification
-      .showConfirm(
-        iconMessage,
-        titleMessage,
-        message,
-        confirmButton,
-        cancelButton
-      )
-      .then((result) => {
-        if (result.isConfirmed) {
-          this.usuariosService.changedStatusUser(id, action).subscribe(
-            (res) => {
-              console.log(res);
-              this.notification.showSuccess('Success', confirmMessage);
-              this.ngOnInit();
-            },
-            (err) => {
-              if (err.status === 0) {
-                this.ngOnInit()
-                this.notification.showError(
-                  'Error',
-                  'Error de conexión con el servidor'
+          this.subscriptions.push(
+            this.usuariosService.deleteUser(id).subscribe(
+              (res) => {
+                this.notification.showSuccess(
+                  'Éxito',
+                  'Cuenta eliminada correctamente'
                 );
-              } else {
-                this.ngOnInit()
+                console.log(res.message);
+                this.ngOnInit();
+              },
+              (err) => {
                 console.log(err.error);
-                this.notification.showError('Error', errorMessage);
+                this.ngOnInit();
+                this.notification.showError('Error', err.error.error);
               }
-            }
+            )
           );
         }
       });
   }
+
+ 
 }
 interface Usuario {
   id: string;

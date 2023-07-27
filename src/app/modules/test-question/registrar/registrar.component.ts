@@ -4,6 +4,8 @@ import {
 } from '@/app/core/classForm/cls-form-test-question';
 import { InterfaceQuestion } from '@/app/core/interfaces/interface-question';
 import { TestQuestionService } from '@/app/shared/services/api/test-question.service';
+import { ControlErrorService } from '@/app/shared/services/utils/controlErrorService';
+import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -21,6 +23,8 @@ export class RegistrarComponent {
   private testQuestion?: InterfaceQuestion;
 
   constructor(
+    public controlError: ControlErrorService,
+    public notification: NotificationsService,
     private changeDetectorRef: ChangeDetectorRef,
     private questionService: TestQuestionService,
     private router: Router,

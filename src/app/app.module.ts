@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { RouterModule } from '@angular/router';
+import { PreloadAllModules, RouterModule } from '@angular/router';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { CookieService } from 'ngx-cookie-service';
@@ -16,7 +16,9 @@ import { NgOptimizedImage } from '@angular/common';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    RouterModule,
+    RouterModule.forRoot( [], {
+      preloadingStrategy: PreloadAllModules
+    }),
     NgOptimizedImage,
     JwtModule.forRoot({
       config: {
