@@ -3,9 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: true,
-  api: 'https://apiseriusgame-production.up.railway.app',
-  //api: `http://${window.location.hostname}:3001`,
+  production: false,
+  //api: 'https://apiseriusgame-production.up.railway.app',
+  api: `http://${window.location.hostname}:3001`,
 };
 
 /*

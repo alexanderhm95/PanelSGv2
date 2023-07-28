@@ -73,6 +73,6 @@ export class RegistroDocenteComponent implements OnInit {
 
 
   cancel() {
-    this.router.navigate(['../listar/docentes'], { relativeTo: this.route });
+    this.router.navigate(['../listar'], { relativeTo: this.route });
   }
 }

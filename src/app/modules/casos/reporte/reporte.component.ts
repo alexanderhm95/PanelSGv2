@@ -40,6 +40,7 @@ export class ReporteComponent implements OnInit {
         const { message, data } = res;
         this.caso = data;
         this.loading =false;
+        console.log(data)
         console.log(message);
       },
       (err) => {

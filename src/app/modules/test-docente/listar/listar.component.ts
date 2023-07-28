@@ -27,14 +27,18 @@ export class ListarComponent implements OnInit {
 
   ngOnInit(): void {
     this.idUserTeacher = this.authService.getUserId();
+    this.getCasos(this.idUserTeacher);
 
-    this.casoService.getAllCasosTeacher(this.idUserTeacher).subscribe(
+   
+  }
+
+  getCasos(id:any){
+    this.casoService.getAllCasosTeacher(id).subscribe(
       (res) => {
         const { message, data } = res;
         this.casos = data;
         this.loading = false;
         console.log(message);
-        console.log(data);
       },(err) => {
         console.log('Error:', err.error);
         this.loading = false;

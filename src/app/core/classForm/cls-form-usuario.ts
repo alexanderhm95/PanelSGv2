@@ -44,6 +44,7 @@ export class ClsFormUsuario {
       ]),
       password_confirmation: new FormControl('', [
         Validators.required,
+        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
       ]),
     }, 
     );

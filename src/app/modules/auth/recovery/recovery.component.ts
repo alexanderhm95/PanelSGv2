@@ -59,8 +59,10 @@ export class RecoveryComponent implements OnInit {
 
     this.formPassword = this.formBuilder.group(
       {
-        password: ['', [Validators.required, Validators.minLength(6)]],
-        repeatPassword: ['', [Validators.required, Validators.minLength(6)]],
+        password: ['', [Validators.required, Validators.minLength(6),
+        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')]],
+        repeatPassword: ['', [Validators.required, Validators.minLength(6),
+        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')]],
       },
       { validator: this.checkPasswords }
     );

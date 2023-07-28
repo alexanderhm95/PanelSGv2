@@ -116,10 +116,11 @@
     </header>
     <main class="w-full h-[90vh] flex flex-col flex-1 z-auto items-center justify-center relative">
       <!-- Lazy loading -->
-      <div *ngIf="!isRouteActive" class="w-[95%] lg:h-[95%] h-[90%] m-2 bg-cameo border-4 border-camelot rounded-lg overflow-x-hidden z-0">
-        <img [src]="this.imageMain" [ngClass]="{ 'image-full': !isRouteActive }">
+      <div *ngIf="isRouteActive" class="w-[95%] lg:h-[95%] h-[90%] m-2 bg-cameo border-4 border-camelot rounded-lg overflow-x-hidden z-0">
+        <img [src]="imageMain" class="w-full h-full ">
+
       </div>
-      <router-outlet *ngIf="isRouteActive" class="z-10 absolute inset-0"></router-outlet>
+      <router-outlet  class="z-10 absolute inset-0"></router-outlet>
     </main>
     
   </div>

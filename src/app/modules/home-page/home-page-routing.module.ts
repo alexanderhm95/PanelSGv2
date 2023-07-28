@@ -117,7 +117,7 @@ const routes: Routes = [
     ],
   },
   {
-    path: 'test/docente',
+    path: 'test',
     children: [
       {
         path: '',

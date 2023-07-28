@@ -65,21 +65,18 @@
           <td class="p-3 text-sm text-black-100 tracking-wide text-center">
             <strong>{{ i + 1 }}</strong>
           </td>
-          <td class="p-3 text-sm text-black-100 tracking-wide text-left pl-2">
-            <strong>CI: </strong>{{ caso.CI }}
-            <br />
-            <strong>Nombres: </strong>{{ caso.name }}
-            <br />
-            <strong>Apellidos: </strong>{{ caso.lastName }}
-            <br />
+
+          <td class="p-3 text-base text-black-100 tracking-wide text-left">
+            <div class="flex flex-col">
+              <span><strong>CI:</strong> {{ caso.CI}}</span>
+              <span><strong>Nombres:</strong> {{ caso.name }} {{ caso.lastName }}</span>
+            </div>
           </td>
-          <td class="p-3 text-sm text-black-100 tracking-wide text-left pl-2">
-            <strong>CI: </strong>{{ caso.CIteacher }}
-            <br />
-            <strong>Nombres: </strong>{{ caso.nameT }}
-            <br />
-            <strong>Apellidos: </strong>{{ caso.lastNameT }}
-            <br />
+          <td class="p-3 text-base text-black-100 tracking-wide text-left">
+            <div class="flex flex-col">
+              <span><strong>CI:</strong> {{ caso.CIteacher }}</span>
+              <span><strong>Nombres:</strong> {{ caso.nameT }} {{ caso.lastNameT }}</span>
+            </div>
           </td>
           <td class="p-3 text-sm text-black-100 tracking-wide text-center">
             <strong>Institución</strong>{{ caso.institution }}

@@ -41,33 +41,32 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private serviceAuth: AuthService,
-    private cdr: ChangeDetectorRef
   ) {}
 
+ 
+  
   ngOnInit(): void {
- this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        // Verificar si hay una ruta activa
-        this.isRouteActive = this.router.url !== '/';
-        this.cdr.detectChanges(); // Forzar detección de cambios
-      }
-    });
+    this.isRouteActive = this.router.url === '/';
     this.getDataToken();
     this.buildMenu();
   }
 
 
   goToView(ruta: any): void {
+    this.isRouteActive =false;
     const url = this.router
       .createUrlTree(ruta, { relativeTo: this.route })
       .toString();
     if (this.router.url === url) {
       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
         this.router.navigateByUrl(url);
+
+    this.isRouteActive = this.router.url === '/';
       });
     this.toggleMenu();
     } else {
       this.router.navigate(ruta, { relativeTo: this.route });
+
 
     this.toggleMenu();
     }
@@ -89,28 +88,10 @@ export class HomeComponent implements OnInit {
         role: 'ADMIN',
       },
       {
-        name: 'Estudiantes',
-        icon: ICON_CHILD,
-        router: ['estudiante', 'listar'],
-        role: 'ADMIN',
-      },
-      {
-        name: 'Casos',
-        icon: ICON_BUILDING,
-        router: ['casos', 'listar'],
-        role: 'DECE',
-      },
-      {
         name: 'Instituciones',
         icon: ICON_BUILDING,
         router: ['institucion', 'listar'],
         role: 'ADMIN',
-      },
-      {
-        name: 'Docentes',
-        icon: ICON_BUILDING,
-        router: ['casos', 'listar','docentes'],
-        role: 'DECE',
       },
       {
         name: 'DECE',
@@ -125,10 +106,10 @@ export class HomeComponent implements OnInit {
         role: 'ADMIN',
       },
       {
-        name: 'Casos Asignados',
-        icon: ICON_CHALKBOARD_USER,
-        router: ['test', 'docente', 'listar'],
-        role: 'TEACHER',
+        name: 'Estudiantes',
+        icon: ICON_CHILD,
+        router: ['estudiante', 'listar'],
+        role: 'ADMIN',
       },
       {
         name: 'Test Estudiantes',
@@ -143,6 +124,18 @@ export class HomeComponent implements OnInit {
         role: 'ADMIN',
       },
       {
+        name: 'Casos',
+        icon: ICON_BUILDING,
+        router: ['casos', 'listar'],
+        role: 'DECE',
+      },
+      {
+        name: 'Docentes',
+        icon: ICON_BUILDING,
+        router: ['casos','docentes'],
+        role: 'DECE',
+      },
+      {
         name: 'Test Estudiantes',
         icon: ICON_LIST_CHECK,
         router: ['caso', 'estudiante', 'listar'],
@@ -153,6 +146,12 @@ export class HomeComponent implements OnInit {
         icon: ICON_LIST_CHECK,
         router: ['caso', 'docente', 'listar'],
         role: 'DECE',
+      },
+      {
+        name: 'Casos Asignados',
+        icon: ICON_CHALKBOARD_USER,
+        router: ['test', 'listar'],
+        role: 'TEACHER',
       },
     ];
   }

@@ -7,7 +7,7 @@ import { AuthGuard } from '@/app/core/guards/auth.guard';
 const routes: Routes = [
  
   {
-    path: 'docente/listar',
+    path: 'listar',
     component: ListarComponent,
     canActivate: [AuthGuard], 
     data: {

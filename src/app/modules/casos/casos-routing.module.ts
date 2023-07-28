@@ -47,7 +47,7 @@ const routes: Routes = [
     title: 'Casos',
   },
   {
-    path: 'listar/docentes',
+    path: 'docentes',
     component: ListarDocenteComponent,
     canActivate: [AuthGuard], 
     data: {
