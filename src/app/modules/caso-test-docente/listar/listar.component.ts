@@ -36,6 +36,7 @@ public id:any;
         const { message, data } = res;
         this.tests = data;
         console.log(message);
+        console.log(data)
         this.loading = false;
       },
       (error) => {

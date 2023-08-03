@@ -21,12 +21,8 @@ export class ClsFormUsuario {
         Validators.minLength(3),
         Validators.pattern('^[a-zA-Zñáéíöäëéöåç ]*$'),
       ]),
-      age: new FormControl('', [
-        Validators.minLength(1),
-        Validators.maxLength(3),
-        Validators.pattern('[0-9]*'),
-      ]),
       address: new FormControl('', [
+        Validators.required,
         Validators.minLength(2),
       ]),
       phone: new FormControl('', [
@@ -76,6 +72,7 @@ export class ClsFormUpdateUsuario {
         Validators.pattern('^[a-zA-Zñáéíöäëéöåç ]*$'),
       ]),
       address: new FormControl('', [
+        Validators.required,
         Validators.minLength(2),
       ]),
       phone: new FormControl('', [

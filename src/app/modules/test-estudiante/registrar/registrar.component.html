@@ -134,7 +134,7 @@
           <!-- Editar -->
           <button
             type="submit"
-            [disabled]="this.formTestImages.form.invalid"
+            [disabled]="this.formTestImages.form.invalid || this.srcImage==='' || this.imagenTest===null"
            
             class="border-2 border-camelot lg:text-lg text-nile-blue bg-cameo rounded-lg lg:p-3 p-2 hover:bg-nile-blue hover:text-cameo"
             >

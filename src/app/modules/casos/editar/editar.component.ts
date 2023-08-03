@@ -76,13 +76,15 @@ export class EditarComponent {
       parallelStudent,
       selectTeacher,
     } = this.formCaso.form.value;
-    console.log(selectTeacher)
+
+    console.log("Valor de la seleccion",selectTeacher)
     if (selectTeacher === null || selectTeacher === '0') {
       this.notification.showError('Error', 'Debe seleccionar un docente');
       return;
     }
 
     const body = {
+      idStudent: this.caso.idStudent,
       idDece: this.authService.getUserId(),
       ciStudent,
       nameStudent,
@@ -104,7 +106,7 @@ export class EditarComponent {
         this.router.navigate(['/casos/listar']);
       },
       (err) => {
-        this.notification.showError('Error', err.error.message);
+        this.notification.showError('Error', err.error.error);
       }
     );
   }

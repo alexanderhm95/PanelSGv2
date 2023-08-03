@@ -59,7 +59,7 @@ export class EditarComponent implements OnInit {
         console.log(message);
         this.notification.showSuccess(
           'Actualizado',
-          'Dece actualizado  con exito'
+          message
         );
         this.router.navigate(['../../listar'], { relativeTo: this.route });
       },
@@ -70,7 +70,8 @@ export class EditarComponent implements OnInit {
             'No se pudo conectar con el servidor'
           );
         } else {
-          this.notification.showError('Error ', error.error);
+          console.log(error)
+          this.notification.showError('Error ', error.error.error);
         }
       }
     );

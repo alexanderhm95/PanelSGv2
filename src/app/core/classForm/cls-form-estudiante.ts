@@ -33,10 +33,11 @@ export class ClsFormEstudiante {
         Validators.required,
         Validators.minLength(1),
         Validators.maxLength(3),
-        Validators.pattern('^[0-9]*$'),
+        Validators.pattern('^(?:1[0-5]|[5-9])$'),
       ]),
 
-      addressStudent: new FormControl('', [Validators.minLength(2)]),
+      addressStudent: new FormControl('', [Validators.minLength(2),
+        Validators.required]),
       phoneStudent: new FormControl('', [
         Validators.required,
         Validators.minLength(6),
@@ -54,9 +55,8 @@ export class ClsFormEstudiante {
         Validators.minLength(1),
         Validators.maxLength(1),
         //Solo letras mayusculas
-        Validators.pattern('^[A-Zñáéíöäëéöåç ]*$'),
+        Validators.pattern('^[a-zA-Z]*$'),
       ]),
-      institucion: new FormControl(false),
     });
   }
 

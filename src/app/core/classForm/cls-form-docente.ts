@@ -21,7 +21,8 @@ export class ClsFormDocente {
                 Validators.minLength(3),
                 Validators.pattern('^[a-zA-Zñáéíöäëéöåç ]*$'),
               ]),
-              address: new FormControl('', [Validators.minLength(2)]),
+              address: new FormControl('', [
+        Validators.required,Validators.minLength(2)]),
               phone: new FormControl('', [
                 Validators.required,
                 Validators.minLength(6),
@@ -65,7 +66,8 @@ export class ClsFormUpdateDocente {
                 Validators.minLength(3),
                 Validators.pattern('^[a-zA-Zñáéíöäëéöåç ]*$'),
               ]),
-              address: new FormControl('', [Validators.minLength(2)]),
+              address: new FormControl('', [
+                Validators.required,Validators.minLength(2)]),
               phone: new FormControl('', [
                 Validators.required,
                 Validators.minLength(6),

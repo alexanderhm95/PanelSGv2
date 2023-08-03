@@ -9,7 +9,7 @@
   >
     <!-- Nombre y Logotipo -->
     <div
-      class="flex flex-col py-2 px-2 border-b border-camelot lg:h-[10%] whitespace-nowrap overflow-hidden"
+      class="flex flex-col py-2 px-2 border-b border-camelot lg:h-[12%] whitespace-nowrap overflow-hidden"
     >
       <h1
         class="text-sm text-left text-camelot font-bold tracking-[2px] items-center justify-center flex-col"
@@ -50,7 +50,7 @@
       </h1>
     </div>
 
-    <div class="flex flex-col justify-between lg:h-[80%]">
+    <div class="flex flex-col justify-between lg:h-[78%]">
       <!-- Menu -->
       <nav class="h-[80%] py-2 pl-2">
         <ul class="menu-list">
@@ -116,10 +116,7 @@
     </header>
     <main class="w-full h-[90vh] flex flex-col flex-1 z-auto items-center justify-center relative">
       <!-- Lazy loading -->
-      <div *ngIf="isRouteActive" class="w-[95%] lg:h-[95%] h-[90%] m-2 bg-cameo border-4 border-camelot rounded-lg overflow-x-hidden z-0">
-        <img [src]="imageMain" class="w-full h-full ">
-
-      </div>
+      
       <router-outlet  class="z-10 absolute inset-0"></router-outlet>
     </main>
     

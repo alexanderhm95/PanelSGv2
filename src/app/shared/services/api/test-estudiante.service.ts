@@ -23,12 +23,9 @@ export class TestEstudianteService {
     return this.http.get(`${this.URL}/testImages`);
   }
 
-  getAllPreguntaPaginated(page: number, pageSize: number): Observable<any> {
-    const params = new HttpParams()
-      .set('page', page.toString())
-      .set('pageSize', pageSize.toString());
+  getAllPreguntaPaginated(): Observable<any> {
   
-    return this.http.get(`${this.URL}/testImages/paginated`, { params });
+    return this.http.get(`${this.URL}/testImages/paginated`);
   }
 
   getPregunta(id: any): Observable<any> {

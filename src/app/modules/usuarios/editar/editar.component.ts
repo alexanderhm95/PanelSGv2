@@ -123,7 +123,7 @@ export class EditarComponent {
     this.userService.updateUser(this.user?.id, body).subscribe(
       (res) => {
         this.notification.showSuccess('Success', 'Usuario registrado');
-        this.router.navigate(['../../../listar'], { relativeTo: this.route });
+        this.router.navigate(['../../listar'], { relativeTo: this.route });
       },
       (err) => {
         if (err.status === 0) {
@@ -154,7 +154,7 @@ export class EditarComponent {
               (res) => {
                 console.log(res);
                 this.notification.showSuccess('Success', 'Se ha enviado las credenciales al correo del usuario');
-                this.ngOnInit();
+                this.router.navigate(['../../listar'], { relativeTo: this.route });
               },
               (err) => {
                 if (err.status === 0) {

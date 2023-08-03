@@ -6,6 +6,8 @@ import { ControlErrorService } from '@/app/shared/services/utils/controlErrorSer
 import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
 import { Component, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
+
 
 @Component({
   selector: 'app-editar',
@@ -26,7 +28,8 @@ export class EditarComponent {
     public notification: NotificationsService,
     private studentService: StudentService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -45,7 +48,6 @@ export class EditarComponent {
       ageStudent,
       addressStudent,
       phoneStudent,
-      institucion,
       gradeStudent,
       parallelStudent,
     } = this.formStudent.form.value;
@@ -58,7 +60,7 @@ export class EditarComponent {
       phone: phoneStudent,
       gender: gender,
       age: ageStudent,
-      nameInstitution: institucion,
+      nameInstitution: this.student.nameInstitution,
       grade: gradeStudent,
       parallel: parallelStudent,
     };
@@ -110,7 +112,6 @@ export class EditarComponent {
       ageStudent: student.age,
       addressStudent: student.address,
       phoneStudent: student.phone,
-      institucion: student.nameInstitution,
       gradeStudent: student.grade,
       parallelStudent: student.parallel,
     });
@@ -129,6 +130,6 @@ export class EditarComponent {
   }
 
   cancel() {
-    this.router.navigate(['../../listar'], { relativeTo: this.route });
+  this.location.back();
   }
 }

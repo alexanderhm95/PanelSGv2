@@ -18,8 +18,8 @@ export class EditarComponent implements OnInit {
   public api = environment.api + '/api/1.0';
   public formTestImages = new ClsFormTestEstudiante();
   private testImages?: any;
-  private srcImage = '';
-  private imagenTest?: File;
+  public srcImage = '';
+  public imagenTest?: File;
   public imageUrl = '';
   private id: string | null = '';
   public imageUpload = false;
@@ -63,6 +63,7 @@ export class EditarComponent implements OnInit {
       section: data.section,
     };
     this.formTestImages.form.patchValue(formValue);
+
     this.loadImage(data.link);
   }
 
@@ -75,7 +76,7 @@ export class EditarComponent implements OnInit {
       });
 
       this.imagenTest = this.imageService.renameImage(file, 'TestImagenes');
-      this.srcImage = '/public/TestImagenes/' + this.imagenTest.name;
+      this.srcImage = '/public/TestImagenes/' + this.imagenTest.name.split('_').pop();
       this.imageUpload = true;
 
       const reader = new FileReader();
@@ -87,12 +88,18 @@ export class EditarComponent implements OnInit {
   }
 
   update() {
+    if(this.srcImage===''||this.imagenTest===null){
+      this.notification.showError('Error','Es necesario tener una imagen cargada..')
+    }
+
+
     this.testImages = {
       name: this.formTestImages.form.value.name,
       urlImage: this.srcImage,
       value: this.formTestImages.form.value.valor,
       section: this.formTestImages.form.value.section,
     };
+
     const formData = new FormData();
     formData.append('singleFile', this.imagenTest as File);
     formData.append('data', JSON.stringify(this.testImages));

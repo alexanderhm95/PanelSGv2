@@ -29,9 +29,6 @@ export class ListarDocenteComponent {
         const { message, data } = res;
         this.docentes = data;
         this.loading = false;
-        if(this.docentes.length===0){
-        this.notification.showSuccess('Information', 'No tiene docentes agregados');
-}
         console.log(message);
       },(err) => {
         console.log('Error:', err.error);

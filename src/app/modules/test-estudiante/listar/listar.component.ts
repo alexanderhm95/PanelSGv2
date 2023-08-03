@@ -21,9 +21,6 @@ export class ListarComponent implements OnInit {
   public api = environment.api + '/api/1.0';
   public search = '';
   public loading = true;
-  public currentPage = 0;
-  public pageSize = 0;
-  public totalPages = 0;
   isButtonPressed: boolean = false;
 
   preguntas: InterfaceTestEstudiante[] = [];
@@ -37,51 +34,16 @@ export class ListarComponent implements OnInit {
     this.getData();
   }
 
-  nextPage(): void {
-    this.currentPage++;
-    this.getData();
-  }
-
-  previousPage(): void {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.getData();
-    }
-  }
-
-  @HostListener('window:keydown', ['$event'])
-  handleKeyDown(event: KeyboardEvent): void {
-    console.log('Entre a la derecha');
-    if (event.key === 'ArrowRight' && this.currentPage<this.totalPages) {
-      console.log('Me voy a  DER');
-      this.isButtonPressed = true;
-      this.nextPage();
-    }
-
-    this.isButtonPressed = false;
-  }
-
-  @HostListener('window:keyup', ['$event'])
-  handleKeyUp(event: KeyboardEvent): void {
-    if (event.key === 'ArrowLeft' && this.currentPage>1) {
-      console.log('Me voy a  IZQ');
-      this.isButtonPressed = true;
-      this.previousPage();
-    }
-
-    this.isButtonPressed = false;
-  }
+  
 
   getData(): void {
     this.loading = true;
     this.preguntaService
-      .getAllPreguntaPaginated(this.currentPage, this.pageSize)
+      .getAllPreguntaPaginated()
       .subscribe(
         (res) => {
           const { message, data } = res;
-          this.preguntas = data.testImages.docs;
-          this.currentPage = data.testImages.page;
-          this.totalPages = data.testImages.totalPages; // Calcular el número total de páginas
+          this.preguntas = data
           this.loading = false;
           console.log(message);
         },

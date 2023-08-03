@@ -14,9 +14,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class RegistrarComponent implements OnInit {
   public formTestImages = new ClsFormTestEstudiante();
   private testImages?: any;
-  private srcImage = '';
+  public srcImage = '';
   public imageUrl = '';
-  private imagenTest?: File;
+  public imagenTest?: File;
 
   constructor(
     public controlError: ControlErrorService,
@@ -32,6 +32,12 @@ export class RegistrarComponent implements OnInit {
   }
 
   create() {
+
+
+    if(this.srcImage===''||this.imagenTest===null){
+      this.notification.showError('Error','Es necesario tener una imagen cargada..')
+    }
+
     console.log(this.srcImage);
     this.testImages = {
       name: this.formTestImages.form.value.name,

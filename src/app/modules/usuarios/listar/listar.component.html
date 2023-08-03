@@ -30,7 +30,7 @@
         <input
           [(ngModel)]="search"
           class="mx-3 px-2 py-3 border-b-2 border-camelot rounded-lg bg-none text-camelot text-xs font-semibold tracking-wide lg:w-[20%] focus:outline-none focus:border-camelot-400"
-          placeholder="Buscar por: CI, Email, rol..."
+          placeholder="Buscar por cédula, email, rol..."
         />
         <button
           [routerLink]="'../registrar'"
@@ -191,6 +191,22 @@
           </div>
         </div>
         <!-- Acciones -->
+            <div class="flex flex-row gap-2 justify-end my-2">
+          <button
+            [routerLink]="'../editar/' + usuario.id"
+            type="button"
+            class="border-2 border-camelot text-sm text-nile-blue bg-cameo rounded-lg px-2 py-1 mr-2"
+          >
+            Editar
+          </button>
+          <button
+            (click)="delete(usuario.id)"
+            type="button"
+            class="border-2 border-camelot text-sm text-nile-blue bg-cameo rounded-lg px-2 py-1 mr-2"
+          >
+            Eliminar
+          </button>
+        </div>
 
       </div>
     </div>

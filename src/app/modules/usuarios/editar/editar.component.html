@@ -4,10 +4,9 @@
   <div
     class="w-full lg:h-[10%] text-center text-2xl font-bold text-camelot py-4 flex items-center justify-center"
   >
-    <label>Modificar </label>
-    <span *ngIf="user?.role === 'ADMIN'"> `Modificar Administrador`</span>
-    <span *ngIf="user?.role === 'DECE'"> `Modificar encargado del Dece`</span>
-    <span *ngIf="user?.role === 'TEACHER'"> `Modificar Docente`</span>
+    <span *ngIf="user?.role === 'ADMIN'"> Modificar Administrador</span>
+    <span *ngIf="user?.role === 'DECE'"> Modificar encargado del Dece</span>
+    <span *ngIf="user?.role === 'TEACHER'"> Modificar Docente</span>
   </div>
 
   <form
@@ -189,7 +188,7 @@
             type="submit"
             class="border-2 border-camelot lg:text-lg text-nile-blue bg-cameo rounded-lg p-2 hover:bg-nile-blue hover:text-cameo"
           >
-            Registrar
+            Editar
           </button>
         </div>
       </div>

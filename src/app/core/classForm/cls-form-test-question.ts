@@ -29,6 +29,8 @@ export class ClsFormRespuestas {
             valueAnswer: new FormControl('',
                 [
                     Validators.required,
+                    Validators.minLength(1),
+                    Validators.maxLength(2),
         Validators.pattern('[0-9]*'),
                 ])
         })

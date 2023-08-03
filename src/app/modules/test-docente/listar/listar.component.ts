@@ -40,9 +40,12 @@ export class ListarComponent implements OnInit {
         this.loading = false;
         console.log(message);
       },(err) => {
-        console.log('Error:', err.error);
+        console.log('Error:', err.status);
+        if(err.status===403){
+          this.authService.logout();
+        }
         this.loading = false;
-        this.notification.showError('Error', 'No se pudo obtener los casos');
+        this.notification.showError('Error', err.error.error);
       })
   }
 

@@ -54,7 +54,7 @@ export class EditarComponent implements OnInit {
     this.teacherService.updateTeacher(this.id, body).subscribe(
       (res) => {
         const { message } = res;
-        this.notification.showSuccess('Exito', 'Docente actualizado con exito');
+        this.notification.showSuccess('Éxito', 'Docente actualizado con éxito');
         this.router.navigate(['../../listar'], { relativeTo: this.route });
       },
       (err) => {

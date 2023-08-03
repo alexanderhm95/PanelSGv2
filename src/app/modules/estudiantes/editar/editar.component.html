@@ -180,26 +180,16 @@
         Datos institucionales
       </div>
       <!-- institucion -->
-      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1">
+      <div class="lg:w-[60%] w-[80%] grid lg:grid-cols-2 mb-4 grid-cols-1 my-2">
         <div class="w-full col-span-1 text-camelot text-lg mt-2 py-1 text-left">
           <label for="institucion"> Institución: </label>
         </div>
         <div
-          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center mt-1"
+          class="w-full col-span-1 text-nile-blue text-lg flex items-center justify-center "
         >
-          <select
-            id="selectTeacher"
-            formControlName="institucion"
-            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400 pl-3 py-1"
-          >
-            <option value="0">Seleccione una institución</option>
-            <option
-              *ngFor="let institucion of instituciones"
-              [value]="institucion.nameInstitution"
-            >
-              {{ institucion.nameInstitution }}
-            </option>
-          </select>
+          <label class="w-full border-2 border-camelot text-lg font-extrabold text-nile-blue text-center py-2 rounded-lg">
+              {{ this.student.nameInstitution }}
+            </label>
         </div>
       </div>
 
@@ -244,7 +234,8 @@
                 notification.showTooltip(controlError.getErrorMessage(this.formStudent.form ,'parallelStudent'))
             "
             (mouseout)="notification.close()"
-            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400 pl-2 "
+            class="w-full border-2 border-camelot rounded-lg focus:ring-camelot-400 focus:border-camelot-400 pl-2
+            py-1 "
           />
 
         </div>

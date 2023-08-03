@@ -53,7 +53,7 @@ export class RegistroDocenteComponent implements OnInit {
         const { message } = res;
         this.notification.showSuccess('Éxito', 'Docente registrado con éxito');
         console.log(message);
-        this.router.navigate(['../listar'], { relativeTo: this.route });
+        this.router.navigate(['../docentes'], { relativeTo: this.route });
       },
       (err) => {
         if (err.status === 0) {
@@ -73,6 +73,6 @@ export class RegistroDocenteComponent implements OnInit {
 
 
   cancel() {
-    this.router.navigate(['../listar'], { relativeTo: this.route });
+    this.router.navigate(['../docentes'], { relativeTo: this.route });
   }
 }
