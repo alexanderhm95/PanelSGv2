@@ -71,7 +71,7 @@ export class RegistrarComponent implements OnInit {
     this.casoService.createCaso(body).subscribe(
       (res) => {
         const { message, data } = res;
-        this.notification.showSuccess('Exito', message);
+        this.notification.showSuccess('Registro', message);
         this.router.navigate(['/casos/listar']);
       },
       (err) => {
@@ -89,9 +89,7 @@ export class RegistrarComponent implements OnInit {
     });
   }
 
-  agregarDocente() {
-    this.agregar = !this.agregar;
-  }
+  
   cancel() {
     this.router.navigate(['../listar'], { relativeTo: this.route });
   }

@@ -105,7 +105,7 @@ export class EditarInstitucionComponent implements OnInit {
           const { message } = res;
           console.log(message);
           this.notification.showSuccess(
-            'Institución actualizada',
+            'Actualizado',
             'La institución se ha actualizado correctamente'
           );
           this.router.navigate(['../../listar'], { relativeTo: this.route });
@@ -113,11 +113,10 @@ export class EditarInstitucionComponent implements OnInit {
         (error) => {
           if (error.status === 0) {
             this.notification.showError(
-              'Error de conexión',
+              'Error',
               'No se ha podido conectar con el servidor'
             );
           } else {
-            console.log(error.error);
             this.notification.showError(
               'Error al actualizar institución',
               'Ha ocurrido un error al actualizar la información'

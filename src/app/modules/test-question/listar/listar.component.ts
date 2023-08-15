@@ -27,10 +27,16 @@ export class ListarComponent {
       this.question = data;
       this.loading = false;
       console.log(message);
-    },(err) => {
-      console.log('Error:', err.error);
-      this.loading = false;
-      this.notification.showError('Error', 'No se pudo obtener el test');
+    },
+    (error) => {
+      if (error.status === 0) {
+        this.notification.showError(
+          'Error',
+          'Error de conexión con el servidor, inténtelo mas tarde'
+        );
+      } else {
+        this.notification.showError('Error', error.error.error);
+      }
     }
     );
   }
@@ -43,9 +49,9 @@ export class ListarComponent {
       .showConfirm(
         'warning',
         'Peligro',
-        'Estas seguro de eliminar la pregunta?',
-        'Si, eliminar!',
-        'No, cancelar!'
+        '¿Está seguro de eliminar la pregunta?',
+        'Eliminar',
+        'Cancelar'
       )
       .then((result) => {
         if (result.isConfirmed) {
@@ -53,7 +59,7 @@ export class ListarComponent {
             (res) => {
               const { message } = res;
               this.notification.showSuccess(
-                'Éxito',
+                'Eliminado',
                 'Pregunta eliminada correctamente'
               );
               console.log(message);

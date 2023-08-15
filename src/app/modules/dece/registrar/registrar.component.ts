@@ -47,7 +47,7 @@ export class RegistrarComponent implements OnInit {
       (res) => {
         const { message } = res;
         console.log(message);
-        this.notification.showSuccess('Dece', message);
+        this.notification.showSuccess('Registro', message);
         this.router.navigate(['../listar'], { relativeTo: this.route });
       },
       (err) => {

@@ -12,7 +12,6 @@ import { Component } from '@angular/core';
   providers: [FilterTablesPipe],
 })
 export class ListarComponent implements OnInit {
-  public api = environment.api + '/api/1.0';
   public estudiantes: any[] = [];
   public search = '';
   public loading = true;
@@ -43,9 +42,9 @@ export class ListarComponent implements OnInit {
       .showConfirm(
         'warning',
         'Peligro',
-        'Estas seguro de eliminar al estudiante',
-        'Si, eliminar!',
-        'No, cancelar!'
+        '¿Estas seguro de eliminar al estudiante?',
+        'Eliminar',
+        'Cancelar'
       )
       .then((result) => {
         if (result.isConfirmed) {
@@ -54,7 +53,7 @@ export class ListarComponent implements OnInit {
               const { message } = res;
               console.log(message);
               this.notification.showSuccess(
-                'Éxito',
+                'Eliminado',
                 'Estudiante eliminado correctamente'
               );
               this.ngOnInit();

@@ -3,7 +3,6 @@ import { FilterTablesPipe } from '@/app/shared/pipes/filter-tables.pipe';
 import { InstitutionService } from '@/app/shared/services/api/institution.service';
 import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
 import { Component, OnInit } from '@angular/core';
-import { Subscription  } from 'rxjs';
 
 @Component({
   selector: 'app-listar-institucion',
@@ -18,7 +17,7 @@ export class ListarInstitucionComponent implements OnInit {
 
   constructor(
     private notification: NotificationsService,
-    private institucionService: InstitutionService
+    private institutionService: InstitutionService
   ) {}
 
   ngOnInit(): void {
@@ -27,7 +26,7 @@ export class ListarInstitucionComponent implements OnInit {
 
 
   getInstitutions() {
-    this.institucionService.getAllInstitution().subscribe(
+    this.institutionService.getAllInstitution().subscribe(
       (res) => {
         const { message, data } = res;
         this.instituciones = data;
@@ -37,7 +36,7 @@ export class ListarInstitucionComponent implements OnInit {
       (err) => {
         this.loading = false;
           this.notification.showError(
-            'Error de conexión',
+            'Error',
             'No se pudo obtener instituciones')
           console.log(err);
       }
@@ -51,17 +50,17 @@ export class ListarInstitucionComponent implements OnInit {
         'warning',
         'Eliminar institución',
         '¿Está seguro de eliminar la institución?',
-        'Sí, eliminar',
-        'No, cancelar'
+        'Eliminar',
+        'Cancelar'
       )
       .then((result) => {
         if (result.isConfirmed) {
-          this.institucionService.deleteInstitution(id).subscribe(
+          this.institutionService.deleteInstitution(id).subscribe(
             (res) => {
               const { message } = res;
               console.log(message);
               this.notification.showSuccess(
-                'Institución eliminada',
+                'Eliminado',
                 'La institución se ha eliminado correctamente'
               );
               this.ngOnInit();
@@ -69,7 +68,7 @@ export class ListarInstitucionComponent implements OnInit {
             (err) => {
               if (err.status === 0) {
                 this.notification.showError(
-                  'Error de conexión',
+                  'Error',
                   'No se ha podido conectar con el servidor, intente más tarde'
                 );
               } else {

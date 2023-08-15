@@ -43,8 +43,8 @@ export class ListarComponent implements OnInit {
       .showConfirm(
         'warning',
         'Eliminar',
-        '¿Está seguro de eliminar este registro?',
-        'Si, eliminar',
+        '¿Está seguro de eliminar al encargado del DECE?',
+        'Eliminar',
         'Cancelar'
       )
       .then((result) => {

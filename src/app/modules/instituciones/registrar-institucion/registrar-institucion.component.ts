@@ -15,7 +15,6 @@ export class RegistrarInstitucionComponent implements OnInit {
   public selectedOption?: string;
 
   public formInstitucion = new ClsFormInstitution();
-  private institucion?: InterfaceInstitution;
 
   constructor(
     private serviceIntitucion: InstitutionService,
@@ -56,7 +55,7 @@ export class RegistrarInstitucionComponent implements OnInit {
         // this.notify.showSuccess('Institución registrada', 'La institución se ha registrado correctamente');
         console.log(res.message);
         this.notification.showSuccess(
-          'Institución registrada',
+          'Registro',
           'La institución se ha registrado correctamente'
         );
         this.router.navigate(['../listar'], { relativeTo: this.route });
@@ -69,7 +68,7 @@ export class RegistrarInstitucionComponent implements OnInit {
           );
         } else {
           this.notification.showError(
-            'Error al registrar institución',
+            'Error',
             'Ha ocurrido un error al registrar la institución'
           );
           console.log(error.error);

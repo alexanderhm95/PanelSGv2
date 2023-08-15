@@ -1,5 +1,7 @@
 import { CasosService } from '@/app/shared/services/api/casos.service';
 import { TestCasoEstudianteService } from '@/app/shared/services/api/test-caso-estudiante.service';
+import { TestCasoTeacherService } from '@/app/shared/services/api/test-caso-teacher.service';
+import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
 import { environment } from '@/environments/environment';
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
@@ -16,6 +18,7 @@ export class ReporteComponent implements OnInit {
   public api = environment.api + '/api/1.0/testStudent/reporte/';
   public id: any;
   public modalActivate: Boolean = false;
+  public modalActivate2: Boolean = false;
   public listaRespuestas: Respuestas[] = [];
   public loading = true;
 
@@ -24,6 +27,8 @@ export class ReporteComponent implements OnInit {
 
   constructor(
     private testEstudiante: TestCasoEstudianteService,
+    private testTeacher: TestCasoTeacherService,
+    private notification: NotificationsService,
     private serviceCaso: CasosService,
     private route: ActivatedRoute,
     private router: Router
@@ -40,12 +45,22 @@ export class ReporteComponent implements OnInit {
         const { message, data } = res;
         this.caso = data;
         this.loading =false;
-        console.log(data)
         console.log(message);
       },
-      (err) => {
-        this.loading = true;
-        console.log(err);
+      (error) => {
+        if (error.status === 0) {
+
+          this.ngOnInit();
+          this.notification.showError(
+            'Error ',
+            'No se pudo conectar con el servidor'
+          );
+        } else {
+
+          this.ngOnInit();
+          this.notification.showError('Error ', error.error.error);
+          console.log(error);
+        }
       }
     );
   }
@@ -72,9 +87,22 @@ export class ReporteComponent implements OnInit {
       }
     );
   }
+  openModal2(id: string) {
+    this.modalActivate2 = true;
+    this.testTeacher.getTestTeacher(id).subscribe(
+      (res) => {
+        console.log(res);
+        this.listaRespuestas = res;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
 
   closeModal() {
     this.modalActivate = false;
+    this.modalActivate2 = false;
     this.listaRespuestas = [];
   }
 
@@ -85,7 +113,9 @@ export class ReporteComponent implements OnInit {
 }
 
 interface Respuestas {
-  id: string;
-  refImages: string;
-  valueAnswer: number;
+  id?: string;
+  refImages?: string;
+  name?: string;
+  valueAnswer?: number;
+  value?: number;
 }

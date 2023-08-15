@@ -1,5 +1,6 @@
 import { ClsFormUpdateUsuario, ClsFormUsuario } from '@/app/core/classForm/cls-form-usuario';
 import { UserRole } from '@/app/core/interfaces/interface-roleAdmin';
+import { AuthService } from '@/app/shared/services/api/auth.service';
 import { UserService } from '@/app/shared/services/api/user.service';
 import { ControlErrorService } from '@/app/shared/services/utils/controlErrorService';
 import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
@@ -23,9 +24,10 @@ export class EditarComponent {
     public controlError: ControlErrorService,
     public notification: NotificationsService,
     private userService: UserService,
+    private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.formUser.form.reset();
@@ -60,10 +62,10 @@ export class EditarComponent {
     const iconMessage = action ? 'info' : 'warning';
     const titleMessage = action ? 'Información' : 'Peligro';
     const message = action
-      ? 'Estás seguro de activar este usuario?'
-      : 'Estás seguro de desactivar este usuario?';
-    const confirmButton = action ? 'Si, activar!' : 'Si, desactivar!';
-    const cancelButton = action ? 'No, cancelar!' : 'No, cancelar!';
+      ? 'Está seguro de activar este usuario?'
+      : 'Está seguro de desactivar este usuario?';
+    const confirmButton = action ? 'Activar' : 'Desactivar!';
+    const cancelButton = action ? 'Cancelar!' : 'Cancelar!';
     const confirmMessage = action
       ? 'Cuenta activada correctamente'
       : 'Cuenta desactivada correctamente';
@@ -85,16 +87,12 @@ export class EditarComponent {
             this.userService.changedStatusUser(id, action).subscribe(
               (res) => {
                 console.log(res);
-                this.notification.showSuccess('Success', confirmMessage);
+                this.notification.showSuccess('Actualizado', confirmMessage);
                 this.ngOnInit();
               },
               (err) => {
                 if (err.status === 0) {
-                  this.ngOnInit();
-                  this.notification.showError(
-                    'Error',
-                    'Error de conexión con el servidor'
-                  );
+                  this.notification.showError('Error', 'Error de conexión con el servidor');
                 } else {
                   this.ngOnInit();
                   console.log(err.error);
@@ -108,11 +106,11 @@ export class EditarComponent {
   }
 
   update() {
-    const { CI, name, lastName, address, phone, email,  } =
+    const { CI, name, lastName, address, phone, email, } =
       this.formUser.form.value;
 
     const body = {
-      ciUser:CI,
+      ciUser: CI,
       name,
       lastName,
       address,
@@ -122,51 +120,55 @@ export class EditarComponent {
 
     this.userService.updateUser(this.user?.id, body).subscribe(
       (res) => {
-        this.notification.showSuccess('Success', 'Usuario registrado');
+        this.notification.showSuccess('Actualizado', 'Usuario registrado con éxito');
         this.router.navigate(['../../listar'], { relativeTo: this.route });
       },
-      (err) => {
-        if (err.status === 0) {
+
+      (error) => {
+        if (error.status === 0) {
           this.notification.showError(
             'Error',
             'Error de conexión con el servidor'
           );
         } else {
-          this.notification.showError('Error', err.error.error);
-          console.log(err);
+          this.notification.showError(
+            'Error',
+            error.error.error
+          );
         }
       }
     );
   }
 
-  changePassword(id:any): void {
+  changePassword(id: any): void {
     this.notification.showConfirm(
       'question',
       'Cambiar contraseña',
       'Estas seguro de renovar la contraseña',
       'Si, cambiar',
       'No, cancelar'
-      )
+    )
       .then((result) => {
         if (result.isConfirmed) {
           this.subscriptions.push(
-            this.userService.changePasswordUser({id:id}).subscribe(
+            this.userService.changePasswordUser({ id: id }).subscribe(
               (res) => {
                 console.log(res);
-                this.notification.showSuccess('Success', 'Se ha enviado las credenciales al correo del usuario');
+                this.notification.showSuccess('Contraseña renovada', 'Se ha enviado las credenciales al correo del usuario');
                 this.router.navigate(['../../listar'], { relativeTo: this.route });
               },
-              (err) => {
-                if (err.status === 0) {
-                  this.ngOnInit();
+
+              (error) => {
+                if (error.status === 0) {
                   this.notification.showError(
                     'Error',
                     'Error de conexión con el servidor'
                   );
-                } else {
-                  this.ngOnInit();
-                  console.log(err.error);
-                  this.notification.showError('Error', 'No se pudo renovar la contraseña');
+                }else {
+                  this.notification.showError(
+                    'Error',
+                    error.error.error
+                  );
                 }
               }
             )

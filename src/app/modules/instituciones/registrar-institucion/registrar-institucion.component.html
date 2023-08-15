@@ -76,8 +76,8 @@
             
             placeholder="Ingrese la ciudad"
             (mouseover)="
-              formInstitucion.form.get('city')?.invalid &&
-                formInstitucion.form.get('city')?.touched &&
+              formInstitucion.form.get('cityInstitution')?.invalid &&
+                formInstitucion.form.get('cityInstitution')?.touched &&
                 notification.showTooltip(controlError.getErrorMessage(this.formInstitucion.form ,'city'))
             "
             (mouseout)="this.notification.close()"
@@ -180,7 +180,7 @@
             (mouseout)="this.notification.close()"
           >
             <option value="0">Seleccione una opción</option>
-            <option value="PUBLIC">Publica</option>
+            <option value="PUBLIC">Pública</option>
             <option value="PRIVATE">Privada</option>
             <option value="OTHER">Otra</option>
           </select>

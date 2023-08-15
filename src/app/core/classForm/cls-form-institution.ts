@@ -26,7 +26,6 @@ export class ClsFormInstitution {
       ]),
       typeInstitution: new FormControl('', [
         Validators.required,
-        Validators.minLength(2),
       ]),
       stateInstitution: new FormControl('', [
         Validators.required,

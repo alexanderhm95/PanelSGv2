@@ -39,14 +39,21 @@ export class ListarComponent implements OnInit {
         this.casos = data;
         this.loading = false;
         console.log(message);
-      },(err) => {
-        console.log('Error:', err.status);
-        if(err.status===403){
-          this.authService.logout();
+      },
+      (error) => {
+        if (error.status === 0) {
+          this.notification.showError(
+            'Error',
+            'Error de conexión con el servidor'
+          );
+        } else {
+          this.notification.showError(
+            'Error',
+            error.error.error
+          );
         }
-        this.loading = false;
-        this.notification.showError('Error', err.error.error);
-      })
+      }
+      )
   }
 
   

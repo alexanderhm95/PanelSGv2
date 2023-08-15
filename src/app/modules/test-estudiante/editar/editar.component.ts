@@ -108,8 +108,8 @@ export class EditarComponent implements OnInit {
       (res) => {
         const { message } = res;
         this.notification.showSuccess(
-          'Éxito',
-          'pregunta agregada correctamente'
+          'Actualizado',
+          'Pregunta agregada correctamente'
         );
         console.log(message);
         this.router.navigate(['../../listar'], { relativeTo: this.route });

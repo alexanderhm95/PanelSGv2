@@ -1,4 +1,4 @@
-import { InterfaceCaso } from '@/app/core/interfaces/interface-caso';
+
 import { FilterTablesPipe } from '@/app/shared/pipes/filter-tables.pipe';
 import { AuthService } from '@/app/shared/services/api/auth.service';
 import { CasosService } from '@/app/shared/services/api/casos.service';
@@ -7,8 +7,6 @@ import { NotificationsService } from '@/app/shared/services/utils/notifications.
 import { environment } from '@/environments/environment';
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Subject, interval, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-listar',
@@ -31,7 +29,6 @@ export class ListarComponent implements OnInit {
     private authService: AuthService,
     private casoService: CasosService,
     private studentService: StudentService,
-    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -47,12 +44,11 @@ export class ListarComponent implements OnInit {
         const { message, data } = res;
         this.casos = data;
         this.loading = false;
-        console.log(this.casos);
         console.log(message);
       },(err) => {
         console.log('Error:', err.error);
         this.loading = false;
-        this.notification.showError('Error', 'No se pudo obtener los casos');
+        this.notification.showError('Error', err.error.error);
       }
     );
   }
@@ -83,7 +79,7 @@ export class ListarComponent implements OnInit {
         'warning',
         'Eliminar',
         '¿Está seguro de eliminar este registro?',
-        'Si, eliminar',
+        'Eliminar',
         'Cancelar'
       )
       .then((result) => {

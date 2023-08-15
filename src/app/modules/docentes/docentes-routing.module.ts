@@ -13,7 +13,7 @@ const routes: Routes = [
     data: {
       requiredRole: 'ADMIN', // Especificar el rol requerido para acceder a la ruta
     },
-    title: 'Decente',
+    title: 'Docente',
   },
   {
     path:'editar/:id',
@@ -22,7 +22,7 @@ const routes: Routes = [
     data: {
       requiredRole: 'ADMIN', // Especificar el rol requerido para acceder a la ruta
     },
-    title: 'Decente',
+    title: 'Docente',
   }
 ];
 

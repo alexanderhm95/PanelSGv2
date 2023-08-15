@@ -77,7 +77,6 @@ export class EditarComponent {
       selectTeacher,
     } = this.formCaso.form.value;
 
-    console.log("Valor de la seleccion",selectTeacher)
     if (selectTeacher === null || selectTeacher === '0') {
       this.notification.showError('Error', 'Debe seleccionar un docente');
       return;
@@ -102,7 +101,7 @@ export class EditarComponent {
     this.casoService.updateCaso(this.id, body).subscribe(
       (res) => {
         const { message} = res;
-        this.notification.showSuccess('Exito', message);
+        this.notification.showSuccess('Actualizado', message);
         this.router.navigate(['/casos/listar']);
       },
       (err) => {

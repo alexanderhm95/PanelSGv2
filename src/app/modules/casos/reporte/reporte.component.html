@@ -168,6 +168,8 @@
             }}</label>
           </div>
 
+
+
           <div class="w-full flex flex-col py-2 items-center justify-center">
             <!-- Aqui se mostrara una bara de progreso con el pocentaje -->
             <div class="flex items-center justify-center relative">
@@ -214,7 +216,7 @@
               >
             </div>
             <div
-              class="flex underline text-nile-blue text-lg font-extrabold cursor-progress "
+              class="flex underline text-nile-blue text-lg font-extrabold cursor-pointer "
               (click)="openModal(this.caso.id)"
             >
               Ver Respuestas
@@ -244,7 +246,7 @@
             }}</label>
           </div>
 
-          <div class="w-full flex py-2 items-center justify-center">
+          <div class="w-full flex flex-col py-2 items-center justify-center">
             <!-- Aqui se mostrara una bara de progreso con el pocentaje -->
             <div class="flex items-center justify-center relative">
               <svg class="transform -rotate-90 w-72 h-72">
@@ -289,6 +291,13 @@
                 }}%</span
               >
             </div>
+
+            <div
+              class="flex underline text-nile-blue text-lg font-extrabold cursor-pointer "
+              (click)="openModal2(this.caso.id)"
+            >
+              Ver Respuestas
+            </div>
           </div>
         </div>
       </div>
@@ -309,7 +318,7 @@
 
 <div *ngIf="modalActivate" class="modal">
   <div
-    class="lg:w-[30%] w-[95%] h-[90%] bg-cameo border-4 border-camelot rounded-2xl overflow-x-hidden flex flex-col items-center justify-center"
+    class="lg:w-[50%] w-[95%] h-[90%] bg-cameo border-4 border-camelot rounded-2xl overflow-x-hidden flex flex-col items-center justify-center"
   >
     <div
       class="w-full text-center text-2xl font-bold text-camelot py-6 flex items-center justify-center uppercase"
@@ -317,25 +326,60 @@
       Respuestas
     </div>
 
-    <div class="overflow-x-auto">
-      <table class="w-full">
-        <tbody>
-          <tr *ngFor="let respuesta of listaRespuestas; let i = index">
-            <td class="text-center border p-2">
-              <label class="font-bold text-nile-blue-200">Pregunta {{ i + 1 }}</label>
-            </td>
-            <td class="text-center border p-2">
-              <a [href]="respuesta.refImages" target="_blank"
-                class="text-avocado hover:text-green-200 hover:text-opacity-30 hover:underline">
-                {{ respuesta.refImages.split("/").pop() }}
-              </a>
-            </td>
-            <td class="text-center border p-2">
-              <label class="font-bold text-red-500">Puntuación: {{ respuesta.valueAnswer }}</label>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="w-full overflow-y-auto">
+      <div class="grid lg:grid-cols-3 grid-cols-1 m-2 border rounded-lg " *ngFor="let respuesta of listaRespuestas; let i = index">
+        <div class="col-span-1 text-center  p-2">
+          <label class="font-bold text-nile-blue-200">Pregunta {{ i + 1 }}</label>
+        </div>
+        <div class="col-span-1 text-center p-2">
+          <a [href]="respuesta.refImages" target="_blank" class="text-avocado hover:text-green-200 hover:text-opacity-30 hover:underline break-all">
+            {{ respuesta?.refImages?.split("/")?.pop() }}
+          </a>
+        </div>
+        <div class="col-span-1 text-center p-2">
+          <label class="font-bold text-red-500">Puntuación: {{ respuesta.valueAnswer }}</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex my-4">
+      <button
+        class="text-base text-nile-blue border-2 border-camelot bg-cameo p-2 rounded-lg"
+        (click)="closeModal()"
+      >
+        Cerrar
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="modalActivate2" class="modal">
+  <div
+    class="lg:w-[60%] w-[95%] h-[90%] bg-cameo border-4 border-camelot rounded-2xl overflow-x-hidden flex flex-col items-center justify-center"
+  >
+    <div
+      class="w-full text-center text-2xl font-bold text-camelot py-6 flex items-center justify-center uppercase"
+    >
+      Respuestas
+    </div>
+
+    <div class="w-full  overflow-y-auto ">
+      <div class="grid lg:grid-cols-3 grid-cols-1 m-2 border rounded-lg " *ngFor="let respuesta of listaRespuestas; let i = index">
+        <div class="col-span-1 text-center p-2">
+          <label class="font-bold text-nile-blue-200">Pregunta {{ i + 1 }}</label>
+        </div>
+        <div class="col-span-1 text-center p-2">
+          {{ respuesta?.name }}
+        
+        </div>
+
+        <div class="col-span-1 text-center p-2">
+
+          <label class="font-bold text-red-500">Puntuación: {{ respuesta.value}}</label>
+        </div>
+      </div>     
+    
     </div>
     
 

@@ -1,4 +1,5 @@
 import { FilterTablesPipe } from "@/app/shared/pipes/filter-tables.pipe";
+import { AuthService } from "@/app/shared/services/api/auth.service";
 import { UserService } from "@/app/shared/services/api/user.service";
 import { NotificationsService } from "@/app/shared/services/utils/notifications.service";
 import { Component, OnInit } from "@angular/core";
@@ -21,10 +22,11 @@ export class ListarComponent implements OnInit {
   constructor(
     private notification: NotificationsService,
     private usuariosService: UserService,
-  ) {}
+    private authService: AuthService
+  ) { }
 
   ngOnInit(): void {
-        this.getUsers(); 
+    this.getUsers();
   }
 
   ngOnDestroy(): void {
@@ -44,7 +46,7 @@ export class ListarComponent implements OnInit {
         (err) => {
           console.log('Error:', err.error);
           this.loading = false;
-          this.notification.showError('Error', 'No se pudo obtener los usuarios');
+          this.notification.showError('Error', err.error.error);
         }
       )
     );
@@ -55,9 +57,9 @@ export class ListarComponent implements OnInit {
       .showConfirm(
         'warning',
         'Peligro',
-        'Estás seguro de eliminar este usuario?',
-        'Si, eliminar!',
-        'No, cancelar!'
+        '¿Está seguro de eliminar este usuario?',
+        'Eliminar',
+        'Cancelar'
       )
       .then((result) => {
         if (result.isConfirmed) {
@@ -65,16 +67,25 @@ export class ListarComponent implements OnInit {
             this.usuariosService.deleteUser(id).subscribe(
               (res) => {
                 this.notification.showSuccess(
-                  'Éxito',
+                  'Eliminado',
                   'Cuenta eliminada correctamente'
                 );
                 console.log(res.message);
                 this.ngOnInit();
               },
-              (err) => {
-                console.log(err.error);
-                this.ngOnInit();
-                this.notification.showError('Error', err.error.error);
+
+              (error) => {
+                if (error.status === 0) {
+                  this.notification.showError(
+                    'Error',
+                    'Error de conexión con el servidor'
+                  );
+                }else {
+                  this.notification.showError(
+                    'Error',
+                    error.error.error
+                  );
+                }
               }
             )
           );
@@ -82,7 +93,7 @@ export class ListarComponent implements OnInit {
       });
   }
 
- 
+
 }
 interface Usuario {
   id: string;

@@ -33,7 +33,7 @@ export class ListarDocenteComponent {
       },(err) => {
         console.log('Error:', err.error);
         this.loading = false;
-        this.notification.showError('Error', 'No se pudo obtener los docentes');
+        this.notification.showError('Error', err.error.error);
       }
     );
   }
@@ -45,8 +45,8 @@ export class ListarDocenteComponent {
       .showConfirm(
         'warning',
         'Eliminar Docente',
-        '¿Estas seguro de eliminar este docente?',
-        'Si, eliminar!',
+        '¿Está seguro de eliminar este docente?',
+        'Eliminar',
         'Cancelar'
       )
       .then((result) => {
@@ -54,7 +54,7 @@ export class ListarDocenteComponent {
           this.docenteService.deleteTeacher(id).subscribe(
             (res) => {
               const { message, data } = res;
-              this.notification.showSuccess('Docente', message);
+              this.notification.showSuccess('Eliminado ', message);
               this.ngOnInit();
             },
             (error) => {

@@ -1,6 +1,5 @@
 import { DocenteService } from '@/app/shared/services/api/docente.service';
 import { FilterTablesPipe } from '@/app/shared/pipes/filter-tables.pipe';
-import { environment } from '@/environments/environment';
 import { Component, OnInit } from '@angular/core';
 import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
 
@@ -46,8 +45,8 @@ export class ListarComponent implements OnInit {
       .showConfirm(
         'warning',
         'Eliminar Docente',
-        '¿Estas seguro de eliminar este docente?',
-        'Si, eliminar!',
+        '¿Está seguro de eliminar este docente?',
+        'Eliminar',
         'Cancelar'
       )
       .then((result) => {
@@ -55,7 +54,7 @@ export class ListarComponent implements OnInit {
           this.docenteService.deleteTeacher(id).subscribe(
             (res) => {
               const { message, data } = res;
-              this.notification.showSuccess('Docente', message);
+              this.notification.showSuccess('Eliminado', message);
               this.ngOnInit();
             },
             (error) => {

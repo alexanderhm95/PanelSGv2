@@ -50,7 +50,7 @@ export class ListarComponent implements OnInit {
         (err) => {
           console.log('Error:', err.error);
           this.loading = false;
-          this.notification.showError('Error', 'No se pudo obtener el test');
+          this.notification.showError('Error', err.error.error);
         }
       );
   }
@@ -60,9 +60,9 @@ export class ListarComponent implements OnInit {
       .showConfirm(
         'warning',
         'Peligro',
-        'Estas seguro de eliminar la pregunta?',
-        'Si, eliminar!',
-        'No, cancelar!'
+        '¿Está seguro de eliminar la pregunta?',
+        'Eliminar',
+        'Cancelar'
       )
       .then((result) => {
         if (result.isConfirmed) {
@@ -70,7 +70,7 @@ export class ListarComponent implements OnInit {
             (res) => {
               const { message } = res;
               this.notification.showSuccess(
-                'Éxito',
+                'Eliminado',
                 'Pregunta eliminada correctamente'
               );
               console.log(message);

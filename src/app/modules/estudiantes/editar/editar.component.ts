@@ -70,7 +70,7 @@ export class EditarComponent {
         const { message, data } = res;
         console.log(message);
         this.notification.showSuccess(
-          'Listo',
+          'Actualizado',
           'Estudiante actualizado correctamente'
         );
 

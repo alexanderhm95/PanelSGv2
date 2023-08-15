@@ -4,30 +4,29 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class TestDocenteService {
+export class TestCasoTeacherService {
+  private readonly URL = environment.api + '/api/1.0';
 
-  private readonly URL = environment.api + '/api/1.0'
-
-  constructor(
-    private http: HttpClient
-  ) { }
+  constructor(private http: HttpClient) {}
 
   create(body: any): Observable<any> {
-    return this.http.post(`${this.URL}/testTeacher`, body)
+    return this.http.post(`${this.URL}/testTeacher`, body);
   }
 
-  getAll(): Observable<any> {
-    return this.http.get(`${this.URL}/testTeacher`);
+  getAll(id:any): Observable<any> {
+    return this.http.get(`${this.URL}/testTeacher/teacher/${id}`);
   }
   getTestTeacher(id: any): Observable<any> {
     return this.http.get(`${this.URL}/testTeacher/${id}`);
   }
 
-  update(id: any, body:any ): Observable<any> {
+
+  update(id: any, body: any): Observable<any> {
     return this.http.put(`${this.URL}/testTeacher/${id}`, body);
   }
+
 
   delete(id: any): Observable<any> {
     return this.http.delete(`${this.URL}/testTeacher/${id}`);

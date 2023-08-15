@@ -80,10 +80,18 @@ export class EditarComponent {
 
     this.questionService.updateQuestion(this.id, this.testQuestion).subscribe(
       (data) => {
+        this.notification.showSuccess('Actualizado','Pregunta actualizada correctamente')
         this.router.navigate(['../../listar'], { relativeTo: this.route });
       },
       (error) => {
-        console.log(error);
+        if (error.status === 0) {
+          this.notification.showError(
+            'Error',
+            'Error de conexión con el servidor, inténtelo mas tarde'
+          );
+        } else {
+          this.notification.showError('Error', error.error.error);
+        }
       }
     );
   }

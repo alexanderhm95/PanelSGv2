@@ -76,8 +76,8 @@
             
             placeholder="Ingrese la ciudad"
             (mouseover)="
-              formInstitucion.form.get('city')?.invalid &&
-                formInstitucion.form.get('city')?.touched &&
+              formInstitucion.form.get('cityInstitution')?.invalid &&
+                formInstitucion.form.get('cityInstitution')?.touched &&
                 notification.showTooltip(controlError.getErrorMessage(this.formInstitucion.form ,'city'))
             "
             (mouseout)="this.notification.close()"

@@ -1,5 +1,6 @@
 import { ClsFormUsuario } from '@/app/core/classForm/cls-form-usuario';
 import { UserRole } from '@/app/core/interfaces/interface-roleAdmin';
+import { AuthService } from '@/app/shared/services/api/auth.service';
 import { UserService } from '@/app/shared/services/api/user.service';
 import { ControlErrorService } from '@/app/shared/services/utils/controlErrorService';
 import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
@@ -20,6 +21,7 @@ export class RegistrarComponent implements OnInit {
     public controlError: ControlErrorService,
     public notification: NotificationsService,
     private userService: UserService,
+    private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
@@ -44,18 +46,21 @@ export class RegistrarComponent implements OnInit {
 
     this.userService.createUser(body).subscribe(
       (res) => {
-        this.notification.showSuccess('Success', 'Usuario registrado');
+        this.notification.showSuccess('Registro', 'Usuario registrado con éxito');
         this.router.navigate(['../listar'], { relativeTo: this.route });
       },
-      (err) => {
-        if (err.status === 0) {
+     
+      (error) => {
+        if (error.status === 0) {
           this.notification.showError(
             'Error',
             'Error de conexión con el servidor'
           );
         } else {
-          this.notification.showError('Error', err.error.error);
-          console.log(err);
+          this.notification.showError(
+            'Error',
+            error.error.error
+          );
         }
       }
     );

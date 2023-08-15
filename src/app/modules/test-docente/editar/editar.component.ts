@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { InterfaceCaso } from '@/app/core/interfaces/interface-caso';
+import { AuthService } from '@/app/shared/services/api/auth.service';
 import { CasosService } from '@/app/shared/services/api/casos.service';
 import { TestQuestionService } from '@/app/shared/services/api/test-question.service';
 import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
@@ -71,7 +72,7 @@ export class EditarComponent implements OnInit {
       (res) => {
         const { message } = res;
         console.log(message);
-        this.notification.showSuccess('Éxito','Evaluación completa')
+        this.notification.showSuccess('Registro','Evaluación completada con éxito')
         this.router.navigate(['../../listar'], { relativeTo: this.route });
       },
       (error) => {
@@ -83,7 +84,7 @@ export class EditarComponent implements OnInit {
         } else {
           this.notification.showError(
             'Error',
-            'Error al guardar los datos del test'
+            error.error.error
           );
         }
       }

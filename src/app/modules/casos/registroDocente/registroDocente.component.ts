@@ -20,7 +20,6 @@ export class RegistroDocenteComponent implements OnInit {
   public teacher?: EvaluatorRole;
 
   constructor(
-    private institutionService: InstitutionService,
     public controlError: ControlErrorService,
     public notification: NotificationsService,
     private teacherService: DocenteService,
@@ -51,7 +50,7 @@ export class RegistroDocenteComponent implements OnInit {
     this.teacherService.createTeacher(body).subscribe(
       (res) => {
         const { message } = res;
-        this.notification.showSuccess('Éxito', 'Docente registrado con éxito');
+        this.notification.showSuccess('Registro', message);
         console.log(message);
         this.router.navigate(['../docentes'], { relativeTo: this.route });
       },

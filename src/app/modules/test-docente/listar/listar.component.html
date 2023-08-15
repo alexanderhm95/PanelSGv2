@@ -46,9 +46,6 @@
             Estudiante
           </th>
           <th class="p-3 text-sm font-semibold tracking-wide text-center">
-            Docente
-          </th>
-          <th class="p-3 text-sm font-semibold tracking-wide text-center">
             Institución
           </th>
           <th class="p-3 text-sm font-semibold tracking-wide text-center">
@@ -61,25 +58,16 @@
       </thead>
       <tbody  *ngIf="casos" >
         <!-- recorro casos y añado indice -->
-        <tr *ngFor="let caso of casos; let i = index; of: casos  | filterTables : search">
-          <td class="p-3 text-sm text-black-100 tracking-wide text-center">
-            <strong>{{ i + 1 }}</strong>
-          </td>
-
+        <tr *ngFor="let caso of casos | filterTables : search">
+          
           <td class="p-3 text-base text-black-100 tracking-wide text-left">
             <div class="flex flex-col">
-              <span><strong>CI:</strong> {{ caso.CI}}</span>
-              <span><strong>Nombres:</strong> {{ caso.name }} {{ caso.lastName }}</span>
-            </div>
-          </td>
-          <td class="p-3 text-base text-black-100 tracking-wide text-left">
-            <div class="flex flex-col">
-              <span><strong>CI:</strong> {{ caso.CIteacher }}</span>
-              <span><strong>Nombres:</strong> {{ caso.nameT }} {{ caso.lastNameT }}</span>
+              <span><strong>CI: </strong> {{ caso.CI}}</span>
+              <span><strong>Nombres: </strong> {{ caso.name }} {{ caso.lastName }}</span>
             </div>
           </td>
           <td class="p-3 text-sm text-black-100 tracking-wide text-center">
-            <strong>Institución</strong>{{ caso.institution }}
+            <strong>Institución: </strong>{{ caso.institution }}
           </td>
           <td
             class="p-3 text-sm text-black-100 tracking-wide flex items-center justify-center"

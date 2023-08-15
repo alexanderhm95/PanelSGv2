@@ -31,7 +31,7 @@
             type="text"
             id="name"
             formControlName="name"
-            placeholder="Ingrese la pregunta .."
+            placeholder="Ingrese la pregunta "
             (mouseover)="
               formPreguntas.form.get('name')?.invalid &&
                 formPreguntas.form.get('name')?.touched &&
@@ -55,7 +55,7 @@
             type="text"
             id="descripcion"
             formControlName="description"
-            placeholder="Ingrese el tipo de pregunta .."
+            placeholder="Ingrese el tipo de pregunta "
             (mouseover)="
               formPreguntas.form.get('description')?.invalid &&
                 formPreguntas.form.get('description')?.touched &&
@@ -92,15 +92,12 @@
             class="bg-nile-blue-200 border-b-2 border-nile-blue text-cameo"
           >
             <tr>
-              <th class="p-3 text-sm font-semibold tracking-wide text-center">
-              Nro.
+            <th class="p-3 text-sm font-semibold tracking-wide text-center">
+              Descripción
             </th>
-              <th class="p-3 text-sm font-semibold tracking-wide text-center">
-                Nombre
-              </th>
-              <th class="p-3 text-sm font-semibold tracking-wide text-center">
-                Tipo
-              </th>
+            <th class="p-3 text-sm font-semibold tracking-wide text-center">
+              Valor
+            </th>
               <th class="p-3 text-sm font-semibold tracking-wide text-center">
                 Acciones
               </th>
@@ -111,9 +108,7 @@
               class="bg-nile-blue-100 border-b border-nile-blue-200 text-camelot"
               *ngFor="let respuesta of listaRespuestas"
             >
-            <td class="p-3 text-sm text-black-100 tracking-wide text-left">
-              {{ respuesta.id }}
-            </td>
+            
               <td class="p-3 text-sm text-black-100 tracking-wide text-left">
                 {{ respuesta.nameAnswer }}
               </td>

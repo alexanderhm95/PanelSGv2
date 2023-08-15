@@ -24,12 +24,12 @@ export class ClsFormCaso {
       ]),
       gender: new FormControl('', [
         Validators.required,
-        ]),
+      ]),
       ageStudent: new FormControl('', [
-Validators.required,
-Validators.maxLength(2),
-        Validators.pattern('[0-9]*'),
-]),
+        Validators.required,
+        Validators.maxLength(2),
+        Validators.pattern('^(?:1[0-5]|[5-9])$'),
+      ]),
       addressStudent: new FormControl('', [
         Validators.required,
         Validators.minLength(2),

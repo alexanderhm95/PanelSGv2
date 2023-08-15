@@ -44,7 +44,7 @@ public id:any;
         if (error.status === 0) {
           this.notification.showError('Error', 'Error de conexión con el servidor');
         } else {
-          this.notification.showError('Error', 'Error al cargar información');
+          this.notification.showError('Error', error.error.error);
         }
       }
     );
@@ -56,16 +56,16 @@ public id:any;
       .showConfirm(
         'warning',
         'Peligro',
-        'Estas seguro de eliminar el Test?',
-        'Si, eliminar!',
-        'No, cancelar!'
+        '¿Está seguro de eliminar el Test?',
+        'Eliminar',
+        'Cancelar'
       )
       .then((result) => {
         if (result.isConfirmed) {
           this.serviceCasoTeacher.delete(id).subscribe(
             (res) => {
               this.notification.showSuccess(
-                'Éxito',
+                'Eliminado',
                 'Test eliminado correctamente'
               );
               this.ngOnInit();
@@ -73,7 +73,7 @@ public id:any;
             (err) => {
               this.notification.showError(
                 'Error',
-                'No se pudo eliminar el test'
+                err.error.error
               );
             }
           );

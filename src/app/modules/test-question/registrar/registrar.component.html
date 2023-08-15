@@ -2,7 +2,7 @@
   class="w-[95%] lg:h-[95%] m-2 bg-cameo border-4 border-camelot rounded-lg overflow-x-hidden"
 >
   <div
-    class="w-full lg:h-[10%] text-center text-2xl font-bold text-camelot py-4 flex items-center justify-center uppercase"
+    class="w-full lg:h-[10%] text-center text-2xl font-bold text-camelot py-4 flex items-center justify-center "
   >
     Registro de preguntas del test para el docente
   </div>
@@ -31,7 +31,7 @@
             type="text"
             id="name"
             formControlName="name"
-            placeholder="Ingrese la pregunta .."
+            placeholder="Ingrese la pregunta "
             (mouseover)="
               formPreguntas.form.get('name')?.invalid &&
                 formPreguntas.form.get('name')?.touched &&
@@ -56,7 +56,7 @@
             type="text"
             id="descripcion"
             formControlName="description"
-            placeholder="Ingrese el tipo de pregunta .."
+            placeholder="Ingrese el tipo de pregunta "
             (mouseover)="
               formPreguntas.form.get('description')?.invalid &&
                 formPreguntas.form.get('description')?.touched &&
@@ -97,10 +97,10 @@
           >
             <tr>
               <th class="p-3 text-sm font-semibold tracking-wide text-center">
-                Nombre
+                Descripción
               </th>
               <th class="p-3 text-sm font-semibold tracking-wide text-center">
-                Tipo
+                Valor
               </th>
               <th class="p-3 text-sm font-semibold tracking-wide text-center">
                 Acciones

@@ -45,10 +45,19 @@ export class RegistrarComponent {
 
     this.questionService.createQuestion(this.testQuestion).subscribe(
       (data) => {
+        this.notification.showSuccess('Registro','Pregunta registrada con éxito')
         this.router.navigate(['../listar'], { relativeTo: this.route });
       },
+      
       (error) => {
-        console.log(error);
+        if (error.status === 0) {
+          this.notification.showError(
+            'Error',
+            'Error de conexión con el servidor, inténtelo mas tarde'
+          );
+        } else {
+          this.notification.showError('Error', error.error.error);
+        }
       }
     );
   }

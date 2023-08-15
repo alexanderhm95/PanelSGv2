@@ -35,7 +35,7 @@ export class ListarComponent implements OnInit {
         console.log(message);
       },
       (err) => {
-        this.loading = true;
+        this.loading = false;
         console.log(err.error);
         this.notification.showError('Error', err.error.error);
       }
@@ -88,16 +88,16 @@ export class ListarComponent implements OnInit {
       .showConfirm(
         'warning',
         'Peligro',
-        'Estas seguro de eliminar el Test?',
-        'Si, eliminar!',
-        'No, cancelar!'
+        '¿Está seguro de eliminar el Test?',
+        'Eliminar',
+        'Cancelar'
       )
       .then((result) => {
         if (result.isConfirmed) {
           this.serviceCasoEstudiante.delete(id).subscribe(
             (res) => {
               this.notification.showSuccess(
-                'Éxito',
+                'Eliminado',
                 'Test eliminado correctamente'
               );
               console.log(res);
