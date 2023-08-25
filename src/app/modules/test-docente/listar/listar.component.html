@@ -30,7 +30,7 @@
         <input
           [(ngModel)]="search"
           class="mx-3 px-2 py-3 border-b-2 border-camelot rounded-lg bg-none text-camelot text-xs font-semibold tracking-wide  lg:w-[20%] focus:outline-none focus:border-camelot-400"
-          placeholder="Buscar por cédula, nombre, email"
+          placeholder="Buscar por cédula, nombre"
         />
       </div>
     </div>
@@ -40,19 +40,16 @@
       <thead class="bg-nile-blue-200 border-b-2 border-nile-blue text-cameo">
         <tr>
           <th class="p-3 text-sm font-semibold tracking-wide text-center">
-            Caso
-          </th>
-          <th class="p-3 text-sm font-semibold tracking-wide text-center">
             Estudiante
           </th>
           <th class="p-3 text-sm font-semibold tracking-wide text-center">
             Institución
           </th>
           <th class="p-3 text-sm font-semibold tracking-wide text-center">
-            <div class="flex justify-between">
+            
               <label class="flex items-center justify-center">Acciones</label
               >
-            </div>
+         
           </th>
         </tr>
       </thead>
@@ -67,7 +64,7 @@
             </div>
           </td>
           <td class="p-3 text-sm text-black-100 tracking-wide text-center">
-            <strong>Institución: </strong>{{ caso.institution }}
+            {{ caso.institution }}
           </td>
           <td
             class="p-3 text-sm text-black-100 tracking-wide flex items-center justify-center"
@@ -98,7 +95,7 @@
   <div class="w-full lg:h-auto px-4 py-2 rounded-lg lg:hidden">
     <div
       class="w-full h-full flex flex-col mb-2 border border-camelot rounded-lg hover:shadow-sm hover:shadow-camelot-300"
-      *ngFor="let caso of casos  | filterTables : search"
+      *ngFor="let caso of casos | filterTables : search"
     >
       <div
         class="w-full grid grid-cols-1 break-all items-center space-x-2 text-center text-camelot text-lg px-2 font-bold underline"

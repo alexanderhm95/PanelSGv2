@@ -16,7 +16,7 @@ export class ControlErrorService {
       required: `El campo es obligatorio *`,
       minlength: `Longitud minima de ${minLength} caracteres..`,
       pattern: {
-        '^(?:1[0-5]|[5-9])$': 'Solo se permiten edades entre 5 y 15 años', 
+        '^(?:[5-9]|1[01])$': 'Solo se permiten edades entre 5 y 11 años', 
       '^[01]$': 'Solo se permiten el 0 o 1',
         '^[0-9]*$': 'Solo se permiten números',
         '^[0-9]{10}$': 'Longitud de 10 caracteres requerida',

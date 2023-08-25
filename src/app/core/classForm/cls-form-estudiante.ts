@@ -33,7 +33,7 @@ export class ClsFormEstudiante {
         Validators.required,
         Validators.minLength(1),
         Validators.maxLength(3),
-        Validators.pattern('^(?:1[0-5]|[5-9])$'),
+        Validators.pattern('^(?:[5-9]|1[01])$'),
       ]),
 
       addressStudent: new FormControl('', [Validators.minLength(2),

@@ -97,7 +97,7 @@ export class EditarComponent implements OnInit {
         const { message, data } = res;
         this.caso = data;
         this.getTest();
-        
+        console.log(data)
         console.log(message);
       },
       (error) => {

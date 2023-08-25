@@ -35,7 +35,6 @@ export class HomeComponent implements OnInit {
   public role?: string;
   public id?: string;
   public isRouteActive: boolean=false;
-  public imageMain= 'assets/Inicio/Main.webp';
 
   constructor(
     private router: Router,

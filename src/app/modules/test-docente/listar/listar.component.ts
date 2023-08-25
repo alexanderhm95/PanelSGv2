@@ -5,6 +5,7 @@ import { CasosService } from '@/app/shared/services/api/casos.service';
 import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-listar',
@@ -18,6 +19,8 @@ export class ListarComponent implements OnInit {
   public loading = true;
   public search = '';
   private idUserTeacher? = '';
+  private subscription = new Subject<void>(); 
+
 
   constructor(
     private notification: NotificationsService,
@@ -33,7 +36,9 @@ export class ListarComponent implements OnInit {
   }
 
   getCasos(id:any){
-    this.casoService.getAllCasosTeacher(id).subscribe(
+    this.casoService.getAllCasosTeacher(id)
+    .pipe(takeUntil(this.subscription))
+    .subscribe(
       (res) => {
         const { message, data } = res;
         this.casos = data;
@@ -56,6 +61,10 @@ export class ListarComponent implements OnInit {
       )
   }
 
+  ngOnDestroy(): void{
+    this.subscription.next();
+    this.subscription.complete();
+  }
   
 
 }

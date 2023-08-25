@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/api/auth.service';
 import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
@@ -9,6 +9,7 @@ import { ClsFormAuth } from './../../../core/classForm/cls-form-auth';
   selector: 'app-page',
   templateUrl: './page.component.html',
   styleUrls: ['./page.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PageComponent implements OnInit {
   //Iniciamos variables publicas

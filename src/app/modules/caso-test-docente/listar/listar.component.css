@@ -6,3 +6,8 @@
   align-items: center;
   justify-content: center;
 }
+
+
+.fast-spin {
+  animation-duration: 0.4s;
+}
