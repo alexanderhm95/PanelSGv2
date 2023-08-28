@@ -3,7 +3,7 @@ import { AuthService } from "@/app/shared/services/api/auth.service";
 import { UserService } from "@/app/shared/services/api/user.service";
 import { NotificationsService } from "@/app/shared/services/utils/notifications.service";
 import { Component, OnInit } from "@angular/core";
-import { Subscription } from "rxjs";
+import { Subject, Subscription, takeUntil } from "rxjs";
 
 @Component({
   selector: 'app-listar',
@@ -17,7 +17,7 @@ export class ListarComponent implements OnInit {
   public currentUser?: Usuario;
   public search = '';
   public loading = true;
-  private subscriptions: Subscription[] = [];
+  private subscription = new Subject<void>();
 
   constructor(
     private notification: NotificationsService,
@@ -30,13 +30,15 @@ export class ListarComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach(sub => sub.unsubscribe());
+    this.subscription.next();
+    this.subscription.complete();
   }
 
   getUsers(): void {
     this.loading = true;
-    this.subscriptions.push(
-      this.usuariosService.getAllUser().subscribe(
+    this.usuariosService.getAllUser()
+      .pipe(takeUntil(this.subscription))
+      .subscribe(
         (res) => {
           const { message, data } = res;
           this.usuarios = data;
@@ -49,7 +51,6 @@ export class ListarComponent implements OnInit {
           this.notification.showError('Error', err.error.error);
         }
       )
-    );
   }
 
   delete(id: string): void {
@@ -63,8 +64,9 @@ export class ListarComponent implements OnInit {
       )
       .then((result) => {
         if (result.isConfirmed) {
-          this.subscriptions.push(
-            this.usuariosService.deleteUser(id).subscribe(
+          this.usuariosService.deleteUser(id)
+            .pipe(takeUntil(this.subscription))
+            .subscribe(
               (res) => {
                 this.notification.showSuccess(
                   'Eliminado',
@@ -80,7 +82,7 @@ export class ListarComponent implements OnInit {
                     'Error',
                     'Error de conexión con el servidor'
                   );
-                }else {
+                } else {
                   this.notification.showError(
                     'Error',
                     error.error.error
@@ -88,7 +90,7 @@ export class ListarComponent implements OnInit {
                 }
               }
             )
-          );
+
         }
       });
   }
