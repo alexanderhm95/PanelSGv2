@@ -55,6 +55,24 @@ export class NotificationsService {
     });
   }
 
+  async showObservationPrompt(title: string, text: string): Promise<any> {
+    const result = await Swal.fire({
+      title: title,
+      text: text,
+      icon: 'question',
+      input: 'text',
+      inputPlaceholder: 'Ingrese su observación aquí',
+      confirmButtonText: 'Aceptar',
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar',
+    });
+    if (result.isConfirmed) {
+      return result.value;
+    } else {
+      return null;
+    }
+  }
+
   showTooltip(text: string) {
     Swal.fire({
       title: 'Error',
@@ -70,16 +88,16 @@ export class NotificationsService {
 
   getTooltipTopPosition(input: HTMLElement): string {
     const rect = input.offsetTop;
-  return `${rect + window.pageYOffset}px`;
+    return `${rect + window.pageYOffset}px`;
   }
-  
+
   getTooltipLeftPosition(input: HTMLElement): string {
     const rect = input.offsetLeft;
     return `${rect + window.pageXOffset}px`;
   }
-  
 
-  close(){
+
+  close() {
     Swal.close()
   }
 

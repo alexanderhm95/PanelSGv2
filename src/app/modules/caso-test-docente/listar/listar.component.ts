@@ -25,7 +25,7 @@ export class ListarComponent implements OnInit, OnDestroy { // Implementa OnDest
     private serviceCasoTeacher: TestDocenteService,
     private authService: AuthService,
     private notification: NotificationsService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadTests();
@@ -48,23 +48,33 @@ export class ListarComponent implements OnInit, OnDestroy { // Implementa OnDest
       );
   }
 
-  deleteTest(id: any) {
-    this.notification.showConfirm('warning', 'Peligro', '¿Está seguro de eliminar el Test?', 'Eliminar', 'Cancelar')
-      .then((result) => {
-        if (result.isConfirmed) {
-          this.serviceCasoTeacher.delete(id)
-            .pipe(takeUntil(this.unsubscribe$)) // Utiliza takeUntil con la señal
-            .subscribe(
-              (res) => {
-                this.notification.showSuccess('Eliminado', 'Test eliminado correctamente');
-                this.ngOnInit();
-              },
-              (err) => {
-                this.notification.showError('Error', err.error.error);
-              }
-            );
-        }
-      });
+  async deleteTest(id: any) {
+    const confirmationResult = await this.notification.showConfirm(
+      'warning',
+      'Peligro',
+      '¿Está seguro de eliminar el Test?',
+      'Eliminar',
+      'Cancelar'
+    );
+
+    if (confirmationResult.isConfirmed) {
+      const remarks = await this.notification.showObservationPrompt('¿Estás seguro de querer eliminar el Test?', 'Por favor, introduce una razón u observación:');
+      if (remarks) {
+        this.serviceCasoTeacher.delete(id, {remarks})
+        .pipe(takeUntil(this.unsubscribe$)) // Utiliza takeUntil con la señal
+        .subscribe(
+          (res) => {
+            this.notification.showSuccess('Eliminado', 'Test eliminado correctamente');
+            this.ngOnInit();
+          },
+          (err) => {
+            this.ngOnInit();
+            this.notification.showError('Error', err.error.error);
+          }
+        );
+      }
+    }
+
   }
 
   ngOnDestroy(): void { // Método para cancelar las suscripciones cuando el componente se destruye

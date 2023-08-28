@@ -12,7 +12,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-listar',
   templateUrl: './listar.component.html',
   styleUrls: ['./listar.component.css'],
-  providers: [DatePipe,FilterTablesPipe],
+  providers: [DatePipe, FilterTablesPipe],
 })
 export class ListarComponent implements OnInit {
   public api = environment.api + '/api/1.0';
@@ -29,10 +29,10 @@ export class ListarComponent implements OnInit {
     private authService: AuthService,
     private casoService: CasosService,
     private studentService: StudentService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-        this.getCasos();
+    this.getCasos();
   }
 
 
@@ -45,7 +45,7 @@ export class ListarComponent implements OnInit {
         this.casos = data;
         this.loading = false;
         console.log(message);
-      },(err) => {
+      }, (err) => {
         console.log('Error:', err.error);
         this.loading = false;
         this.notification.showError('Error', err.error.error);
@@ -73,39 +73,40 @@ export class ListarComponent implements OnInit {
     this.modalActivate = true;
   }
 
-  deleteCaso(id: string) {
-    this.notification
-      .showConfirm(
-        'warning',
-        'Eliminar',
-        '¿Está seguro de eliminar este registro?',
-        'Eliminar',
-        'Cancelar'
-      )
-      .then((result) => {
-        if (result.isConfirmed) {
-          this.casoService.deleteCaso(id).subscribe(
-            (res) => {
-              console.log(res);
-              this.notification.showSuccess(
-                'Eliminado',
-                'Caso eliminado correctamente'
-              );
-              this.ngOnInit();
-            },
-            (err) => {
-              if (err.status === 0) {
-                this.notification.showError(
-                  'Error',
-                  'No se pudo conectar con el servidor'
-                );
-              } else {
-                console.log(err);
-                this.notification.showError('Error', err.error.error);
-              }
-            }
+  async deleteCaso(id: string) {
+    const confirmationResult = await this.notification.showConfirm(
+      'warning',
+      'Peligro',
+      '¿Está seguro de eliminar el Test?',
+      'Eliminar',
+      'Cancelar'
+    );
+
+
+    if (confirmationResult.isConfirmed) {
+      const remarks = await this.notification.showObservationPrompt('¿Estás seguro de querer eliminar el Test?', 'Por favor, introduce una razón u observación:');
+
+      this.casoService.deleteCaso(id,{remarks} ).subscribe(
+        (res) => {
+          console.log(res);
+          this.notification.showSuccess(
+            'Eliminado',
+            'Caso eliminado correctamente'
           );
+          this.ngOnInit();
+        },
+        (err) => {
+          if (err.status === 0) {
+            this.notification.showError(
+              'Error',
+              'No se pudo conectar con el servidor'
+            );
+          } else {
+            console.log(err);
+            this.notification.showError('Error', err.error.error);
+          }
         }
-      });
+      );
+    }
   }
 }

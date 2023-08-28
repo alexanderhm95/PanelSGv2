@@ -29,7 +29,7 @@ export class TestDocenteService {
     return this.http.put(`${this.URL}/testTeacher/${id}`, body);
   }
 
-  delete(id: any): Observable<any> {
-    return this.http.delete(`${this.URL}/testTeacher/${id}`);
+  delete(id: any,body: any): Observable<any> {
+    return this.http.delete(`${this.URL}/testTeacher/${id}`, {body});
   }
 }

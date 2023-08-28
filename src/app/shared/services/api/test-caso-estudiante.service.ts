@@ -34,7 +34,7 @@ export class TestCasoEstudianteService {
     return this.http.put(`${this.URL}/testStudent/score/${id}`, body);
   }
 
-  delete(id: any): Observable<any> {
-    return this.http.delete(`${this.URL}/testStudent/${id}`);
+  delete(id: any, body: any): Observable<any> {
+    return this.http.delete(`${this.URL}/testStudent/${id}`,{body});
   }
 }

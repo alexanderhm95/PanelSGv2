@@ -28,7 +28,7 @@ export class TestCasoTeacherService {
   }
 
 
-  delete(id: any): Observable<any> {
-    return this.http.delete(`${this.URL}/testTeacher/${id}`);
+  delete(id: any, body:any): Observable<any> {
+    return this.http.delete(`${this.URL}/testTeacher/${id}`,{body});
   }
 }

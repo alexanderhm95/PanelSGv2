@@ -30,7 +30,7 @@ export class TestQuestionService {
     return this.http.put(`${this.URL}/testQuestion/${id}`, question);
   }
 
-  deleteQuestion(id: any): Observable<any> {
-    return this.http.delete(`${this.URL}/testQuestion/${id}`);
+  deleteQuestion(id: any, body: any): Observable<any> {
+    return this.http.delete(`${this.URL}/testQuestion/${id}`,{body});
   }
 }

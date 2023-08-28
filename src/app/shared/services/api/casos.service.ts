@@ -43,7 +43,7 @@ export class CasosService {
     return this.http.put<ApiResponse>(`${this.URL}/caso/${id}`, Caso);
   }
 
-  deleteCaso(id: any): Observable<ApiResponse> {
-    return this.http.delete<ApiResponse>(`${this.URL}/caso/${id}`);
+  deleteCaso(id: any, body:any): Observable<ApiResponse> {
+    return this.http.delete<ApiResponse>(`${this.URL}/caso/${id}`, {body});
   }
 }

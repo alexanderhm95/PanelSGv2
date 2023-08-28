@@ -44,37 +44,37 @@ export class ListarComponent {
  
 
 
-  delete(id: any) {
-    this.notification
-      .showConfirm(
-        'warning',
-        'Peligro',
-        '¿Está seguro de eliminar la pregunta?',
-        'Eliminar',
-        'Cancelar'
-      )
-      .then((result) => {
-        if (result.isConfirmed) {
-          this.questionService.deleteQuestion(id).subscribe(
-            (res) => {
-              const { message } = res;
-              this.notification.showSuccess(
-                'Eliminado',
-                'Pregunta eliminada correctamente'
-              );
-              console.log(message);
-              this.ngOnInit();
-            },
-            (err) => {
-              console.log(err);
-              this.ngOnInit()
-              this.notification.showError(
-                'Error',
-                'No se pudo eliminar la pregunta'
-              );
-            }
-          );
-        }
-      });
+  async delete(id: any) {
+    const confirmationResult = await this.notification.showConfirm(
+      'warning',
+      'Peligro',
+      '¿Está seguro de eliminar la pregunta?',
+      'Eliminar',
+      'Cancelar'
+    );
+  
+    if (confirmationResult.isConfirmed) {
+      const remarks = await this.notification.showObservationPrompt('¿Estás seguro de querer eliminar la pregunta?', 'Por favor, introduce una razón u observación:');
+      
+      if (remarks) {
+        this.questionService.deleteQuestion(id, {remarks}).subscribe(
+          (res) => {
+            const { message } = res;
+            this.notification.showSuccess('Eliminado', 'Pregunta eliminada correctamente');
+            console.log(message);
+            this.ngOnInit();
+          },
+          (err) => {
+            console.log(err);
+            this.ngOnInit();
+            this.notification.showError('Error', 'No se pudo eliminar la pregunta');
+          }
+        );
+      } else {
+        // Aquí puedes manejar el caso en el que el usuario cancela la introducción de observaciones.
+        console.log('Acción cancelada o sin observación.');
+      }
+    }
   }
+  
 }

@@ -15,14 +15,14 @@ export class ListarComponent implements OnInit {
   public tests: any[] = [];
   public search = '';
   public loading = true;
-  public id:any;
+  public id: any;
 
   constructor(
     private serviceCasoEstudiante: TestCasoEstudianteService,
     private notification: NotificationsService,
     private authService: AuthService,
 
-  ) {}
+  ) { }
 
   ngOnInit(): void {
 
@@ -42,8 +42,8 @@ export class ListarComponent implements OnInit {
     );
   }
 
-  
-  
+
+
   scoreUpdate(id: string, op: string) {
     if (op == 'plus') {
       const body = {
@@ -83,37 +83,32 @@ export class ListarComponent implements OnInit {
     }
   }
 
-  deleteTest(id: any) {
-    this.notification
-      .showConfirm(
-        'warning',
-        'Peligro',
-        '¿Está seguro de eliminar el Test?',
-        'Eliminar',
-        'Cancelar'
-      )
-      .then((result) => {
-        if (result.isConfirmed) {
-          this.serviceCasoEstudiante.delete(id).subscribe(
-            (res) => {
-              this.notification.showSuccess(
-                'Eliminado',
-                'Test eliminado correctamente'
-              );
-              console.log(res);
-              this.ngOnInit();
-            },
-            (err) => {
-              console.log(err.error);
+  async deleteTest(id: any) {
+    const confirmationResult = await this.notification.showConfirm(
+      'warning',
+      'Peligro',
+      '¿Está seguro de eliminar el Test?',
+      'Eliminar',
+      'Cancelar'
+    );
 
-              this.ngOnInit();
-              this.notification.showError(
-                'Error',
-                'No se pudo elimnar el test'
-              );
-            }
+    if (confirmationResult.isConfirmed) {
+      const remarks = await this.notification.showObservationPrompt('¿Estás seguro de querer eliminar el Test?', 'Por favor, introduce una razón u observación:');
+      
+      this.serviceCasoEstudiante.delete(id, {remarks}).subscribe(
+        (res) => {
+          this.notification.showSuccess(
+            'Eliminado',
+            'Test eliminado correctamente'
           );
+          console.log(res);
+          this.ngOnInit();
+        },
+        (err) => {
+          this.ngOnInit();
+          this.notification.showError('Error', err.error.error);
         }
-      });
+      );
+    }
   }
 }

@@ -36,12 +36,9 @@ export class TestEstudianteService {
     return this.http.put(`${this.URL}/testImages/${id}`, pregunta);
   }
 
-  deletePregunta(id: any): Observable<any> {
-    return this.http.delete(`${this.URL}/testImages/${id}`);
+  deletePregunta(id: any,body: any): Observable<any> {
+    return this.http.delete(`${this.URL}/testImages/${id}`,{body});
   }
 
-  deleteAllPregunta(): Observable<any> {
-    return this.http.delete(`${this.URL}/testImages`);
-  }
 
 }
