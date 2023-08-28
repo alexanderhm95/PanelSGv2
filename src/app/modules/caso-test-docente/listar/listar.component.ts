@@ -49,31 +49,35 @@ export class ListarComponent implements OnInit, OnDestroy { // Implementa OnDest
   }
 
   async deleteTest(id: any) {
-    const confirmationResult = await this.notification.showConfirm(
-      'warning',
-      'Peligro',
-      '¿Está seguro de eliminar el Test?',
-      'Eliminar',
-      'Cancelar'
-    );
 
-    if (confirmationResult.isConfirmed) {
-      const remarks = await this.notification.showObservationPrompt('¿Estás seguro de querer eliminar el Test?', 'Por favor, introduce una razón u observación:');
-      if (remarks) {
-        this.serviceCasoTeacher.delete(id, {remarks})
-        .pipe(takeUntil(this.unsubscribe$)) // Utiliza takeUntil con la señal
-        .subscribe(
-          (res) => {
-            this.notification.showSuccess('Eliminado', 'Test eliminado correctamente');
-            this.ngOnInit();
-          },
-          (err) => {
-            this.ngOnInit();
-            this.notification.showError('Error', err.error.error);
-          }
-        );
-      }
+    const remarks = await this.notification.showObservationPrompt('¿Estás seguro de querer eliminar el Test?', 'Por favor, introduce una razón u observación:');
+
+    if (remarks === null) {
+      this.notification.showError('Acción cancelada', 'La acción ha sido cancelada por el usuario.');
+      console.log('Acción cancelada.');
+      return;
     }
+
+    if (remarks.length < 10) {
+      this.notification.showError('Observación inválida', 'Debe introducir una observación de mínimo 10 caracteres.');
+      console.log('Observación insuficiente.');
+      return;
+    }
+
+    this.serviceCasoTeacher.delete(id, { remarks })
+      .pipe(takeUntil(this.unsubscribe$)) // Utiliza takeUntil con la señal
+      .subscribe(
+        (res) => {
+          this.notification.showSuccess('Eliminado', 'Test eliminado correctamente');
+          this.ngOnInit();
+        },
+        (err) => {
+          this.ngOnInit();
+          this.notification.showError('Error', err.error.error);
+        }
+      );
+
+
 
   }
 

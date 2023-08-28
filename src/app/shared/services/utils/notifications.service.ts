@@ -60,9 +60,9 @@ export class NotificationsService {
       title: title,
       text: text,
       icon: 'question',
-      input: 'text',
+      input: 'textarea',
       inputPlaceholder: 'Ingrese su observación aquí',
-      confirmButtonText: 'Aceptar',
+      confirmButtonText: 'Eliminar',
       showCancelButton: true,
       cancelButtonText: 'Cancelar',
     });

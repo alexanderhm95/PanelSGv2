@@ -74,39 +74,42 @@ export class ListarComponent implements OnInit {
   }
 
   async deleteCaso(id: string) {
-    const confirmationResult = await this.notification.showConfirm(
-      'warning',
-      'Peligro',
-      '¿Está seguro de eliminar el Test?',
-      'Eliminar',
-      'Cancelar'
+
+    const remarks = await this.notification.showObservationPrompt('¿Estás seguro de querer eliminar el Test?', 'Por favor, introduce una razón u observación:');
+
+    if (remarks === null) {
+      this.notification.showError('Acción cancelada', 'La acción ha sido cancelada por el usuario.');
+      console.log('Acción cancelada.');
+      return;
+    }
+
+    if (remarks.length < 10) {
+      this.notification.showError('Observación inválida', 'Debe introducir una observación de mínimo 10 caracteres.');
+      console.log('Observación insuficiente.');
+      return;
+    }
+
+    this.casoService.deleteCaso(id, { remarks }).subscribe(
+      (res) => {
+        console.log(res);
+        this.notification.showSuccess(
+          'Eliminado',
+          'Caso eliminado correctamente'
+        );
+        this.ngOnInit();
+      },
+      (err) => {
+        if (err.status === 0) {
+          this.notification.showError(
+            'Error',
+            'No se pudo conectar con el servidor'
+          );
+        } else {
+          console.log(err);
+          this.notification.showError('Error', err.error.error);
+        }
+      }
     );
 
-
-    if (confirmationResult.isConfirmed) {
-      const remarks = await this.notification.showObservationPrompt('¿Estás seguro de querer eliminar el Test?', 'Por favor, introduce una razón u observación:');
-
-      this.casoService.deleteCaso(id,{remarks} ).subscribe(
-        (res) => {
-          console.log(res);
-          this.notification.showSuccess(
-            'Eliminado',
-            'Caso eliminado correctamente'
-          );
-          this.ngOnInit();
-        },
-        (err) => {
-          if (err.status === 0) {
-            this.notification.showError(
-              'Error',
-              'No se pudo conectar con el servidor'
-            );
-          } else {
-            console.log(err);
-            this.notification.showError('Error', err.error.error);
-          }
-        }
-      );
-    }
   }
 }

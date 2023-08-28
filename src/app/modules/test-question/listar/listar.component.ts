@@ -19,7 +19,7 @@ export class ListarComponent {
   constructor(
     private questionService: TestQuestionService,
     private notification: NotificationsService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.questionService.getAllQuestion().subscribe((res) => {
@@ -28,53 +28,52 @@ export class ListarComponent {
       this.loading = false;
       console.log(message);
     },
-    (error) => {
-      if (error.status === 0) {
-        this.notification.showError(
-          'Error',
-          'Error de conexión con el servidor, inténtelo mas tarde'
-        );
-      } else {
-        this.notification.showError('Error', error.error.error);
+      (error) => {
+        if (error.status === 0) {
+          this.notification.showError(
+            'Error',
+            'Error de conexión con el servidor, inténtelo mas tarde'
+          );
+        } else {
+          this.notification.showError('Error', error.error.error);
+        }
       }
-    }
     );
   }
 
- 
+
 
 
   async delete(id: any) {
-    const confirmationResult = await this.notification.showConfirm(
-      'warning',
-      'Peligro',
-      '¿Está seguro de eliminar la pregunta?',
-      'Eliminar',
-      'Cancelar'
-    );
-  
-    if (confirmationResult.isConfirmed) {
-      const remarks = await this.notification.showObservationPrompt('¿Estás seguro de querer eliminar la pregunta?', 'Por favor, introduce una razón u observación:');
-      
-      if (remarks) {
-        this.questionService.deleteQuestion(id, {remarks}).subscribe(
-          (res) => {
-            const { message } = res;
-            this.notification.showSuccess('Eliminado', 'Pregunta eliminada correctamente');
-            console.log(message);
-            this.ngOnInit();
-          },
-          (err) => {
-            console.log(err);
-            this.ngOnInit();
-            this.notification.showError('Error', 'No se pudo eliminar la pregunta');
-          }
-        );
-      } else {
-        // Aquí puedes manejar el caso en el que el usuario cancela la introducción de observaciones.
-        console.log('Acción cancelada o sin observación.');
-      }
+    const remarks = await this.notification.showObservationPrompt('¿Estás seguro de querer eliminar la pregunta?', 'Por favor, introduce una razón u observación:');
+    if (remarks === null) {
+      this.notification.showError('Acción cancelada', 'La acción ha sido cancelada por el usuario.');
+      console.log('Acción cancelada.');
+      return;
     }
+
+    if (remarks.length < 10) {
+      this.notification.showError('Observación inválida', 'Debe introducir una observación de mínimo 10 caracteres.');
+      console.log('Observación insuficiente.');
+      return;
+    }
+
+    this.questionService.deleteQuestion(id, { remarks }).subscribe(
+      (res) => {
+        const { message } = res;
+        this.notification.showSuccess('Eliminado', 'Pregunta eliminada correctamente');
+        console.log(message);
+        this.ngOnInit();
+      },
+      (err) => {
+        console.log(err);
+        this.ngOnInit();
+        this.notification.showError('Error', 'No se pudo eliminar la pregunta');
+      }
+    );
+
+
   }
-  
+
+
 }
