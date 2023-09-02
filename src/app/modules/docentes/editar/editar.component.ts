@@ -51,6 +51,11 @@ export class EditarComponent implements OnInit {
       nameInstitution: nameInstitucion,
     };
 
+    if (nameInstitucion=== null || nameInstitucion === '0') {
+      this.notification.showError('Error', 'Debe seleccionar una institución');
+      return;
+    }
+    
     this.teacherService.updateTeacher(this.id, body).subscribe(
       (res) => {
         const { message } = res;

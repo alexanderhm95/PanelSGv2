@@ -4,20 +4,25 @@ import { CasosService } from '@/app/shared/services/api/casos.service';
 import { DocenteService } from '@/app/shared/services/api/docente.service';
 import { ControlErrorService } from '@/app/shared/services/utils/controlErrorService';
 import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-editar',
   templateUrl: './editar.component.html',
   styleUrls: ['./editar.component.css'],
 })
-export class EditarComponent {
+
+export class EditarComponent implements OnInit {
   public formCaso = new ClsFormCaso();
   public teachers: any[] = [];
   public institution: any;
-  public id: any;
-  public caso:any;
+  public id: string | null = null;
+  public caso: any;
+
+  private unsubscribe$ = new Subject<void>();
 
   constructor(
     public controlError: ControlErrorService,
@@ -27,9 +32,18 @@ export class EditarComponent {
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
+    this.initializeComponent();
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
+
+  private initializeComponent(): void {
     this.id = this.route.snapshot.paramMap.get('id');
     this.getCaso(this.id);
     this.formCaso.form.reset();
@@ -37,18 +51,21 @@ export class EditarComponent {
     this.getTeachers();
   }
 
-  getCaso(id: any) {
-      this.casoService.getCaso(id).subscribe(
-        (res)=>{
-          const {message, data } = res;
-          this.caso= data;
+  private getCaso(id: string | null): void {
+    this.casoService.getCaso(id)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(
+        res => {
+          const { message, data } = res;
+          this.caso = data;
           this.setValues(this.caso);
           console.log(message);
         }
-      )
+      );
   }
 
-  setValues(caso:any){
+
+  setValues(caso: any) {
     this.formCaso.form.patchValue({
       ciStudent: caso.ciStudent,
       nameStudent: caso.nameStudent,
@@ -64,6 +81,10 @@ export class EditarComponent {
   }
 
   update() {
+    if (!this.validateForm()) {
+      return;
+    }
+
     const {
       ciStudent,
       nameStudent,
@@ -77,10 +98,6 @@ export class EditarComponent {
       selectTeacher,
     } = this.formCaso.form.value;
 
-    if (selectTeacher === null || selectTeacher === '0') {
-      this.notification.showError('Error', 'Debe seleccionar un docente');
-      return;
-    }
 
     const body = {
       idStudent: this.caso.idStudent,
@@ -98,27 +115,54 @@ export class EditarComponent {
       nameInstitution: this.authService.getInstitution(),
     };
 
-    this.casoService.updateCaso(this.id, body).subscribe(
-      (res) => {
-        const { message} = res;
-        this.notification.showSuccess('Actualizado', message);
-        this.router.navigate(['/casos/listar']);
-      },
-      (err) => {
-        this.notification.showError('Error', err.error.error);
-      }
-    );
+    this.casoService.updateCaso(this.id, body)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(
+        res => this.handleSuccess(res),
+        err => this.handleError(err)
+      );
   }
 
-  getTeachers() {
-    this.teacherService.getTeachersInstitutions({data:this.authService.getInstitution()}).subscribe(
-    (res) => {
-      const { message, data } = res;
-      this.teachers = data;
-      console.log(message);
-    });
+  private validateForm(): boolean {
+    const { gender, selectTeacher } = this.formCaso.form.value;
+
+    if (!this.isValueValid(gender, 'Debe seleccionar un género')) return false;
+    if (!this.isValueValid(selectTeacher, 'Debe seleccionar un docente')) return false;
+
+    return true;
   }
- cancel() {
+
+  private isValueValid(value: any, errorMessage: string): boolean {
+    if (value === '0' || value === null) {
+      this.notification.showError('Error', errorMessage);
+      return false;
+    }
+    return true;
+  }
+
+  private handleSuccess(res: any): void {
+    const { message } = res;
+    this.notification.showSuccess('Actualizado', message);
+    this.router.navigate(['/casos/listar']);
+  }
+
+  private handleError(err: any): void {
+    this.notification.showError('Error', err.error.error);
+  }
+
+  private getTeachers(): void {
+    this.teacherService.getTeachersInstitutions({ data: this.authService.getInstitution() })
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(
+        res => {
+          const { message, data } = res;
+          this.teachers = data;
+          console.log(message);
+        }
+      );
+  }
+
+  public cancel(): void {
     this.router.navigate(['../../listar'], { relativeTo: this.route });
   }
 

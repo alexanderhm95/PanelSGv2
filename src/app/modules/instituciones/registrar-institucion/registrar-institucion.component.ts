@@ -40,6 +40,11 @@ export class RegistrarInstitucionComponent implements OnInit {
       cityInstitution,
     } = this.formInstitucion.form.value;
 
+    if (typeInstitution=== null || typeInstitution === '0') {
+      this.notification.showError('Error', 'Debe seleccionar el tipo de institución');
+      return;
+    }
+
     const newInstitution: InterfaceInstitution = {
       nameInstitution,
       addressInstitution,
@@ -52,7 +57,6 @@ export class RegistrarInstitucionComponent implements OnInit {
 
     this.serviceIntitucion.createInstitution(newInstitution).subscribe(
       (res) => {
-        // this.notify.showSuccess('Institución registrada', 'La institución se ha registrado correctamente');
         console.log(res.message);
         this.notification.showSuccess(
           'Registro',

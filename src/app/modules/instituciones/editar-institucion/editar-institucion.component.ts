@@ -32,6 +32,7 @@ export class EditarInstitucionComponent implements OnInit {
   }
 
   getInstitution() {
+   
     this.serviceIntitucion.getInstitution(this.id).subscribe(
       (res) => {
         this.institucion = res.data;
@@ -87,6 +88,12 @@ export class EditarInstitucionComponent implements OnInit {
         }
       );
     }
+  
+    if (typeInstitution=== null || typeInstitution === '0') {
+      this.notification.showError('Error', 'Debe seleccionar el tipo de institución');
+      return;
+    }
+
 
     const updateInstitution: InterfaceInstitution = {
       nameInstitution,

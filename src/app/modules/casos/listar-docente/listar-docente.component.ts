@@ -2,45 +2,64 @@ import { AuthService } from '@/app/shared/services/api/auth.service';
 import { DocenteService } from '@/app/shared/services/api/docente.service';
 import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
 import { Component } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-listar-docente',
   templateUrl: './listar-docente.component.html',
   styleUrls: ['./listar-docente.component.css']
 })
+
 export class ListarDocenteComponent {
   public docentes: TeacherData[] = [];
   public search = '';
   public loading = true;
 
+  private unsubscribe$ = new Subject<void>();
+
   constructor(
     private notification: NotificationsService,
     private docenteService: DocenteService,
     private authService: AuthService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getTeachers();
   }
 
-  getTeachers() {
-    this.docenteService.getTeachersInstitutions({data:this.authService.getInstitution()}).subscribe(
-      (res) => {
-        const { message, data } = res;
-        this.docentes = data;
-        this.loading = false;
-        console.log(message);
-      },(err) => {
-        console.log('Error:', err.error);
-        this.loading = false;
-        this.notification.showError('Error', err.error.error);
-      }
-    );
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
-  
- 
 
-  delete(id: string) {
+  private getTeachers(): void {
+    const institution = this.authService.getInstitution();
+    this.docenteService.getTeachersInstitutions({ data: institution })
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(
+        res => this.handleGetTeachersSuccess(res),
+        err => this.handleGetTeachersError(err)
+      );
+  }
+
+  private handleGetTeachersSuccess(res: any): void {
+    const { message, data } = res;
+    this.docentes = data;
+    this.loading = false;
+    console.log(message);
+  }
+
+  private handleGetTeachersError(error: any): void {
+    this.loading = false;
+    if (error.status === 0) {
+      this.notification.showError('Error', 'Error de conexión con el servidor');
+    } else {
+      this.notification.showError('Error', error.error.error);
+    }
+  }
+
+  public delete(id: string): void {
     this.notification
       .showConfirm(
         'warning',
@@ -51,34 +70,34 @@ export class ListarDocenteComponent {
       )
       .then((result) => {
         if (result.isConfirmed) {
-          this.docenteService.deleteTeacher(id).subscribe(
-            (res) => {
-              const { message, data } = res;
-              this.notification.showSuccess('Eliminado ', message);
-              this.ngOnInit();
-            },
-            (error) => {
-              if (error.status === 0) {
-
-                this.ngOnInit();
-                this.notification.showError(
-                  'Error ',
-                  'No se pudo conectar con el servidor'
-                );
-              } else {
-
-                this.ngOnInit();
-                this.notification.showError('Error ', error.error.error);
-                console.log(error);
-              }
-            }
-          );
+          this.docenteService.deleteTeacher(id)
+            .pipe(takeUntil(this.unsubscribe$))
+            .subscribe(
+              res => this.handleDeleteSuccess(res),
+              err => this.handleDeleteError(err)
+            );
         }
       });
   }
+
+  private handleDeleteSuccess(res: any): void {
+    const { message } = res;
+    this.notification.showSuccess('Eliminado', message);
+    this.getTeachers();
+  }
+
+  private handleDeleteError(err: any): void {
+    if (err.status === 0) {
+      this.notification.showError('Error', 'No se pudo conectar con el servidor');
+    } else {
+      this.notification.showError('Error', err.error.error);
+      console.log(err);
+    }
+    this.getTeachers();
+  }
 }
 
-//Interfaz de recepion
+// Interfaz de recepción
 interface TeacherData {
   id: string;
   CI: string;

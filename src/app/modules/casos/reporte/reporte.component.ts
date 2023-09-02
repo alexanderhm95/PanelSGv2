@@ -1,29 +1,30 @@
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CasosService } from '@/app/shared/services/api/casos.service';
 import { TestCasoEstudianteService } from '@/app/shared/services/api/test-caso-estudiante.service';
 import { TestCasoTeacherService } from '@/app/shared/services/api/test-caso-teacher.service';
 import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
 import { environment } from '@/environments/environment';
-import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-reporte',
   templateUrl: './reporte.component.html',
-  styleUrls: ['./reporte.component.css'],
-  providers: [DatePipe],
+  styleUrls: ['./reporte.component.css']
 })
 export class ReporteComponent implements OnInit {
 
-  public api = environment.api + '/api/1.0/testStudent/reporte/';
+  public api = `${environment.api}/api/1.0/testStudent/reporte/`;
   public id: any;
-  public modalActivate: Boolean = false;
-  public modalActivate2: Boolean = false;
+  public modalActivate = false;
+  public modalActivate2 = false;
   public listaRespuestas: Respuestas[] = [];
-  public loading = true;
-
-  public caso: any = {};
   public circumference: any = ((2 * 22) / 7) * 120;
+  public loading = true;
+  public caso: any = {};
+
+  private unsubscribe$ = new Subject<void>();
 
   constructor(
     private testEstudiante: TestCasoEstudianteService,
@@ -32,47 +33,48 @@ export class ReporteComponent implements OnInit {
     private serviceCaso: CasosService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
     this.getCaso();
   }
 
-  getCaso() {
-    this.serviceCaso.getReporte(this.id).subscribe(
-      (res) => {
-        const { message, data } = res;
-        this.caso = data;
-        this.loading =false;
-        console.log(message);
-      },
-      (error) => {
-        if (error.status === 0) {
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
 
-          this.ngOnInit();
-          this.notification.showError(
-            'Error ',
-            'No se pudo conectar con el servidor'
-          );
-        } else {
+  private getCaso(): void {
+    this.serviceCaso.getReporte(this.id)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(
+        res => this.handleSuccess(res),
+        err => this.handleError(err)
+      );
+  }
 
-          this.ngOnInit();
-          this.notification.showError('Error ', error.error.error);
-          console.log(error);
-        }
-      }
-    );
+  private handleSuccess(res: any): void {
+    const { message, data } = res;
+    this.caso = data;
+    this.loading = false;
+    console.log(message);
+  }
+
+  private handleError(error: any): void {
+    this.loading = false;
+    if (error.status === 0) {
+      this.notification.showError('Error', 'No se pudo conectar con el servidor');
+    } else {
+      this.notification.showError('Error', error.error.error);
+    }
+    console.log(error);
   }
 
   public getColor(porcentaje: number): string {
-    if (porcentaje > 70) {
-      return 'red';
-    } else if (porcentaje > 50) {
-      return 'yellow';
-    } else {
-      return 'green';
-    }
+    if (porcentaje > 70) return 'red';
+    if (porcentaje > 50) return 'yellow';
+    return 'green';
   }
 
   openModal(id: string) {

@@ -7,6 +7,8 @@ import { NotificationsService } from '@/app/shared/services/utils/notifications.
 import { environment } from '@/environments/environment';
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-listar',
@@ -14,8 +16,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./listar.component.css'],
   providers: [DatePipe, FilterTablesPipe],
 })
+
 export class ListarComponent implements OnInit {
-  public api = environment.api + '/api/1.0';
+  //public api = environment.api + '/api/1.0';
 
   public casos: any[] = [];
   public codigo = 0;
@@ -23,6 +26,8 @@ export class ListarComponent implements OnInit {
   public loading = true;
   public search = '';
   public id: any;
+
+  private unsubscribe$ = new Subject<void>();
 
   constructor(
     private notification: NotificationsService,
@@ -35,22 +40,33 @@ export class ListarComponent implements OnInit {
     this.getCasos();
   }
 
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
 
 
-  getCasos() {
+
+  private getCasos(): void {
     this.id = this.authService.getUserId();
-    this.casoService.getAllCaso(this.id).subscribe(
-      (res) => {
-        const { message, data } = res;
-        this.casos = data;
-        this.loading = false;
-        console.log(message);
-      }, (err) => {
-        console.log('Error:', err.error);
-        this.loading = false;
-        this.notification.showError('Error', err.error.error);
-      }
-    );
+    this.casoService.getAllCaso(this.id)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(
+        res => this.handleGetCasosSuccess(res),
+        err => this.handleGetCasosError(err)
+      );
+  }
+
+  private handleGetCasosSuccess(res: any): void {
+    const { message, data } = res;
+    this.casos = data;
+    this.loading = false;
+    console.log(message);
+  }
+
+  private handleGetCasosError(err: any): void {
+    this.loading = false;
+    this.notification.showError('Error', err.error.error);
   }
 
   closeModal() {
@@ -58,58 +74,59 @@ export class ListarComponent implements OnInit {
     this.codigo = 0;
   }
 
-  openModal(CI: string) {
-    console.log(CI);
-    const body = {
-      CI: CI,
-    };
-    this.studentService.generateCode(body).subscribe((res) => {
-      const { data } = res;
-      this.codigo = data;
-      console.log(data);
-      this.ngOnInit();
-    });
-
-    this.modalActivate = true;
+  public openModal(CI: string): void {
+    const body = { CI };
+    this.studentService.generateCode(body)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(
+        res => this.handleOpenModalSuccess(res),
+        err => this.handleOpenModalError(err)
+      );
   }
 
-  async deleteCaso(id: string) {
 
+  private handleOpenModalSuccess(res: any): void {
+    const { data } = res;
+    this.codigo = data;
+    this.getCasos();
+  }
+
+  private handleOpenModalError(err: any): void {
+    this.notification.showError('Error', err.error.error);
+  }
+
+  public async deleteCaso(id: string): Promise<void> {
     const remarks = await this.notification.showObservationPrompt('¿Estás seguro de querer eliminar el Test?', 'Por favor, introduce una razón u observación:');
 
-    if (remarks === null) {
-      this.notification.showError('Acción cancelada', 'La acción ha sido cancelada por el usuario.');
-      console.log('Acción cancelada.');
-      return;
-    }
+    if (!this.validateRemarks(remarks)) return;
 
-    if (remarks.length < 10) {
+    this.casoService.deleteCaso(id, { remarks })
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(
+        res => this.handleDeleteCasoSuccess(res),
+        err => this.handleDeleteCasoError(err)
+      );
+  }
+
+  private validateRemarks(remarks: string | null): boolean {
+    if (remarks === null || remarks.length < 10) {
       this.notification.showError('Observación inválida', 'Debe introducir una observación de mínimo 10 caracteres.');
-      console.log('Observación insuficiente.');
-      return;
+      return false;
     }
+    return true;
+  }
 
-    this.casoService.deleteCaso(id, { remarks }).subscribe(
-      (res) => {
-        console.log(res);
-        this.notification.showSuccess(
-          'Eliminado',
-          'Caso eliminado correctamente'
-        );
-        this.ngOnInit();
-      },
-      (err) => {
-        if (err.status === 0) {
-          this.notification.showError(
-            'Error',
-            'No se pudo conectar con el servidor'
-          );
-        } else {
-          console.log(err);
-          this.notification.showError('Error', err.error.error);
-        }
-      }
-    );
+  private handleDeleteCasoSuccess(res: any): void {
+    this.notification.showSuccess('Eliminado', 'Caso eliminado correctamente');
+    this.getCasos();
+  }
 
+  private handleDeleteCasoError(error: any): void {
+    this.loading = false;
+    if (error.status === 0) {
+      this.notification.showError('Error', 'Error de conexión con el servidor');
+    } else {
+      this.notification.showError('Error', error.error.error);
+    }
   }
 }

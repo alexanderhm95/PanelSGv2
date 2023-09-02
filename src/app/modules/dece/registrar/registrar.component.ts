@@ -43,6 +43,12 @@ export class RegistrarComponent implements OnInit {
       nameInstitution,
     };
 
+    if (nameInstitution=== null || nameInstitution === '0') {
+      this.notification.showError('Error', 'Debe seleccionar una institución');
+      return;
+    }
+
+    
     this.deceService.createDece(newDece).subscribe(
       (res) => {
         const { message } = res;

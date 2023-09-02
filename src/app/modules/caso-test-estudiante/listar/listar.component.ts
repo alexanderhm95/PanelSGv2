@@ -1,9 +1,11 @@
-import { FilterTablesPipe } from '@/app/shared/pipes/filter-tables.pipe';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { AuthService } from '@/app/shared/services/api/auth.service';
 import { TestCasoEstudianteService } from '@/app/shared/services/api/test-caso-estudiante.service';
 import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '@/app/shared/services/api/auth.service';
+import { FilterTablesPipe } from '@/app/shared/pipes/filter-tables.pipe';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-listar',
@@ -11,75 +13,77 @@ import { AuthService } from '@/app/shared/services/api/auth.service';
   styleUrls: ['./listar.component.css'],
   providers: [DatePipe, FilterTablesPipe],
 })
-export class ListarComponent implements OnInit {
+export class ListarComponent implements OnInit, OnDestroy {
   public tests: any[] = [];
   public search = '';
   public loading = true;
   public id: any;
 
+  private unsubscribe$ = new Subject<void>();
+
   constructor(
     private serviceCasoEstudiante: TestCasoEstudianteService,
     private notification: NotificationsService,
-    private authService: AuthService,
-
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
-
-    this.id = this.authService.getUserId();
-    this.serviceCasoEstudiante.getAll(this.id).subscribe(
-      (res) => {
-        const { message, data } = res;
-        this.tests = data;
-        this.loading = false;
-        console.log(message);
-      },
-      (err) => {
-        this.loading = false;
-        console.log(err.error);
-        this.notification.showError('Error', err.error.error);
-      }
-    );
+    this.loadData();
   }
 
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
 
+  private loadData(): void {
+    this.id = this.authService.getUserId();
+    this.fetchAllTests(this.id);
+  }
 
-  scoreUpdate(id: string, op: string) {
-    if (op == 'plus') {
-      const body = {
-        scoreEvaluator: true,
-      };
-      this.serviceCasoEstudiante.updateScore(id, body).subscribe(
-        (res) => {
-          const { message, data } = res;
-          this.tests = data;
-          console.log(message);
-          this.ngOnInit();
-        },
-        (err) => {
-          console.log(err.error);
-          this.notification.showError('Error', err.error.error);
-        }
+  private fetchAllTests(userId: string): void {
+    this.serviceCasoEstudiante.getAll(userId)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(
+        res => this.handleFetchSuccess(res),
+        err => this.handleFetchError(err)
       );
+  }
+
+  private handleFetchSuccess(res: { message: string, data: any[] }): void {
+    this.tests = res.data;
+    this.loading = false;
+  }
+
+  private handleFetchError(err: any): void {
+    this.loading = false;
+    this.notification.showError('Error', err.error.error);
+  }
+
+  scoreUpdate(id: string, operation: 'plus' | 'less'): void {
+    const payload = operation === 'plus' ? { scoreEvaluator: true } : { score: false };
+    this.updateScore(id, payload);
+  }
+
+  private updateScore(id: string, payload: any): void {
+    this.serviceCasoEstudiante.updateScore(id, payload)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(
+        res => this.handleUpdateSuccess(res),
+        err => this.handleUpdateError(err)
+      );
+  }
+
+  private handleUpdateSuccess(res: { message: string, data: any[] }): void {
+    this.tests = res.data;
+  }
+
+  private handleUpdateError(error: any): void {
+    this.loading = false;
+    if (error.status === 0) {
+      this.notification.showError('Error', 'Error de conexión con el servidor');
     } else {
-      const body = {
-        score: false,
-      };
-      this.serviceCasoEstudiante.updateScore(id, body).subscribe(
-        (res) => {
-          const { message, data } = res;
-          this.tests = data;
-          console.log(message);
-
-          this.ngOnInit();
-        },
-        (err) => {
-          console.log(err.error);
-
-          this.ngOnInit();
-          this.notification.showError('Error', err.error.error);
-        }
-      );
+      this.notification.showError('Error', error.error.error);
     }
   }
 
@@ -87,32 +91,36 @@ export class ListarComponent implements OnInit {
 
     const remarks = await this.notification.showObservationPrompt('¿Estás seguro de querer eliminar el Test?', 'Por favor, introduce una razón u observación:');
 
-    if (remarks === null) {
-      this.notification.showError('Acción cancelada', 'La acción ha sido cancelada por el usuario.');
-      console.log('Acción cancelada.');
-      return;
-    }
+    if (!this.validateRemarks(remarks)) return;
 
-    if (remarks.length < 10) {
+    this.serviceCasoEstudiante.delete(id, { remarks })
+      .pipe(takeUntil(this.unsubscribe$)) // Cancela la suscripción al destruir el componente
+      .subscribe(
+        res => this.handleDeleteTestSuccess(res),
+        err => this.handleDeleteTestError(err)
+      );
+
+  }
+
+  private validateRemarks(remarks: string | null): boolean {
+    if (remarks === null || remarks.length < 10) {
       this.notification.showError('Observación inválida', 'Debe introducir una observación de mínimo 10 caracteres.');
-      console.log('Observación insuficiente.');
-      return;
+      return false;
     }
+    return true;
+  }
 
-    this.serviceCasoEstudiante.delete(id, { remarks }).subscribe(
-      (res) => {
-        this.notification.showSuccess(
-          'Eliminado',
-          'Test eliminado correctamente'
-        );
-        console.log(res);
-        this.ngOnInit();
-      },
-      (err) => {
-        this.ngOnInit();
-        this.notification.showError('Error', err.error.error);
-      }
-    );
+  private handleDeleteTestSuccess(res: any): void {
+    this.notification.showSuccess('Eliminado', 'Test eliminado correctamente');
+    this.loadData();
+  }
 
+  private handleDeleteTestError(error: any): void {
+    this.loading = false;
+    if (error.status === 0) {
+      this.notification.showError('Error', 'Error de conexión con el servidor');
+    } else {
+      this.notification.showError('Error', error.error.error);
+    }
   }
 }
