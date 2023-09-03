@@ -72,8 +72,8 @@ export class ReporteComponent implements OnInit {
   }
 
   public getColor(porcentaje: number): string {
-    if (porcentaje > 70) return 'red';
-    if (porcentaje > 50) return 'yellow';
+    if (porcentaje > 98) return 'red';
+    if (porcentaje > 84) return 'yellow';
     return 'green';
   }
 

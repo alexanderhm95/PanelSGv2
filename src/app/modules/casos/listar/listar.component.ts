@@ -88,7 +88,8 @@ export class ListarComponent implements OnInit {
   private handleOpenModalSuccess(res: any): void {
     const { data } = res;
     this.codigo = data;
-    this.getCasos();
+    this.ngOnInit();
+    this.modalActivate = true;
   }
 
   private handleOpenModalError(err: any): void {
@@ -118,7 +119,7 @@ export class ListarComponent implements OnInit {
 
   private handleDeleteCasoSuccess(res: any): void {
     this.notification.showSuccess('Eliminado', 'Caso eliminado correctamente');
-    this.getCasos();
+    this.ngOnInit()
   }
 
   private handleDeleteCasoError(error: any): void {
@@ -128,5 +129,7 @@ export class ListarComponent implements OnInit {
     } else {
       this.notification.showError('Error', error.error.error);
     }
+    this.ngOnInit()
+
   }
 }

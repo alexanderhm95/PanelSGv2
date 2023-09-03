@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { AuthService } from '@/app/shared/services/api/auth.service';
 import { TestCasoEstudianteService } from '@/app/shared/services/api/test-caso-estudiante.service';
 import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
@@ -24,7 +24,7 @@ export class ListarComponent implements OnInit, OnDestroy {
   constructor(
     private serviceCasoEstudiante: TestCasoEstudianteService,
     private notification: NotificationsService,
-    private authService: AuthService
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
@@ -51,13 +51,15 @@ export class ListarComponent implements OnInit, OnDestroy {
   }
 
   private handleFetchSuccess(res: { message: string, data: any[] }): void {
-    this.tests = res.data;
     this.loading = false;
+    this.ngOnInit()
+
   }
 
   private handleFetchError(err: any): void {
     this.loading = false;
     this.notification.showError('Error', err.error.error);
+    this.ngOnInit()
   }
 
   scoreUpdate(id: string, operation: 'plus' | 'less'): void {
@@ -75,7 +77,8 @@ export class ListarComponent implements OnInit, OnDestroy {
   }
 
   private handleUpdateSuccess(res: { message: string, data: any[] }): void {
-    this.tests = res.data;
+    this.notification.showSuccess('Actualizado', 'Punto del observador actualizado');
+    this.ngOnInit()
   }
 
   private handleUpdateError(error: any): void {
@@ -85,6 +88,7 @@ export class ListarComponent implements OnInit, OnDestroy {
     } else {
       this.notification.showError('Error', error.error.error);
     }
+    this.ngOnInit()
   }
 
   async deleteTest(id: any) {
@@ -112,7 +116,7 @@ export class ListarComponent implements OnInit, OnDestroy {
 
   private handleDeleteTestSuccess(res: any): void {
     this.notification.showSuccess('Eliminado', 'Test eliminado correctamente');
-    this.loadData();
+    this.ngOnInit()
   }
 
   private handleDeleteTestError(error: any): void {
@@ -122,5 +126,6 @@ export class ListarComponent implements OnInit, OnDestroy {
     } else {
       this.notification.showError('Error', error.error.error);
     }
+    this.ngOnInit()
   }
 }
