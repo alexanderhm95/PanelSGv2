@@ -1,12 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
 import { InterfaceCaso } from '@/app/core/interfaces/interface-caso';
-import { AuthService } from '@/app/shared/services/api/auth.service';
 import { CasosService } from '@/app/shared/services/api/casos.service';
 import { TestQuestionService } from '@/app/shared/services/api/test-question.service';
 import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-editar',
@@ -14,14 +15,18 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./editar.component.css'],
   providers: [DatePipe],
 })
+
 export class EditarComponent implements OnInit {
+  private readonly onDestroy = new Subject<void>();
+
   public test: any[] = [];
   public answers: any[] = [];
   public date?: Date;
   public caso?: InterfaceCaso;
-  public id: any;
-  answersForm = true;
+  public id: string | null = null;
+  public answersForm = true;
   public loading = true;
+
 
   constructor(
     private questionService: TestQuestionService,
@@ -29,7 +34,7 @@ export class EditarComponent implements OnInit {
     private casoService: CasosService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.date = new Date();
@@ -37,25 +42,34 @@ export class EditarComponent implements OnInit {
     this.getCaso();
   }
 
-  checkFormValidity() {
-    const respuestas: Respuesta[] = Object.entries(this.answers).map(
-      ([key, value]) => ({
-        refQuestion: key,
-        valueAnswer: parseInt(value, 10),
-      })
-    );
-    if (respuestas.length === this.test.length) {
-      this.answersForm = false;
-    }
+  ngOnDestroy(): void {
+    this.onDestroy.next();
+    this.onDestroy.complete();
   }
 
-  create() {
-    const respuestas: Respuesta[] = Object.entries(this.answers).map(
-      ([key, value]) => ({
-        refQuestion: key,
-        valueAnswer: parseInt(value, 10),
-      })
-    );
+  private handleError(error: any): void {
+    this.loading = false;
+    const title = 'Error';
+    const message = error.status === 0 ? 'Error de conexión con el servidor' : error.error.error;
+    this.notification.showError(title, message);
+  }
+
+
+  private createRespuestas(): Respuesta[] {
+    return Object.entries(this.answers).map(([key, value]) => ({
+      refQuestion: key,
+      valueAnswer: parseInt(value, 10),
+    }));
+  }
+
+  checkFormValidity(): void {
+    const respuestas = this.createRespuestas();
+    this.answersForm = respuestas.length !== this.test.length;
+  }
+
+
+  create(): void {
+    const respuestas = this.createRespuestas();
 
     if (respuestas.length < this.test.length) {
       this.notification.showError('Error', 'Debe completar todos los campos');
@@ -68,75 +82,40 @@ export class EditarComponent implements OnInit {
       answers: respuestas,
     };
 
-    this.casoService.createTestTeacher(body).subscribe(
-      (res) => {
-        const { message } = res;
-        console.log(message);
-        this.notification.showSuccess('Registro','Evaluación completada con éxito')
-        this.router.navigate(['../../listar'], { relativeTo: this.route });
-      },
-      (error) => {
-        if (error.status === 0) {
-          this.notification.showError(
-            'Error',
-            'Error de conexión con el servidor'
-          );
-        } else {
-          this.notification.showError(
-            'Error',
-            error.error.error
-          );
-        }
-      }
-    );
+    this.casoService.createTestTeacher(body)
+      .pipe(takeUntil(this.onDestroy))
+      .subscribe(
+        (res) => {
+          this.notification.showSuccess('Registro', 'Evaluación completada con éxito');
+          this.router.navigate(['../../listar'], { relativeTo: this.route });
+        },
+        (error) => this.handleError(error)
+      );
   }
 
-  getCaso() {
-    this.casoService.getCaso(this.id).subscribe(
-      (res) => {
-        const { message, data } = res;
-        this.caso = data;
-        this.getTest();
-        console.log(data)
-        console.log(message);
-      },
-      (error) => {
-        if (error.status === 0) {
-          this.notification.showError(
-            'Error',
-            'Error de conexión con el servidor'
-          );
-        } else {
-          this.notification.showError(
-            'Error',
-            'Error al obtener los datos del caso'
-          );
-        }
-      }
-    );
+
+  getCaso(): void {
+    this.casoService.getCaso(this.id)
+      .pipe(takeUntil(this.onDestroy))
+      .subscribe(
+        (res) => {
+          this.caso = res.data;
+          this.getTest();
+        },
+        (error) => this.handleError(error)
+      );
   }
 
-  getTest() {
-    this.questionService.getAllQuestion().subscribe(
-      (res) => {
-        const { message, data } = res;
-        this.test = data;
-
-        this.loading = false;
-        console.log(res);
-        console.log(message);
-      },
-      (error) => {
-        if (error.status === 0) {
-          this.notification.showError(
-            'Error',
-            'Error de conexión con el servidor'
-          );
-        } else {
-          this.notification.showError('Error', 'Error al cargar las preguntas');
-        }
-      }
-    );
+  getTest(): void {
+    this.questionService.getAllQuestion()
+      .pipe(takeUntil(this.onDestroy))
+      .subscribe(
+        (res) => {
+          this.test = res.data;
+          this.loading = false;
+        },
+        (error) => this.handleError(error)
+      );
   }
 }
 

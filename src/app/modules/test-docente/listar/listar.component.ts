@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { FilterTablesPipe } from '@/app/shared/pipes/filter-tables.pipe';
 import { AuthService } from '@/app/shared/services/api/auth.service';
 import { CasosService } from '@/app/shared/services/api/casos.service';
 import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-listar',
@@ -13,58 +14,49 @@ import { Subject, takeUntil } from 'rxjs';
   styleUrls: ['./listar.component.css'],
   providers: [FilterTablesPipe],
 })
-export class ListarComponent implements OnInit {
+
+export class ListarComponent implements OnInit, OnDestroy {
   public casos: any[] = [];
-  public selectedCasoValue: any;
   public loading = true;
   public search = '';
-  private idUserTeacher? = '';
-  private subscription = new Subject<void>(); 
+  private idUserTeacher: string | undefined;
+  private readonly onDestroy = new Subject<void>();
 
 
   constructor(
-    private notification: NotificationsService,
-    private authService: AuthService,
-    private casoService: CasosService
-  ) {}
+    private readonly notificationsService: NotificationsService,
+    private readonly authService: AuthService,
+    private readonly casosService: CasosService
+  ) { }
 
   ngOnInit(): void {
     this.idUserTeacher = this.authService.getUserId();
-    this.getCasos(this.idUserTeacher);
-
-   
+    this.loadCasos(this.idUserTeacher);
   }
 
-  getCasos(id:any){
-    this.casoService.getAllCasosTeacher(id)
-    .pipe(takeUntil(this.subscription))
-    .subscribe(
-      (res) => {
-        const { message, data } = res;
-        this.casos = data;
-        this.loading = false;
-        console.log(message);
-      },
-      (error) => {
-        if (error.status === 0) {
-          this.notification.showError(
-            'Error',
-            'Error de conexión con el servidor'
-          );
-        } else {
-          this.notification.showError(
-            'Error',
-            error.error.error
-          );
-        }
-      }
-      )
+  private loadCasos(userId: string | undefined): void {
+    this.casosService.getAllCasosTeacher(userId)
+      .pipe(takeUntil(this.onDestroy))
+      .subscribe(
+        ({ message, data }) => {
+          this.casos = data;
+          this.loading = false;
+          console.log(message);
+        },
+        (error) => this.handleError(error)
+      );
   }
 
-  ngOnDestroy(): void{
-    this.subscription.next();
-    this.subscription.complete();
+  private handleError(error: any): void {
+    this.loading = false;
+    const title = 'Error';
+    const message = error.status===0 ? 'Error de conexión con el servidor' : error.error.error;
+    this.notificationsService.showError(title, message);
   }
-  
+
+  ngOnDestroy(): void {
+    this.onDestroy.next();
+    this.onDestroy.complete();
+  }
 
 }

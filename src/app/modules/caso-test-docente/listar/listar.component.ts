@@ -88,10 +88,8 @@ export class ListarComponent implements OnInit, OnDestroy {
 
   private handleError(error: any): void {
     this.loading = false;
-    if (error.status === 0) {
-      this.notification.showError('Error', 'Error de conexión con el servidor');
-    } else {
-      this.notification.showError('Error', error.error.error);
-    }
+    const title = 'Error';
+    const message = error.status === 0 ? 'Error de conexión con el servidor' : error.error.error;
+    this.notification.showError(title, message);
   }
 }
