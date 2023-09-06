@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/api/auth.service';
 import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
 import { JwtService } from '@/app/shared/services/utils/jwt.service';
 import { ClsFormAuth } from './../../../core/classForm/cls-form-auth';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-page',
@@ -22,6 +23,8 @@ export class PageComponent implements OnInit {
 
   //Creamos el constructor
   constructor(
+    private renderer: Renderer2,
+    @Inject(DOCUMENT) private document: Document,
     private notification: NotificationsService,
     private authService: AuthService,
     private jwtService: JwtService,
@@ -30,8 +33,23 @@ export class PageComponent implements OnInit {
 
   ngOnInit(): void {
     this.formLogin.form.reset();
+    this.preloadImages();
   }
-
+  
+  preloadImages() {
+    this.addPreloadLink(this.backgroundImage);
+    this.addPreloadLink(this.image);
+  }
+  
+  addPreloadLink(imageUrl: string) {
+    const link = this.renderer.createElement('link');
+    this.renderer.setAttribute(link, 'rel', 'preload');
+    this.renderer.setAttribute(link, 'as', 'image');
+    this.renderer.setAttribute(link, 'href', imageUrl);
+    
+    const head = this.document.head;
+    this.renderer.appendChild(head, link);
+  }
   sendLogin() {
     if (this.formLogin.form.invalid) return;
 

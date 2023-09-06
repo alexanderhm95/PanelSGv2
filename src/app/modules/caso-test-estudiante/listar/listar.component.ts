@@ -51,15 +51,13 @@ export class ListarComponent implements OnInit, OnDestroy {
   }
 
   private handleFetchSuccess(res: { message: string, data: any[] }): void {
+    this.tests = res.data;
     this.loading = false;
-    this.ngOnInit()
-
   }
 
   private handleFetchError(err: any): void {
     this.loading = false;
     this.notification.showError('Error', err.error.error);
-    this.ngOnInit()
   }
 
   scoreUpdate(id: string, operation: 'plus' | 'less'): void {

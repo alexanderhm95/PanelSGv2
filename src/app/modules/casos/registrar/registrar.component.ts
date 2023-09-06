@@ -78,15 +78,7 @@ export class RegistrarComponent implements OnInit {
 
   private validateForm(): boolean {
     const {
-      ciStudent,
-      nameStudent,
-      lastNameStudent,
-      addressStudent,
       gender,
-      ageStudent,
-      phoneStudent,
-      gradeStudent,
-      parallelStudent,
       selectTeacher,
     } = this.formCaso.form.value;
 
@@ -97,7 +89,7 @@ export class RegistrarComponent implements OnInit {
     }
 
     // Validación para el docente seleccionado
-    if (selectTeacher === null && this.agregar === true) {
+    if ((selectTeacher === null || selectTeacher === null) && this.agregar === true) {
       this.notification.showError('Error', 'Debe seleccionar un docente');
       return false;
     }
@@ -146,12 +138,12 @@ export class RegistrarComponent implements OnInit {
     this.router.navigate(['/casos/listar']);
   }
 
-  private handleCreateError(error: any): void { 
+  private handleCreateError(error: any): void {
     if (error.status === 0) {
-    this.notification.showError('Error', 'Error de conexión con el servidor');
-  } else {
-    this.notification.showError('Error', error.error.error);
-  }
+      this.notification.showError('Error', 'Error de conexión con el servidor');
+    } else {
+      this.notification.showError('Error', error.error.error);
+    }
   }
 
   cancel(): void {

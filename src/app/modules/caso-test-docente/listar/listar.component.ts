@@ -46,7 +46,7 @@ export class ListarComponent implements OnInit, OnDestroy {
   }
 
   private handleLoadTestsSuccess(res: { message: string, data: any[] }): void {
-    this.ngOnInit()
+    this.tests = res.data;
     this.loading = false;
   }
 
@@ -83,7 +83,7 @@ export class ListarComponent implements OnInit, OnDestroy {
 
   private handleDeleteSuccess(): void {
     this.notification.showSuccess('Eliminado', 'Test eliminado correctamente');
-    this.ngOnInit()
+    this.loadTests();  // Opté por recargar solo los datos en lugar de todo el componente
   }
 
   private handleError(error: any): void {
@@ -91,7 +91,5 @@ export class ListarComponent implements OnInit, OnDestroy {
     const title = 'Error';
     const message = error.status === 0 ? 'Error de conexión con el servidor' : error.error.error;
     this.notification.showError(title, message);
-    this.ngOnInit()
-
   }
 }

@@ -75,12 +75,14 @@ export class RegistrarComponent implements OnInit {
 
   onFileSelected(event: any) {
     const file = event.target.files[0];
+    console.log(file)
 
     if (this.imageService.validateImage(file)) {
       // Leer la imagen seleccionada como una URL
 
       this.imagenTest = this.imageService.renameImage(file, 'TestImagenes');
-      this.srcImage = '/public/TestImagenes/' + this.imagenTest.name.split('_').pop();
+      const name = this.imagenTest.name.split("_");
+      this.srcImage = '/public/TestImagenes/' + name.slice(1).join('_');
       const reader = new FileReader();
       reader.onload = (e: any) => {
         this.imageUrl = e.target.result;
