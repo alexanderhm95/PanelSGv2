@@ -23,6 +23,7 @@ export class ReporteComponent implements OnInit {
   public circumference: any = ((2 * 22) / 7) * 120;
   public loading = true;
   public caso: any = {};
+  mostrarImagen: boolean[] = new Array(this.listaRespuestas.length).fill(false);
 
   private unsubscribe$ = new Subject<void>();
 
@@ -43,6 +44,10 @@ export class ReporteComponent implements OnInit {
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
+  }
+
+  toggleImagen(index: number) {
+    this.mostrarImagen[index] = !this.mostrarImagen[index];
   }
 
   private getCaso(): void {
@@ -72,10 +77,38 @@ export class ReporteComponent implements OnInit {
   }
 
   public getColor(porcentaje: number): string {
-    if (porcentaje > 98) return 'red';
-    if (porcentaje > 84) return 'yellow';
+    if (porcentaje >4) return 'red';
+    if (porcentaje === 4) return 'yellow';
+    if (porcentaje < 4) return 'green';
     return 'green';
   }
+
+  public getColor2(porcentaje: number): string {
+    if (porcentaje > 70) {
+      return 'red';
+    } else if (porcentaje > 50) {
+      return 'yellow';
+    } else {
+      return 'green';
+    }
+  }
+
+  getPercentage(score: number ): number {
+  let percentage: number=0;
+
+  if (score === 4) {
+    percentage = 0.89;
+  } else if (score === 5) {
+    percentage = 0.96;
+  } else if (score > 5) {
+    percentage = 1;
+  } else if (score < 4) {
+    // En caso contrario, calculamos el porcentaje basado en la fórmula general
+    percentage = 0.75;
+  }
+
+  return percentage;
+}
 
   openModal(id: string) {
     this.modalActivate = true;

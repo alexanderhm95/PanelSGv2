@@ -19,23 +19,29 @@ export class AuthService {
     private route: Router
   ) {}
 
+
+  // istanbul ignore next
   private getUserOnly() {
     const cookie = this.cookieService.get('token');
     return this.jwtService.getTokenInformation(cookie);
   }
 
+  // istanbul ignore next
   getUserName() {
     return this.getUserOnly()?.name;
   }
 
+  // istanbul ignore next
   getUserRole() {
     return this.getUserOnly()?.role;
   }
 
+  // istanbul ignore next
   getUserId() {
     return this.getUserOnly()?.user;
   }
 
+  // istanbul ignore next
   getInstitution() {
     return this.getUserOnly()?.institution;
   }

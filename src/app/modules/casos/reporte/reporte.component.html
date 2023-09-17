@@ -1,19 +1,13 @@
 <!-- Esta es la pagina  -->
 <div
-  class="transition ease-in-out delay-150 w-[95%] h-[90%] lg:h-[95%] lg:m-2 mx-4 my-2 bg-cameo border-4 border-camelot rounded-lg overflow-x-hidden duration-300 flex justify-center"
->
+  class="transition ease-in-out delay-150 w-[95%] h-[90%] lg:h-[95%] lg:m-2 mx-4 my-2 bg-cameo border-4 border-camelot rounded-lg overflow-x-hidden duration-300 flex justify-center">
   <!-- Este es el sniper  -->
   <!-- ===================================================== -->
-  <div
-    *ngIf="loading"
-    class="flex items-center justify-center "
-  >
+  <div *ngIf="loading" class="flex items-center justify-center ">
     <div class="fixed inset-0 bg-black opacity-50"></div>
     <div class="flex items-center justify-center">
       <div class="flex flex-col items-center">
-        <div
-          class="animate-spin rounded-full h-20 w-20 border-t-4 border-b-4 border-primary"
-        ></div>
+        <div class="animate-spin rounded-full h-20 w-20 border-t-4 border-b-4 border-primary"></div>
         <div class="flex items-center mt-2">
           <span class="text-xl font-bold mr-1">Cargando</span>
           <span class="text-xl animate-bounce">...</span>
@@ -26,34 +20,26 @@
     <div class="w-full text-center text-3xl font-bold text-camelot py-4">
       Resultado de Test aplicados
     </div>
-    <div
-      class="grid lg:grid-cols-4 gap-1 grid-cols-1 border-2 border-camelot rounded-lg items-center justify-center"
-    >
+    <div class="grid lg:grid-cols-4 gap-1 grid-cols-1 border-2 border-camelot rounded-lg items-center justify-center">
       <div class="col-span-1 pl-4">
         <div class="grid grid-cols-1 gap-2 w-full py-1">
           <div>
-            <label class="text-camelot font-bold flex flex-row"
-              >Institución</label
-            >
+            <label class="text-camelot font-bold flex flex-row">Institución</label>
           </div>
           <div>
             <label class="flex flex-row text-nile-blue-200">{{
               this.caso.nameInstitutionStudent
-            }}</label>
+              }}</label>
           </div>
         </div>
 
         <div class="grid grid-cols-1 gap-2 w-full py-1">
           <div>
-            <label class="text-camelot font-bold flex flex-row"
-              >Estudiante:</label
-            >
+            <label class="text-camelot font-bold flex flex-row">Estudiante:</label>
           </div>
           <div>
-            <label class="flex flex-row text-nile-blue-200"
-              >{{ this.caso.nameStudent }}
-              {{ this.caso.lastNameStudent }}</label
-            >
+            <label class="flex flex-row text-nile-blue-200">{{ this.caso.nameStudent }}
+              {{ this.caso.lastNameStudent }}</label>
           </div>
         </div>
 
@@ -64,7 +50,7 @@
           <div>
             <label class="flex flex-row text-nile-blue-200">{{
               this.caso.grade
-            }}</label>
+              }}</label>
           </div>
         </div>
 
@@ -75,7 +61,7 @@
           <div>
             <label class="flex flex-row text-nile-blue-200">{{
               this.caso.parallel
-            }}</label>
+              }}</label>
           </div>
         </div>
       </div>
@@ -85,40 +71,30 @@
             <label class="text-camelot font-bold flex flex-row">Docente</label>
           </div>
           <div>
-            <label class="flex flex-row text-nile-blue-200"
-              >{{ this.caso.nameTeacher }}
-              {{ this.caso.lastNameTeacher }}</label
-            >
+            <label class="flex flex-row text-nile-blue-200">{{ this.caso.nameTeacher }}
+              {{ this.caso.lastNameTeacher }}</label>
           </div>
         </div>
 
         <div class="grid grid-cols-1 gap-2 w-full py-1">
           <div>
-            <label class="text-camelot font-bold flex flex-row"
-              >Evaluador</label
-            >
+            <label class="text-camelot font-bold flex flex-row">Evaluador</label>
           </div>
           <div>
-            <label class="flex flex-row text-nile-blue-200"
-              >{{ this.caso.nameDece }} {{ this.caso.lastNameDece }}</label
-            >
+            <label class="flex flex-row text-nile-blue-200">{{ this.caso.nameDece }} {{ this.caso.lastNameDece
+              }}</label>
           </div>
         </div>
 
         <div class="grid grid-cols-1 gap-2 w-full py-1">
           <div>
-            <label class="text-camelot font-bold flex flex-row"
-              >Observaciones:</label
-            >
+            <label class="text-camelot font-bold flex flex-row">Observaciones:</label>
           </div>
           <div>
-            <label
-              class="flex flex-row text-nile-blue-200"
-              *ngIf="this.caso.scoreEvaluator !== null"
-            >
+            <label class="flex flex-row text-nile-blue-200" *ngIf="this.caso.scoreEvaluator !== null">
               {{
-                this.caso.scoreEvaluator +
-                  " punto agregado al test del estudiante"
+              this.caso.scoreEvaluator +
+              " punto agregado al test del estudiante"
               }}
             </label>
           </div>
@@ -126,15 +102,11 @@
 
         <div *ngIf="this.caso.statusTestStudent" class="grid grid-cols-1 gap-2 w-full py-1">
           <div>
-            <label class="text-camelot font-bold flex flex-row"
-              >Imprimir reporte:</label
-            >
+            <label class="text-camelot font-bold flex flex-row">Imprimir reporte:</label>
           </div>
           <div>
             <a [href]="this.api + this.caso.id">
-              <i
-                class="fa fa-print text-3xl text-black-400 font-bold flex flex-row cursor-pointer"
-              ></i>
+              <i class="fa fa-print text-3xl text-black-400 font-bold flex flex-row cursor-pointer"></i>
             </a>
           </div>
         </div>
@@ -142,18 +114,14 @@
     </div>
     <!-- Cabecera -->
 
-    <div
-      class="grid lg:grid-cols-2 grid-cols-1 gap-1 items-start justify-start"
-    >
+    <div class="grid lg:grid-cols-2 grid-cols-1 gap-1 items-start justify-start">
       <!-- Test Estudiante -->
       <div class="col-span-1 items-start justify-start">
         <!-- No existen resutados test estudiante -->
         <div class="grid grid-cols-1 py-4" *ngIf="!this.caso.statusTestStudent">
           <!-- alerta no hay datos -->
           <legend class="text-camelot font-bold flex">Test Estudiante:</legend>
-          <label class="text-nile-blue font-bold flex"
-            >El test no se ha ejecutado, no existen datos para mostrar</label
-          >
+          <label class="text-nile-blue font-bold flex">El test no se ha ejecutado, no existen datos para mostrar</label>
         </div>
 
         <!-- Resutados test Docente -->
@@ -165,60 +133,37 @@
             </legend>
             <label class="text-nile-blue font-bold flex">{{
               this.caso.diagnosticStudent
-            }}</label>
+              }}</label>
           </div>
-
-
 
           <div class="w-full flex flex-col py-2 items-center justify-center">
             <!-- Aqui se mostrara una bara de progreso con el pocentaje -->
             <div class="flex items-center justify-center relative">
               <svg class="transform -rotate-90 w-72 h-72">
-                <circle
-                  cx="145"
-                  cy="145"
-                  r="120"
-                  stroke="currentColor"
-                  stroke-width="30"
-                  fill="transparent"
-                  class="text-nile-blue text-opacity-25"
-                />
+                <circle cx="145" cy="145" r="120" stroke="currentColor" stroke-width="30" fill="transparent"
+                  class="text-nile-blue text-opacity-25" />
 
-                <circle
-                  cx="145"
-                  cy="145"
-                  r="120"
-                  stroke="currentColor"
-                  stroke-width="30"
-                  fill="transparent"
+                <circle cx="145" cy="145" r="120" stroke="currentColor" stroke-width="30" fill="transparent"
                   [attr.stroke-dasharray]="this.circumference"
-                  [attr.stroke-dashoffset]="
-                    this.circumference *
-                    (1 -
-                      ((this.caso.scoreStudent / this.caso.scoreMaxStudent) *
-                        100) /
-                        100)
-                  "
-                  [ngStyle]="{
-                    stroke: getColor(
-                      (this.caso.scoreStudent / this.caso.scoreMaxStudent) * 100
-                    )
-                  }"
-                />
+                  [attr.stroke-dashoffset]="this.circumference * (1-this.getPercentage(this.caso.scoreStudent))"
+                  [ngStyle]="{ stroke: getColor(this.caso.scoreStudent) }" />
               </svg>
-              <span class="absolute text-5xl"
-                >{{
-                  (
-                    (this.caso.scoreStudent / this.caso.scoreMaxStudent) *
-                    100
-                  ).toFixed(1)
-                }}%</span
-              >
+              <ng-container *ngIf="this.caso.scoreStudent > 5; ">
+                <span class="absolute text-5xl">>=99%</span>
+              </ng-container>
+              <ng-container *ngIf="this.caso.scoreStudent === 5;">
+                <span class="absolute text-5xl">95%-98%</span>
+              </ng-container>
+              <ng-container *ngIf="this.caso.scoreStudent === 4; ">
+                <span class="absolute text-5xl">84%-94%</span>
+              </ng-container>
+              <ng-container *ngIf="this.caso.scoreStudent < 4; ">
+                <span class="absolute text-5xl">&lt;84%</span>
+              </ng-container>
+
             </div>
-            <div
-              class="flex underline text-nile-blue text-lg font-extrabold cursor-pointer "
-              (click)="openModal(this.caso.id)"
-            >
+            <div class="flex underline text-nile-blue text-lg font-extrabold cursor-pointer "
+              (click)="openModal(this.caso.id)">
               Ver Respuestas
             </div>
           </div>
@@ -231,9 +176,7 @@
         <div class="grid grid-cols-1 py-4" *ngIf="!this.caso.statusTestTeacher">
           <!-- alerta no hay datos -->
           <legend class="text-camelot font-bold flex">Test Docente:</legend>
-          <label class="text-nile-blue font-bold flex"
-            >El test no se ha ejecutado, no existen datos para mostrar</label
-          >
+          <label class="text-nile-blue font-bold flex">El test no se ha ejecutado, no existen datos para mostrar</label>
         </div>
 
         <!-- Resutados test Docente -->
@@ -243,59 +186,31 @@
             <legend class="text-camelot font-bold flex">Test Docente:</legend>
             <label class="text-nile-blue font-bold flex">{{
               this.caso.diagnosticTeacher
-            }}</label>
+              }}</label>
           </div>
 
           <div class="w-full flex flex-col py-2 items-center justify-center">
             <!-- Aqui se mostrara una bara de progreso con el pocentaje -->
             <div class="flex items-center justify-center relative">
               <svg class="transform -rotate-90 w-72 h-72">
-                <circle
-                  cx="145"
-                  cy="145"
-                  r="120"
-                  stroke="currentColor"
-                  stroke-width="30"
-                  fill="transparent"
-                  class="text-nile-blue text-opacity-25"
-                />
+                <circle cx="145" cy="145" r="120" stroke="currentColor" stroke-width="30" fill="transparent"
+                  class="text-nile-blue text-opacity-25" />
 
-                <circle
-                  cx="145"
-                  cy="145"
-                  r="120"
-                  stroke="currentColor"
-                  stroke-width="30"
-                  fill="transparent"
-                  [attr.stroke-dasharray]="this.circumference"
-                  [attr.stroke-dashoffset]="
-                    this.circumference *
-                    (1 -
-                      ((this.caso.scoreTeacher / this.caso.scoreMaxTeacher) *
-                        100) /
-                        100)
-                  "
-                  [ngStyle]="{
-                    stroke: getColor(
-                      (this.caso.scoreTeacher / this.caso.scoreMaxTeacher) * 100
-                    )
-                  }"
-                />
+                <circle cx="145" cy="145" r="120" stroke="currentColor" stroke-width="30" fill="transparent"
+                  [attr.stroke-dasharray]="this.circumference" [attr.stroke-dashoffset]="this.circumference*(1 -((this.caso.scoreTeacher/this.caso.scoreMaxTeacher)*100)/100)
+                  " [ngStyle]="{
+                    stroke: getColor2((this.caso.scoreTeacher / this.caso.scoreMaxTeacher) * 100 )}" />
               </svg>
-              <span class="absolute text-5xl"
-                >{{
-                  (
-                    (this.caso.scoreTeacher / this.caso.scoreMaxTeacher) *
-                    100
-                  ).toFixed(1)
-                }}%</span
-              >
+              <span class="absolute text-5xl">{{
+                (
+                (this.caso.scoreTeacher / this.caso.scoreMaxTeacher) *
+                100
+                ).toFixed(1)
+                }}%</span>
             </div>
 
-            <div
-              class="flex underline text-nile-blue text-lg font-extrabold cursor-pointer "
-              (click)="openModal2(this.caso.id)"
-            >
+            <div class="flex underline text-nile-blue text-lg font-extrabold cursor-pointer "
+              (click)="openModal2(this.caso.id)">
               Ver Respuestas
             </div>
           </div>
@@ -305,10 +220,8 @@
 
     <div class="grid grid-cols-1  ">
       <div class="flex items-center justify-end my-2 ">
-        <button
-          (click)="goBack()"
-          class="border-2 border-camelot text-nile-blue cursor-pointer text-base p-3 rounded-lg font-extrabold hover:bg-nile-blue hover:text-cameo mx-1"
-        >
+        <button (click)="goBack()"
+          class="border-2 border-camelot text-nile-blue cursor-pointer text-base p-3 rounded-lg font-extrabold hover:bg-nile-blue hover:text-cameo mx-1">
           Volver
         </button>
       </div>
@@ -318,24 +231,29 @@
 
 <div *ngIf="modalActivate" class="modal">
   <div
-    class="lg:w-[50%] w-[95%] h-[90%] bg-cameo border-4 border-camelot rounded-2xl overflow-x-hidden flex flex-col items-center justify-center"
-  >
-    <div
-      class="w-full text-center text-2xl font-bold text-camelot py-6 flex items-center justify-center uppercase"
-    >
+    class="lg:w-[50%] w-[95%] h-[90%] bg-cameo border-4 border-camelot rounded-2xl overflow-x-hidden flex flex-col items-center justify-center">
+    <div class="w-full text-center text-2xl font-bold text-camelot py-6 flex items-center justify-center uppercase">
       Respuestas
     </div>
 
     <div class="w-full overflow-y-auto">
-      <div class="grid lg:grid-cols-3 grid-cols-1 m-2 border rounded-lg " *ngFor="let respuesta of listaRespuestas; let i = index">
+      <div class="grid lg:grid-cols-3 grid-cols-1 m-2 border rounded-lg "
+        *ngFor="let respuesta of listaRespuestas; let i = index">
         <div class="col-span-1 text-center  p-2">
           <label class="font-bold text-nile-blue-200">Pregunta {{ i + 1 }}</label>
         </div>
         <div class="col-span-1 text-center p-2">
-          <a [href]="respuesta.refImages" target="_blank" class="text-avocado hover:text-green-200 hover:text-opacity-30 hover:underline break-all">
-            {{ respuesta?.refImages?.split("/")?.pop() }}
+          <a [href]="respuesta.refImages" target="_blank"
+            class="text-avocado hover:text-green-200 hover:text-opacity-30 hover:underline break-all"
+            (mouseover)="mostrarImagen[i] = true" (mouseout)="mostrarImagen[i] = false" (click)="toggleImagen(i)">
+            {{ respuesta?.refImages?.split('/')?.pop() }}
           </a>
+          <div *ngIf="mostrarImagen[i]"
+            class="fixed inset-0 flex bg-gray-800 bg-opacity-50 z-10">
+            <img [src]="respuesta.refImages" alt="Imagen" class="w-32 h-32" (click)="toggleImagen(i)" />
+          </div>
         </div>
+
         <div class="col-span-1 text-center p-2">
           <label class="font-bold text-red-500">Puntuación: {{ respuesta.valueAnswer }}</label>
         </div>
@@ -343,10 +261,7 @@
     </div>
 
     <div class="flex my-4">
-      <button
-        class="text-base text-nile-blue border-2 border-camelot bg-cameo p-2 rounded-lg"
-        (click)="closeModal()"
-      >
+      <button class="text-base text-nile-blue border-2 border-camelot bg-cameo p-2 rounded-lg" (click)="closeModal()">
         Cerrar
       </button>
     </div>
@@ -356,38 +271,33 @@
 
 <div *ngIf="modalActivate2" class="modal">
   <div
-    class="lg:w-[60%] w-[95%] h-[90%] bg-cameo border-4 border-camelot rounded-2xl overflow-x-hidden flex flex-col items-center justify-center"
-  >
-    <div
-      class="w-full text-center text-2xl font-bold text-camelot py-6 flex items-center justify-center uppercase"
-    >
+    class="lg:w-[60%] w-[95%] h-[90%] bg-cameo border-4 border-camelot rounded-2xl overflow-x-hidden flex flex-col items-center justify-center">
+    <div class="w-full text-center text-2xl font-bold text-camelot py-6 flex items-center justify-center uppercase">
       Respuestas
     </div>
 
     <div class="w-full  overflow-y-auto ">
-      <div class="grid lg:grid-cols-3 grid-cols-1 m-2 border rounded-lg " *ngFor="let respuesta of listaRespuestas; let i = index">
+      <div class="grid lg:grid-cols-3 grid-cols-1 m-2 border rounded-lg "
+        *ngFor="let respuesta of listaRespuestas; let i = index">
         <div class="col-span-1 text-center p-2">
           <label class="font-bold text-nile-blue-200">Pregunta {{ i + 1 }}</label>
         </div>
         <div class="col-span-1 text-center p-2">
           {{ respuesta?.name }}
-        
+
         </div>
 
         <div class="col-span-1 text-center p-2">
 
           <label class="font-bold text-red-500">Puntuación: {{ respuesta.value}}</label>
         </div>
-      </div>     
-    
+      </div>
+
     </div>
-    
+
 
     <div class="flex my-4">
-      <button
-        class="text-base text-nile-blue border-2 border-camelot bg-cameo p-2 rounded-lg"
-        (click)="closeModal()"
-      >
+      <button class="text-base text-nile-blue border-2 border-camelot bg-cameo p-2 rounded-lg" (click)="closeModal()">
         Cerrar
       </button>
     </div>

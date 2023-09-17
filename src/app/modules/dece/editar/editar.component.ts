@@ -3,7 +3,6 @@ import { InterfaceDece } from '@/app/core/interfaces/interface-dece';
 import { InterfaceInstitution } from '@/app/core/interfaces/interface-institution';
 import { DeceService } from '@/app/shared/services/api/dece.service';
 import { InstitutionService } from '@/app/shared/services/api/institution.service';
-import { PersonaService } from '@/app/shared/services/api/persona.service';
 import { ControlErrorService } from '@/app/shared/services/utils/controlErrorService';
 import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
 import { Component, OnInit } from '@angular/core';

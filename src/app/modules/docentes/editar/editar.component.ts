@@ -3,7 +3,6 @@ import { InterfaceInstitution } from '@/app/core/interfaces/interface-institutio
 import { EvaluatorRole } from '@/app/core/interfaces/interface-roleEvaluator';
 import { DocenteService } from '@/app/shared/services/api/docente.service';
 import { InstitutionService } from '@/app/shared/services/api/institution.service';
-import { PersonaService } from '@/app/shared/services/api/persona.service';
 import { ControlErrorService } from '@/app/shared/services/utils/controlErrorService';
 import { NotificationsService } from '@/app/shared/services/utils/notifications.service';
 import { Component, OnInit } from '@angular/core';

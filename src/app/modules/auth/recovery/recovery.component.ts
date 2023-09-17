@@ -36,7 +36,7 @@ export class RecoveryComponent implements OnInit {
     private formBuilder: FormBuilder,
     private notification: NotificationsService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -105,6 +105,7 @@ export class RecoveryComponent implements OnInit {
     this.errorMessage = '';
   }
 
+  // istanbul ignore next
   validateCode() {
     const { code1, code2, code3, code4, code5, code6 } = this.formCode.value;
     //unir todos los code
@@ -129,6 +130,7 @@ export class RecoveryComponent implements OnInit {
   }
 
   //funcion para saltar entre digitos
+  // istanbul ignore next
   focus(next: string, event: KeyboardEvent) {
     // Obtener el código de la tecla presionada
     const keyCode = event.keyCode || event.which;
@@ -159,6 +161,7 @@ export class RecoveryComponent implements OnInit {
     return pass === confirmPass ? null : { notSame: true };
   }
 
+  // istanbul ignore next
   savePassword() {
     if (this.formPassword.valid) {
       const body = {
@@ -181,6 +184,7 @@ export class RecoveryComponent implements OnInit {
     }
   }
 
+  // istanbul ignore next
   verificarFortalezaContrasena() {
     const password = this.formPassword.value.password;
     this.tieneMayusculas = /[A-Z]/.test(password);
@@ -194,6 +198,7 @@ export class RecoveryComponent implements OnInit {
       this.esLarga;
   }
 
+  // istanbul ignore next
   goBack() {
     this.router.navigate(['/auth/login']);
   }

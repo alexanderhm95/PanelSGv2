@@ -32,7 +32,7 @@ export class EditarComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private http: HttpClient
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.formTestImages.form.reset();
@@ -76,7 +76,8 @@ export class EditarComponent implements OnInit {
       });
 
       this.imagenTest = this.imageService.renameImage(file, 'TestImagenes');
-      this.srcImage = '/public/TestImagenes/' + this.imagenTest.name.split('_').pop();
+      const name = this.imagenTest.name.split("_");
+      this.srcImage = '/public/TestImagenes/' + name.slice(1).join('_');
       this.imageUpload = true;
 
       const reader = new FileReader();
@@ -88,8 +89,8 @@ export class EditarComponent implements OnInit {
   }
 
   update() {
-    if(this.srcImage===''||this.imagenTest===null){
-      this.notification.showError('Error','Es necesario tener una imagen cargada..')
+    if (this.srcImage === '' || this.imagenTest === null) {
+      this.notification.showError('Error', 'Es necesario tener una imagen cargada..')
     }
 
 
@@ -129,12 +130,11 @@ export class EditarComponent implements OnInit {
 
   onFileSelected(event: any) {
     const files = event.target.files;
-    console.log(files)
     const file = files.length > 0 ? files[0] : null;
 
     if (file && this.imageService.validateImage(file)) {
       this.imagenTest = this.imageService.renameImage(file, 'TestImagenes');
-       const name = this.imagenTest.name.split("_");
+      const name = this.imagenTest.name.split("_");
       this.srcImage = '/public/TestImagenes/' + name.slice(1).join('_');
       this.imageUpload = true;
 

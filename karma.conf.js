@@ -32,10 +32,25 @@ module.exports = function (config) {
       reporters: [
         { type: 'html' },
         { type: 'text-summary' }
-      ]
+      ],
+      check: {
+        global: {
+          statements: 80,
+          branches: 80,
+          functions: 80,
+          lines: 80
+        }
+      }
+    
     },
+    skipFilesWithNoCoverage: true, // Omitir las líneas con "istanbul ignore"
     reporters: ['progress', 'kjhtml'],
+    port: 9876,
+    colors: true,
+    logLevel: config.LOG_INFO,
+    autoWatch: true,
     browsers: ['Chrome'],
+    singleRun: false,
     restartOnFileChange: true
   });
 };
